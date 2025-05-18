@@ -1,50 +1,75 @@
-# Welcome to your Expo app 👋
+# Learn and Trade
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A gamified learning app that helps users master trading across multiple markets (stocks, forex, crypto, commodities) through interactive lessons, quizzes, simulations, and a leaderboard system.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 📚 Interactive lessons with progressive learning paths
+- 🎮 Gamified learning experience with levels and achievements
+- 📊 Risk-free trading simulations
+- 🏆 Global and market-specific leaderboards
+- 🎯 Daily challenges and goals
+- 📱 Cross-platform support (iOS & Android)
 
+## Tech Stack
+
+- React Native with Expo
+- TypeScript
+- Expo Router for navigation
+- React Navigation
+- Expo Vector Icons
+- React Native Reanimated for animations
+
+## Getting Started
+
+1. Install dependencies:
    ```bash
-   npm install
+pnpm install
    ```
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+2. Start the development server:
 ```bash
-npm run reset-project
+pnpm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+3. Run on Android:
+   ```bash
+pnpm android
+```
 
-## Learn more
+4. Run on iOS:
+```bash
+pnpm ios
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+learn-and-trade/
+├── app/                    # Main application screens
+├── components/            # Reusable UI components
+├── constants/             # App constants and theme
+├── hooks/                # Custom React hooks
+├── assets/              # Images, fonts, and other static assets
+└── scripts/             # Build and utility scripts
+```
 
-## Join the community
+## Development Guidelines
 
-Join our community of developers creating universal apps.
+- Follow TypeScript best practices
+- Use functional components with hooks
+- Implement proper error handling
+- Write clean, documented code
+- Follow the established folder structure
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
