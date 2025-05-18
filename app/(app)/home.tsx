@@ -1,6 +1,6 @@
 // The contents of the previous home2.tsx file should be placed here.
 // ... (copy all code from home2.tsx here) ...
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
@@ -36,7 +36,7 @@ const MOCK_LESSONS = [
     id: 2,
     title: 'Risk Management',
     status: 'In Progress',
-    icon: 'scale-balance',
+    icon: 'balance-scale',
     xp: 20,
     progress: 0.4,
   },
@@ -235,11 +235,19 @@ export default function Home2Screen() {
               ]}
             >
               <View style={styles.lessonStatusRow}>
-                <Ionicons
-                  name={lesson.icon as any}
-                  size={20}
-                  color={COLORS.primary}
-                />
+                {lesson.icon === 'balance-scale' ? (
+                  <MaterialCommunityIcons
+                    name='scale-balance'
+                    size={20}
+                    color={COLORS.primary}
+                  />
+                ) : (
+                  <Ionicons
+                    name={lesson.icon as any}
+                    size={20}
+                    color={COLORS.primary}
+                  />
+                )}
                 <Text
                   style={[
                     styles.lessonStatus,
