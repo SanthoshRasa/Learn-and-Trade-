@@ -126,7 +126,7 @@ export default function LessonsListScreen() {
     if (lesson.status === 'inprogress' || lesson.status === 'completed') {
       // Navigate to the new LessonsOverviewScreen
       router.push({
-        pathname: '/(app)/_(lessons)/LessonsOverviewScreen',
+        pathname: '/(app)/lessons/LessonsOverviewScreen',
         params: { lessonId: lesson.id },
       });
     }

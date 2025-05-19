@@ -50,20 +50,47 @@ export default function AppLayout() {
         }}
       />
       <Tabs.Screen
-        name='simulation'
-        options={{
-          title: 'Simulation',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name='trending-up' size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name='leaderboard'
         options={{
           title: 'Leaderboard',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='trophy' size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='learning-path'
+        options={{
+          title: 'Learning Path',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='map' size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='settings'
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='settings' size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='profile'
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='person' size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='advanced-learning'
+        options={{
+          title: 'Advance Learning',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='school' size={size} color={color} />
           ),
         }}
       />
