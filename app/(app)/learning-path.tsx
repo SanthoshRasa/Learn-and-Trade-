@@ -4,6 +4,7 @@ import {
   Animated,
   Dimensions,
   Image,
+  Modal,
   ScrollView,
   StyleSheet,
   Text,
@@ -15,7 +16,6 @@ import Svg, { Path } from 'react-native-svg';
 // import ConfettiCannon from 'react-native-confetti-cannon'; // Uncomment if installed
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Modal } from 'react-native';
 import { COLORS, SIZES } from '../../constants/theme';
 
 const { width } = Dimensions.get('window');

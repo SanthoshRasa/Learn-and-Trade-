@@ -37,6 +37,8 @@ export default function SettingsScreen() {
   const [privacyMode, setPrivacyMode] = useState(false);
   const [theme, setTheme] = useState('Light');
 
+  const textColor = isDark ? '#fff' : COLORS.text;
+
   return (
     <ScrollView
       style={{
@@ -45,24 +47,18 @@ export default function SettingsScreen() {
     >
       {/* Header */}
       <View style={styles.header}>
-        <Ionicons
-          name='arrow-back'
-          size={24}
-          color={isDark ? COLORS.textDark : COLORS.text}
-        />
         <Text
           style={[
             styles.headerTitle,
-            { color: isDark ? COLORS.textDark : COLORS.text },
+            {
+              color: textColor,
+              textAlign: 'center',
+              flex: 1,
+            },
           ]}
         >
           Settings
         </Text>
-        <Ionicons
-          name='settings'
-          size={24}
-          color={isDark ? COLORS.textDark : COLORS.text}
-        />
       </View>
 
       {/* Account Section */}
@@ -76,36 +72,46 @@ export default function SettingsScreen() {
           },
         ]}
       >
-        <Text style={styles.sectionLabel}>Account</Text>
+        <Text
+          style={[
+            styles.sectionLabel,
+            { color: textColor, fontWeight: 'bold' },
+          ]}
+        >
+          Account
+        </Text>
         <View style={styles.accountRow}>
           <Image source={{ uri: MOCK_USER.avatar }} style={styles.avatar} />
           <View style={{ flex: 1, marginLeft: 12 }}>
             <Text
               style={[
                 styles.accountName,
-                { color: isDark ? COLORS.textDark : COLORS.text },
+                { color: textColor, fontWeight: 'bold' },
               ]}
             >
               {MOCK_USER.name}
             </Text>
-            <Text style={styles.accountSub}>
+            <Text style={[styles.accountSub, { color: textColor }]}>
               Nickname: {MOCK_USER.nickname}
             </Text>
-            <Text style={styles.accountSub}>{MOCK_USER.email}</Text>
+            <Text style={[styles.accountSub, { color: textColor }]}>
+              {MOCK_USER.email}
+            </Text>
           </View>
           <TouchableOpacity>
             <Ionicons name='pencil' size={20} color={COLORS.primary} />
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.rowBtn}>
-          <Text style={styles.rowBtnText}>Change Password</Text>
+          <Text
+            style={[
+              styles.rowBtnText,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Change Password
+          </Text>
         </TouchableOpacity>
-        <View style={styles.rowBetween}>
-          <Text style={styles.sectionSubLabel}>Language</Text>
-          <TouchableOpacity style={styles.dropdown}>
-            <Text style={styles.dropdownText}>English</Text>
-          </TouchableOpacity>
-        </View>
       </View>
 
       {/* Learning Preferences */}
@@ -119,32 +125,51 @@ export default function SettingsScreen() {
           },
         ]}
       >
-        <Text style={styles.sectionLabel}>Learning Preferences</Text>
+        <Text
+          style={[
+            styles.sectionLabel,
+            { color: textColor, fontWeight: 'bold' },
+          ]}
+        >
+          Learning Preferences
+        </Text>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Daily Goal</Text>
+          <Text style={[styles.rowLabel, { color: '#fff' }]}>Daily Goal</Text>
           <TouchableOpacity style={styles.dropdown}>
-            <Text style={styles.dropdownText}>10 min/day</Text>
+            <Text style={[styles.dropdownText, { color: '#fff' }]}>
+              10 min/day
+            </Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.sectionSubLabel}>Notifications</Text>
+        <Text style={[styles.sectionSubLabel, { color: textColor }]}>
+          Notifications
+        </Text>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Quiz Reminders</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>
+            Quiz Reminders
+          </Text>
           <Switch value={quizReminders} onValueChange={setQuizReminders} />
         </View>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Badge Unlocks</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>
+            Badge Unlocks
+          </Text>
           <Switch value={badgeUnlocks} onValueChange={setBadgeUnlocks} />
         </View>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Level Ups</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>Level Ups</Text>
           <Switch value={levelUps} onValueChange={setLevelUps} />
         </View>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>New Modules</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>
+            New Modules
+          </Text>
           <Switch value={newModules} onValueChange={setNewModules} />
         </View>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Audio Lessons Autoplay</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>
+            Audio Lessons Autoplay
+          </Text>
           <Switch value={audioAutoplay} onValueChange={setAudioAutoplay} />
         </View>
       </View>
@@ -160,26 +185,33 @@ export default function SettingsScreen() {
           },
         ]}
       >
-        <Text style={styles.sectionLabel}>Reminders & Streaks</Text>
+        <Text
+          style={[
+            styles.sectionLabel,
+            { color: textColor, fontWeight: 'bold' },
+          ]}
+        >
+          Reminders & Streaks
+        </Text>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Daily Reminder</Text>
+          <Text style={[styles.rowLabel, { color: '#fff' }]}>
+            Daily Reminder
+          </Text>
           <TouchableOpacity style={styles.timeBtn}>
-            <Text style={styles.timeBtnText}>09:00</Text>
+            <Text style={[styles.timeBtnText, { color: '#fff' }]}>09:00</Text>
           </TouchableOpacity>
           <Switch value={dailyReminder} onValueChange={setDailyReminder} />
         </View>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Weekly Progress Report</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>
+            Weekly Progress Report
+          </Text>
           <Switch value={weeklyReport} onValueChange={setWeeklyReport} />
         </View>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Reset Streak</Text>
-          <TouchableOpacity style={styles.resetBtn}>
-            <Text style={styles.resetBtnText}>Reset</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Push Notifications</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>
+            Push Notifications
+          </Text>
           <Switch
             value={pushNotifications}
             onValueChange={setPushNotifications}
@@ -198,26 +230,34 @@ export default function SettingsScreen() {
           },
         ]}
       >
-        <Text style={styles.sectionLabel}>Community & Friends</Text>
+        <Text
+          style={[
+            styles.sectionLabel,
+            { color: textColor, fontWeight: 'bold' },
+          ]}
+        >
+          Community & Friends
+        </Text>
         <TouchableOpacity style={styles.rowBtn}>
-          <Text style={styles.rowBtnText}>Manage Friends</Text>
+          <Text
+            style={[
+              styles.rowBtnText,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Manage Friends
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.rowBtn}>
-          <Text style={styles.rowBtnText}>Block/Unblock Users</Text>
+          <Text
+            style={[
+              styles.rowBtnText,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Block/Unblock Users
+          </Text>
         </TouchableOpacity>
-        <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Join Study Group</Text>
-          <TouchableOpacity style={styles.inviteBtn}>
-            <Text style={styles.inviteBtnText}>Invite Code</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.joinBtn}>
-            <Text style={styles.joinBtnText}>Join</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Leaderboard Competition</Text>
-          <Switch value={leaderboardComp} onValueChange={setLeaderboardComp} />
-        </View>
       </View>
 
       {/* App Settings (merged) */}
@@ -231,19 +271,93 @@ export default function SettingsScreen() {
           },
         ]}
       >
-        <Text style={styles.sectionLabel}>App Settings</Text>
+        <Text
+          style={[
+            styles.sectionLabel,
+            { color: textColor, fontWeight: 'bold' },
+          ]}
+        >
+          App Settings
+        </Text>
         <View style={styles.rowBetween}>
-          <Text style={styles.rowLabel}>Version</Text>
-          <Text style={styles.versionText}>v3.2.1 (2025)</Text>
+          <Text style={[styles.rowLabel, { color: textColor }]}>Version</Text>
+          <Text style={[styles.versionText, { color: textColor }]}>
+            v3.2.1 (2025)
+          </Text>
         </View>
         <TouchableOpacity style={styles.rowBtn}>
-          <Text style={styles.rowBtnText}>Contact Support</Text>
+          <Text
+            style={[
+              styles.rowBtnText,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Contact Support
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.rowBtn}>
-          <Text style={styles.rowBtnText}>Submit Feedback</Text>
+          <Text
+            style={[
+              styles.rowBtnText,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Submit Feedback
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.rowBtn}>
-          <Text style={styles.rowBtnText}>Report a Bug</Text>
+          <Text
+            style={[
+              styles.rowBtnText,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Report a Bug
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Bottom Action Buttons */}
+      <View style={{ marginHorizontal: 16, marginTop: 24, marginBottom: 32 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: isDark ? '#181F2A' : '#181F2A',
+            borderRadius: 8,
+            paddingVertical: 16,
+            alignItems: 'center',
+            marginBottom: 12,
+          }}
+        >
+          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
+            Logout
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#fff',
+            borderColor: '#181F2A',
+            borderWidth: 2,
+            borderRadius: 8,
+            paddingVertical: 16,
+            alignItems: 'center',
+            marginBottom: 12,
+          }}
+        >
+          <Text style={{ color: '#181F2A', fontWeight: 'bold', fontSize: 18 }}>
+            Delete Account
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: isDark ? '#232B38' : '#F3F4F6',
+            borderRadius: 8,
+            paddingVertical: 16,
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: '#6B7280', fontWeight: 'bold', fontSize: 18 }}>
+            Progress Reset
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
