@@ -1,6 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import {
+  Platform,
+  SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -52,64 +55,135 @@ export default function LeaderboardScreen() {
   const isDark = colorScheme === 'dark';
 
   return (
-    <ScrollView
-      style={[
-        styles.container,
-        { backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background },
-      ]}
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+      }}
     >
-      <View style={styles.header}>
-        <Text
-          style={[
-            styles.sectionTitle,
-            { color: isDark ? COLORS.textDark : COLORS.text },
-          ]}
-        >
-          Leaderboard
-        </Text>
-        <Text
-          style={[
-            styles.subtitle,
-            { color: isDark ? COLORS.textSecondaryDark : COLORS.textSecondary },
-          ]}
-        >
-          Top traders this week
-        </Text>
-      </View>
-
-      <View style={styles.filters}>
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            {
-              backgroundColor: isDark
-                ? COLORS.cardBackgroundDark
-                : COLORS.cardBackground,
-            },
-          ]}
-        >
+      <ScrollView
+        style={[
+          styles.container,
+          {
+            backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+          },
+        ]}
+      >
+        <View style={styles.header}>
           <Text
             style={[
-              styles.filterButtonText,
+              styles.sectionTitle,
               { color: isDark ? COLORS.textDark : COLORS.text },
             ]}
           >
-            All Markets
+            Leaderboard
           </Text>
-          <Ionicons
-            name='chevron-down'
-            size={20}
-            color={isDark ? COLORS.textDark : COLORS.text}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.leaderboard}>
-        {topTraders.map(trader => (
-          <View
-            key={trader.id}
+          <Text
             style={[
-              styles.traderCard,
+              styles.subtitle,
+              {
+                color: isDark ? COLORS.textSecondaryDark : COLORS.textSecondary,
+              },
+            ]}
+          >
+            Top traders this week
+          </Text>
+        </View>
+
+        <View style={styles.filters}>
+          <TouchableOpacity
+            style={[
+              styles.filterButton,
+              {
+                backgroundColor: isDark
+                  ? COLORS.cardBackgroundDark
+                  : COLORS.cardBackground,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.filterButtonText,
+                { color: isDark ? COLORS.textDark : COLORS.text },
+              ]}
+            >
+              All Markets
+            </Text>
+            <Ionicons
+              name='chevron-down'
+              size={20}
+              color={isDark ? COLORS.textDark : COLORS.text}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.leaderboard}>
+          {topTraders.map(trader => (
+            <View
+              key={trader.id}
+              style={[
+                styles.traderCard,
+                {
+                  backgroundColor: isDark
+                    ? COLORS.cardBackgroundDark
+                    : COLORS.cardBackground,
+                },
+              ]}
+            >
+              <View style={styles.rankContainer}>
+                <Text
+                  style={[
+                    styles.rank,
+                    { color: isDark ? COLORS.textDark : COLORS.text },
+                  ]}
+                >
+                  #{trader.rank}
+                </Text>
+              </View>
+              <View style={styles.traderInfo}>
+                <Text
+                  style={[
+                    styles.traderName,
+                    { color: isDark ? COLORS.textDark : COLORS.text },
+                  ]}
+                >
+                  {trader.name}
+                </Text>
+                <Text
+                  style={[
+                    styles.traderStats,
+                    {
+                      color: isDark
+                        ? COLORS.textSecondaryDark
+                        : COLORS.textSecondary,
+                    },
+                  ]}
+                >
+                  Win Rate: {trader.winRate}
+                </Text>
+              </View>
+              <View style={styles.profitContainer}>
+                <Text style={[styles.profit, { color: COLORS.success }]}>
+                  {trader.profit}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.yourRank}>
+          <Text
+            style={[
+              styles.yourRankTitle,
+              { color: isDark ? COLORS.textDark : COLORS.text },
+            ]}
+          >
+            Your Rank
+          </Text>
+          <View
+            style={[
+              styles.yourRankCard,
               {
                 backgroundColor: isDark
                   ? COLORS.cardBackgroundDark
@@ -124,7 +198,7 @@ export default function LeaderboardScreen() {
                   { color: isDark ? COLORS.textDark : COLORS.text },
                 ]}
               >
-                #{trader.rank}
+                #42
               </Text>
             </View>
             <View style={styles.traderInfo}>
@@ -134,7 +208,7 @@ export default function LeaderboardScreen() {
                   { color: isDark ? COLORS.textDark : COLORS.text },
                 ]}
               >
-                {trader.name}
+                You
               </Text>
               <Text
                 style={[
@@ -146,77 +220,18 @@ export default function LeaderboardScreen() {
                   },
                 ]}
               >
-                Win Rate: {trader.winRate}
+                Win Rate: 60%
               </Text>
             </View>
             <View style={styles.profitContainer}>
               <Text style={[styles.profit, { color: COLORS.success }]}>
-                {trader.profit}
+                +$450.00
               </Text>
             </View>
           </View>
-        ))}
-      </View>
-
-      <View style={styles.yourRank}>
-        <Text
-          style={[
-            styles.yourRankTitle,
-            { color: isDark ? COLORS.textDark : COLORS.text },
-          ]}
-        >
-          Your Rank
-        </Text>
-        <View
-          style={[
-            styles.yourRankCard,
-            {
-              backgroundColor: isDark
-                ? COLORS.cardBackgroundDark
-                : COLORS.cardBackground,
-            },
-          ]}
-        >
-          <View style={styles.rankContainer}>
-            <Text
-              style={[
-                styles.rank,
-                { color: isDark ? COLORS.textDark : COLORS.text },
-              ]}
-            >
-              #42
-            </Text>
-          </View>
-          <View style={styles.traderInfo}>
-            <Text
-              style={[
-                styles.traderName,
-                { color: isDark ? COLORS.textDark : COLORS.text },
-              ]}
-            >
-              You
-            </Text>
-            <Text
-              style={[
-                styles.traderStats,
-                {
-                  color: isDark
-                    ? COLORS.textSecondaryDark
-                    : COLORS.textSecondary,
-                },
-              ]}
-            >
-              Win Rate: 60%
-            </Text>
-          </View>
-          <View style={styles.profitContainer}>
-            <Text style={[styles.profit, { color: COLORS.success }]}>
-              +$450.00
-            </Text>
-          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

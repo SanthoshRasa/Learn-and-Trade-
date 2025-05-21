@@ -1,7 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import {
+  Platform,
+  SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -86,10 +89,11 @@ export default function PracticeScreen() {
   const userStats = { xp: 45, streak: 7, coins: 320 };
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
@@ -280,7 +284,7 @@ export default function PracticeScreen() {
           ))}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,6 +1,6 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   ScrollView,
@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useColorScheme,
 } from 'react-native';
 import { COLORS, SIZES } from '../../../constants/theme';
 
@@ -109,8 +110,11 @@ export default function LessonsListScreen() {
     xpReward: string;
   }>();
 
-  const [lessons, setLessons] = useState<Lesson[]>(MOCK_LESSONS);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [loading, setLoading] = useState(true);
   const [xp, setXp] = useState(320);
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
   // Unlock logic: only next lesson unlocked after current completed
   const unlockNextLesson = (idx: number) => {
     setLessons(prev => {
@@ -123,168 +127,206 @@ export default function LessonsListScreen() {
   };
   // Handle lesson action
   const handleLessonAction = (lesson: Lesson, idx: number) => {
-    if (lesson.status === 'inprogress' || lesson.status === 'completed') {
-      // Navigate to the new LessonsOverviewScreen
-      router.push({
-        pathname: '/(app)/_(lessons)/LessonsOverviewScreen',
-        params: { lessonId: lesson.id },
-      });
-    }
+    // Navigate to the new LessonsOverviewScreen for any lesson
+    router.push({
+      pathname: '/(app)/_(lessons)/LessonsOverviewScreen',
+      params: { lessonId: lesson.id },
+    });
   };
+  useEffect(() => {
+    if (!params.moduleId) return;
+    setLoading(true);
+    fetch(`http://localhost:3001/lessons?moduleId=${params.moduleId}`)
+      .then(res => res.json())
+      .then(data => {
+        setLessons(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [params.moduleId]);
   // Render
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.background }}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name='arrow-back' size={28} color={COLORS.text} />
-        </TouchableOpacity>
-        <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text style={styles.headerTitle}>{params.levelTitle}</Text>
-          <Text style={styles.headerSubtitle}>{params.moduleTitle}</Text>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        minHeight: '100%',
+      }}
+    >
+      {/* Custom Header */}
+      <View
+        style={{
+          backgroundColor: isDark ? COLORS.cardBackgroundDark : '#232B3B',
+          borderRadius: 16,
+          marginHorizontal: 12,
+          marginTop: 0,
+          marginBottom: 16,
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          shadowColor: '#000',
+          shadowOpacity: 0.08,
+          shadowRadius: 8,
+          shadowOffset: { width: 0, height: 2 },
+          elevation: 2,
+        }}
+      >
+        <View style={{ padding: 16 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 4,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => router.back()}
+              style={{ marginRight: 10 }}
+            >
+              <Ionicons
+                name='arrow-back'
+                size={22}
+                color={isDark ? COLORS.textDark : '#fff'}
+              />
+            </TouchableOpacity>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: isDark ? COLORS.textDark : '#fff',
+                  fontWeight: 'bold',
+                  fontSize: 18,
+                  marginBottom: 2,
+                }}
+              >
+                {(() => {
+                  // Extract level number from moduleId (e.g., '2-3' => 2)
+                  const levelNum = params.moduleId
+                    ? params.moduleId.split('-')[0]
+                    : '';
+                  return `Level ${levelNum}: ${params.levelTitle}`;
+                })()}
+              </Text>
+              <Text
+                style={{
+                  color: isDark ? COLORS.textSecondaryDark : '#B0B6C3',
+                  fontSize: 15,
+                  marginLeft: 0,
+                }}
+              >
+                {params.moduleTitle}
+              </Text>
+            </View>
+            <Ionicons
+              name='star'
+              size={16}
+              color={isDark ? COLORS.textDark : '#fff'}
+              style={{ marginRight: 2, marginLeft: 8 }}
+            />
+            <Text
+              style={{
+                color: isDark ? COLORS.textDark : '#fff',
+                fontWeight: 'bold',
+                fontSize: 14,
+              }}
+            >
+              XP {xp}
+            </Text>
+          </View>
         </View>
-        <View style={styles.headerXPRow}>
-          <MaterialCommunityIcons
-            name='star-circle'
-            size={22}
-            color={COLORS.primary}
-          />
-          <Text style={styles.headerXPText}>XP {xp}</Text>
-        </View>
-        <TouchableOpacity style={{ marginLeft: 8 }}>
-          <Ionicons
-            name='settings-outline'
-            size={24}
-            color={COLORS.textSecondary}
-          />
-        </TouchableOpacity>
       </View>
       {/* Lessons List */}
-      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
-        {lessons.map((lesson, idx) => {
-          const isLocked = lesson.status === 'locked';
-          const isCompleted = lesson.status === 'completed';
-          const isInProgress = lesson.status === 'inprogress';
-          return (
-            <View
-              key={lesson.id}
-              style={[
-                styles.card,
-                isLocked && styles.cardLocked,
-                isCompleted && styles.cardCompleted,
-              ]}
-            >
-              <View style={styles.cardHeaderRow}>
-                <View
-                  style={[
-                    styles.iconWrap,
-                    isLocked && styles.iconWrapLocked,
-                    isCompleted && styles.iconWrapCompleted,
-                  ]}
-                >
-                  <MaterialCommunityIcons
-                    name={lesson.icon as any}
-                    size={28}
-                    color={
-                      isLocked
-                        ? COLORS.textSecondary
-                        : isCompleted
-                        ? COLORS.success
-                        : COLORS.primary
-                    }
-                  />
-                </View>
-                <View style={{ flex: 1, marginLeft: 12 }}>
-                  <Text
-                    style={[
-                      styles.cardTitle,
-                      isLocked && styles.textLocked,
-                      isCompleted && styles.textCompleted,
-                    ]}
-                  >
-                    {lesson.title}
-                  </Text>
-                  <Text
-                    style={[styles.cardSubtitle, isLocked && styles.textLocked]}
-                  >
-                    {lesson.subtitle}
-                  </Text>
-                </View>
-                <View style={styles.statusTagWrap}>
-                  {isCompleted ? (
-                    <View style={styles.statusTagCompleted}>
-                      <Ionicons
-                        name='checkmark-circle'
-                        size={16}
-                        color='#fff'
-                      />
-                      <Text style={styles.statusTagText}>Completed</Text>
-                    </View>
-                  ) : isInProgress ? (
+      {loading ? (
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Text style={{ color: isDark ? '#fff' : '#000' }}>
+            Loading lessons...
+          </Text>
+        </View>
+      ) : (
+        <ScrollView
+          style={{
+            flex: 1,
+            backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+          }}
+          contentContainerStyle={{
+            padding: 16,
+            paddingBottom: 40,
+          }}
+        >
+          {lessons.map((lesson, idx) => {
+            // For test data, all lessons are unlocked and inprogress
+            const isLocked = false;
+            const isCompleted = false;
+            const isInProgress = true;
+            return (
+              <View
+                key={lesson.id}
+                style={[
+                  styles.card,
+                  {
+                    backgroundColor: isDark
+                      ? COLORS.cardBackgroundDark
+                      : COLORS.cardBackground,
+                  },
+                ]}
+              >
+                <View style={styles.cardHeaderRow}>
+                  <View style={styles.iconWrap}>
+                    <MaterialCommunityIcons
+                      name={'book'}
+                      size={28}
+                      color={COLORS.primary}
+                    />
+                  </View>
+                  <View style={{ flex: 1, marginLeft: 12 }}>
+                    <Text
+                      style={[
+                        styles.cardTitle,
+                        { color: isDark ? COLORS.textDark : COLORS.text },
+                      ]}
+                    >
+                      {lesson.title}
+                    </Text>
+                  </View>
+                  <View style={styles.statusTagWrap}>
                     <View style={styles.statusTagInProgress}>
                       <Text style={styles.statusTagText}>In Progress</Text>
                     </View>
-                  ) : (
-                    <View style={styles.statusTagLocked}>
-                      <Ionicons name='lock-closed' size={14} color='#fff' />
-                      <Text style={styles.statusTagText}>Locked</Text>
-                    </View>
-                  )}
+                  </View>
                 </View>
-              </View>
-              {/* Progress Bar */}
-              <View style={styles.progressBarBg}>
-                <View
-                  style={[
-                    styles.progressBarFill,
-                    {
-                      width: `${Math.round(lesson.progress * 100)}%`,
-                      backgroundColor: isCompleted
-                        ? COLORS.success
-                        : isInProgress
-                        ? COLORS.primary
-                        : COLORS.textSecondary,
-                    },
-                  ]}
-                />
-              </View>
-              <View style={styles.cardFooterRow}>
-                <View style={styles.xpRow}>
-                  <MaterialCommunityIcons
-                    name='star-circle'
-                    size={18}
-                    color={COLORS.primary}
-                  />
-                  <Text style={styles.xpText}>+{lesson.xp} XP</Text>
-                </View>
-                <TouchableOpacity
-                  style={[
-                    styles.actionBtn,
-                    isLocked && styles.actionBtnLocked,
-                    isCompleted && styles.actionBtnCompleted,
-                  ]}
-                  disabled={isLocked}
-                  onPress={() => handleLessonAction(lesson, idx)}
-                >
-                  <Text
+                {/* Progress Bar */}
+                <View style={styles.progressBarBg}>
+                  <View
                     style={[
-                      styles.actionBtnText,
-                      isLocked && styles.textLocked,
-                      isCompleted && styles.textCompleted,
+                      styles.progressBarFill,
+                      {
+                        width: `0%`,
+                        backgroundColor: COLORS.primary,
+                      },
                     ]}
+                  />
+                </View>
+                <View style={styles.cardFooterRow}>
+                  <View style={styles.xpRow}>
+                    <MaterialCommunityIcons
+                      name='star-circle'
+                      size={18}
+                      color={COLORS.primary}
+                    />
+                    <Text style={styles.xpText}>+10 XP</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={[styles.actionBtn]}
+                    onPress={() => handleLessonAction(lesson, idx)}
                   >
-                    {isCompleted
-                      ? 'Review'
-                      : isInProgress
-                      ? 'Continue'
-                      : 'Locked'}
-                  </Text>
-                </TouchableOpacity>
+                    <Text style={styles.actionBtnText}>Continue</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          );
-        })}
-      </ScrollView>
+            );
+          })}
+        </ScrollView>
+      )}
     </View>
   );
 }

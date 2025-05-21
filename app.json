@@ -13,6 +13,9 @@
       "bundleIdentifier": "com.anonymous.learnandtrade",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -21,7 +24,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.learnandtrade"
+      "package": "com.anonymous.learnandtrade",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -48,6 +52,9 @@
       "eas": {
         "projectId": "fa1d25bc-c14b-45c2-9ee7-8682ff5e897b"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/fa1d25bc-c14b-45c2-9ee7-8682ff5e897b"
     }
   }
 }

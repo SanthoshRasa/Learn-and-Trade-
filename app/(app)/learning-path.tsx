@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -16,7 +16,7 @@ import Svg, { Path } from 'react-native-svg';
 // import ConfettiCannon from 'react-native-confetti-cannon'; // Uncomment if installed
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { COLORS, SIZES } from '../../constants/theme';
+import { COLORS, SIZES, SPACING } from '../../constants/theme';
 
 const { width } = Dimensions.get('window');
 
@@ -28,36 +28,7 @@ const MOCK_USER = {
   badges: 2,
 };
 
-const LEVELS = [
-  {
-    id: 1,
-    name: 'Novice Navigator',
-    progress: 3,
-    maxProgress: 3,
-    state: 'completed', // 'completed', 'active', 'locked'
-  },
-  {
-    id: 2,
-    name: 'Market Explorer',
-    progress: 8,
-    maxProgress: 15,
-    state: 'active',
-  },
-  {
-    id: 3,
-    name: 'Chart Apprentice',
-    progress: 0,
-    maxProgress: 12,
-    state: 'locked',
-  },
-  {
-    id: 4,
-    name: 'Risk Tactician',
-    progress: 0,
-    maxProgress: 10,
-    state: 'locked',
-  },
-];
+// LEVELS will be fetched from the server
 
 // Mock modules data for each level
 const MOCK_MODULES = {
@@ -109,6 +80,7 @@ const ModulesModal = ({
   description,
   xpReward,
   modules,
+  loading,
   onModulePress,
 }: {
   visible: boolean;
@@ -117,6 +89,7 @@ const ModulesModal = ({
   description: string;
   xpReward: number;
   modules: Module[];
+  loading?: boolean;
   onModulePress: (module: Module) => void;
 }) => {
   const colorScheme = useColorScheme();
@@ -237,87 +210,95 @@ const ModulesModal = ({
           {/* Modules List */}
           <Text
             style={{
+              color: '#fff',
               fontWeight: 'bold',
-              fontSize: 15,
-              marginTop: 8,
-              marginBottom: 4,
+              fontSize: 18,
+              marginTop: 18,
+              marginBottom: 8,
             }}
           >
             Modules
           </Text>
-          <ScrollView
-            style={{ maxHeight: 260 }}
-            showsVerticalScrollIndicator={false}
-          >
-            {modules.map((module, idx) => (
-              <TouchableOpacity
-                key={module.id}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingVertical: 8,
-                  borderRadius: 8,
-                  paddingHorizontal: 2,
-                  marginBottom: 2,
-                }}
-                activeOpacity={module.status === 'locked' ? 1 : 0.7}
-                onPress={() => {
-                  if (module.status !== 'locked') {
-                    onClose();
-                    router.push({
-                      pathname: '/(app)/_(lessons)/LessonsListScreen',
-                      params: {
-                        moduleId: module.id,
-                        moduleTitle: module.title,
-                        levelTitle: levelTitle,
-                        xpReward: xpReward.toString(),
-                      },
-                    });
-                  }
-                }}
-              >
-                {module.status === 'completed' ? (
-                  <MaterialCommunityIcons
-                    name='check-circle'
-                    size={22}
-                    color={COLORS.primary}
-                  />
-                ) : module.status === 'inprogress' ? (
-                  <MaterialCommunityIcons
-                    name='checkbox-marked-circle-outline'
-                    size={22}
-                    color={COLORS.primary}
-                  />
-                ) : (
-                  <MaterialCommunityIcons
-                    name='checkbox-blank-circle-outline'
-                    size={22}
-                    color={
-                      isDark ? COLORS.textSecondaryDark : COLORS.textSecondary
-                    }
-                  />
-                )}
-                <Text
+          {loading ? (
+            <View
+              style={{
+                height: 80,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ color: isDark ? '#fff' : '#000' }}>
+                Loading modules...
+              </Text>
+            </View>
+          ) : (
+            <ScrollView
+              style={{ maxHeight: 260 }}
+              showsVerticalScrollIndicator={false}
+            >
+              {modules.map((module, idx) => (
+                <TouchableOpacity
+                  key={module.id}
                   style={{
-                    fontSize: 15,
-                    marginLeft: 10,
-                    color:
-                      module.status === 'locked'
-                        ? isDark
-                          ? COLORS.textSecondaryDark
-                          : COLORS.textSecondary
-                        : isDark
-                        ? COLORS.textDark
-                        : COLORS.text,
-                    fontWeight:
-                      module.status === 'inprogress' ? 'bold' : 'normal',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingVertical: 8,
+                    borderRadius: 8,
+                    paddingHorizontal: 2,
+                    marginBottom: 2,
+                  }}
+                  activeOpacity={module.status === 'locked' ? 1 : 0.7}
+                  onPress={() => {
+                    if (module.status !== 'locked') {
+                      onClose();
+                      router.push({
+                        pathname: '/(app)/_(lessons)/LessonsListScreen',
+                        params: {
+                          moduleId: module.id,
+                          moduleTitle: module.title,
+                          levelTitle: levelTitle,
+                          xpReward: xpReward.toString(),
+                        },
+                      });
+                    }
                   }}
                 >
-                  {module.title}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+                  {module.status === 'completed' ? (
+                    <MaterialCommunityIcons
+                      name='check-circle'
+                      size={22}
+                      color={COLORS.primary}
+                    />
+                  ) : module.status === 'inprogress' ? (
+                    <MaterialCommunityIcons
+                      name='checkbox-marked-circle-outline'
+                      size={22}
+                      color={COLORS.primary}
+                    />
+                  ) : (
+                    <MaterialCommunityIcons
+                      name='checkbox-blank-circle-outline'
+                      size={22}
+                      color={
+                        isDark ? COLORS.textSecondaryDark : COLORS.textSecondary
+                      }
+                    />
+                  )}
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      marginLeft: 10,
+                      color: '#fff',
+                      fontWeight:
+                        module.status === 'inprogress' ? 'bold' : 'normal',
+                    }}
+                  >
+                    {module.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
           {/* Progress Bar */}
           <View
             style={{
@@ -344,25 +325,25 @@ const ModulesModal = ({
   );
 };
 
-// Pre-calculate node positions along the path (alternating left/right)
-const NODE_POSITIONS = [
-  { x: width * 0.25, y: 80 },
-  { x: width * 0.75, y: 240 },
-  { x: width * 0.25, y: 400 },
-  { x: width * 0.75, y: 560 },
-];
+// Dynamically calculate node positions for all levels
+function getNodePositions(levels: any[]) {
+  const nodeSpacing = 140; // vertical space between nodes
+  const leftX = width * 0.25;
+  const rightX = width * 0.75;
+  return levels.map((level, idx) => ({
+    x: idx % 2 === 0 ? leftX : rightX,
+    y: 80 + idx * nodeSpacing,
+  }));
+}
 
-// Dynamically generate a playful, winding SVG path through the node positions
+// Generate a smooth SVG path connecting all nodes
 function getSmoothPath(points: { x: number; y: number }[]) {
   if (points.length < 2) return '';
   let d = `M${points[0].x},${points[0].y}`;
   for (let i = 1; i < points.length; i++) {
     const prev = points[i - 1];
     const curr = points[i];
-    // Dramatic S-curve: large horizontal offset
-    const direction = i % 2 === 0 ? 1 : -1;
-    const offset = width * 0.3; // 30% of screen width
-    const cpx = (prev.x + curr.x) / 2 + direction * offset;
+    const cpx = (prev.x + curr.x) / 2;
     const cpy = (prev.y + curr.y) / 2;
     d += ` Q${cpx},${cpy} ${curr.x},${curr.y}`;
   }
@@ -375,9 +356,24 @@ export default function LearningPathScreen() {
   const [showConfetti, setShowConfetti] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
   const [showModulesModal, setShowModulesModal] = useState(false);
-  const [selectedLevel, setSelectedLevel] = useState<(typeof LEVELS)[0] | null>(
-    null
-  );
+  const [selectedLevel, setSelectedLevel] = useState<any | null>(null);
+  const [levels, setLevels] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [modules, setModules] = useState<Module[]>([]);
+  const [modulesLoading, setModulesLoading] = useState(false);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/learningPath')
+      .then(res => res.json())
+      .then(data => {
+        setLevels(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   // Path curve points for SVG (mocked for 4 levels)
   const pathD = `M${width / 2},80
@@ -386,10 +382,24 @@ export default function LearningPathScreen() {
     Q${width * 0.8},680 ${width / 2},800`;
 
   // Handler for tapping a level
-  const handleLevelPress = (level: (typeof LEVELS)[0]) => {
+  const handleLevelPress = async (level: any) => {
     if (level.state === 'locked') return;
     setSelectedLevel(level);
     setShowModulesModal(true);
+    setModulesLoading(true);
+    try {
+      // Replace with your local IP if needed
+      const res = await fetch(
+        `http://localhost:3001/modules?levelId=${level.id}`
+      );
+      let data = await res.json();
+      // For testing: unlock all modules (set status to 'inprogress')
+      data = data.map((mod: any) => ({ ...mod, status: 'inprogress' }));
+      setModules(data);
+    } catch (err) {
+      setModules([]);
+    }
+    setModulesLoading(false);
     // If completed, show confetti
     if (level.state === 'completed') {
       setShowConfetti(true);
@@ -404,38 +414,93 @@ export default function LearningPathScreen() {
         backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
       }}
     >
-      {/* Header */}
+      {/* Custom Header */}
       <View
-        style={[
-          styles.header,
-          { backgroundColor: isDark ? COLORS.cardBackgroundDark : '#232B3B' },
-        ]}
+        style={{
+          backgroundColor: '#232B3B',
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          borderBottomLeftRadius: 12,
+          borderBottomRightRadius: 12,
+          marginTop: 0,
+          paddingTop: 0,
+          paddingBottom: SPACING.lg,
+          marginLeft: 0,
+          marginRight: 0,
+          paddingHorizontal: 16,
+          flexDirection: 'column',
+          shadowColor: '#000',
+          shadowOpacity: 0.08,
+          shadowRadius: 8,
+          shadowOffset: { width: 0, height: 2 },
+          elevation: 2,
+        }}
       >
-        <Image source={{ uri: MOCK_USER.avatar }} style={styles.avatar} />
-        <View style={{ flex: 1, marginLeft: 10 }}>
-          <Text style={[styles.headerName, { color: '#fff' }]}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={{ marginRight: 10 }}
+          >
+            <Ionicons name='arrow-back' size={24} color='#fff' />
+          </TouchableOpacity>
+          <Image
+            source={{ uri: MOCK_USER.avatar }}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 20,
+              backgroundColor: '#fff',
+              marginRight: 10,
+            }}
+          />
+          <Text
+            style={{ color: '#fff', fontWeight: 'bold', fontSize: 18, flex: 1 }}
+          >
             {MOCK_USER.name}
           </Text>
-          <View style={styles.headerStatsRow}>
-            <Ionicons name='flame' size={16} color='#fff' />
-            <Text style={styles.headerStatText}>
-              {MOCK_USER.streak}-day streak!
-            </Text>
-            <Ionicons
-              name='star'
-              size={16}
-              color='#fff'
-              style={{ marginLeft: 12 }}
-            />
-            <Text style={styles.headerStatText}>{MOCK_USER.badges} badges</Text>
-            <Ionicons
-              name='logo-bitcoin'
-              size={16}
-              color='#fff'
-              style={{ marginLeft: 12 }}
-            />
-            <Text style={styles.headerStatText}>{MOCK_USER.coins}</Text>
-          </View>
+          <Ionicons
+            name='flame'
+            size={16}
+            color='#fff'
+            style={{ marginRight: 2 }}
+          />
+          <Text style={{ color: '#fff', fontWeight: 'bold', marginRight: 10 }}>
+            {MOCK_USER.streak}
+          </Text>
+          <Ionicons
+            name='logo-bitcoin'
+            size={16}
+            color='#fff'
+            style={{ marginRight: 2 }}
+          />
+          <Text style={{ color: '#fff', fontWeight: 'bold', marginRight: 10 }}>
+            {MOCK_USER.coins.toLocaleString()}
+          </Text>
+          <Ionicons
+            name='star'
+            size={16}
+            color='#fff'
+            style={{ marginRight: 2 }}
+          />
+          <Text style={{ color: '#fff', fontWeight: 'bold' }}>8,900</Text>
+        </View>
+        <View
+          style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8 }}
+        >
+          <Ionicons
+            name='flash'
+            size={16}
+            color='#fff'
+            style={{ marginRight: 4 }}
+          />
+          <Text style={{ color: '#fff' }}>3-day streak!</Text>
+          <Ionicons
+            name='medal'
+            size={16}
+            color='#fff'
+            style={{ marginLeft: 16, marginRight: 4 }}
+          />
+          <Text style={{ color: '#fff' }}>{MOCK_USER.badges} badges</Text>
         </View>
       </View>
       {/* Path and Levels */}
@@ -450,127 +515,126 @@ export default function LearningPathScreen() {
         scrollEventThrottle={16}
       >
         <View style={styles.pathContainer}>
-          <Svg height={1000} width={width} style={styles.pathSvg}>
-            {/* Main road path */}
-            <Path
-              d={getSmoothPath(NODE_POSITIONS)}
-              stroke={COLORS.primary}
-              strokeWidth={10}
-              fill='none'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              opacity={0.18}
-            />
-            {/* Center line */}
-            <Path
-              d={getSmoothPath(NODE_POSITIONS)}
-              stroke={COLORS.primary}
-              strokeWidth={4}
-              fill='none'
-              strokeDasharray='12,8'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </Svg>
-          {LEVELS.map((level, idx) => {
-            // Use pre-calculated positions for each node
-            const pos = NODE_POSITIONS[idx] || {
-              x: width / 2,
-              y: 80 + idx * 180,
-            };
-            return (
-              <Animated.View
-                key={level.id}
-                style={[
-                  {
-                    position: 'absolute',
-                    left: pos.x - 60, // center node
-                    top: pos.y - 60,
-                    zIndex: 2,
-                  },
-                ]}
-              >
-                <TouchableOpacity
-                  style={[
-                    styles.levelCard,
-                    {
-                      backgroundColor: isDark
-                        ? COLORS.cardBackgroundDark
-                        : COLORS.cardBackground,
-                      borderColor:
-                        level.state === 'active'
-                          ? COLORS.primary
-                          : level.state === 'completed'
-                          ? COLORS.success
-                          : COLORS.border,
-                      borderWidth: 4,
-                      shadowColor:
-                        level.state === 'active' ? COLORS.primary : '#000',
-                      shadowOpacity: level.state === 'active' ? 0.25 : 0.08,
-                      shadowRadius: 12,
-                      elevation: 4,
-                    },
-                  ]}
-                  onPress={() => handleLevelPress(level)}
-                  activeOpacity={level.state === 'locked' ? 1 : 0.8}
-                >
-                  <View style={styles.levelAvatarWrap}>
-                    {level.state === 'completed' ? (
-                      <Ionicons
-                        name='checkmark-circle'
-                        size={40}
-                        color={COLORS.success}
-                      />
-                    ) : level.state === 'locked' ? (
-                      <Ionicons
-                        name='lock-closed'
-                        size={40}
-                        color={COLORS.textSecondary}
-                      />
-                    ) : (
-                      <Ionicons name='star' size={40} color={COLORS.primary} />
-                    )}
-                  </View>
-                  <Text
-                    style={[
-                      styles.levelName,
-                      {
-                        color: isDark ? COLORS.textDark : COLORS.text,
-                        fontSize: 16,
-                        marginTop: 48,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                      },
-                    ]}
-                  >
-                    {level.name}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.levelProgress,
-                      {
-                        color:
-                          level.state === 'completed'
-                            ? COLORS.success
-                            : isDark
-                            ? COLORS.textSecondaryDark
-                            : COLORS.textSecondary,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        fontSize: 13,
-                      },
-                    ]}
-                  >
-                    {level.state === 'completed'
-                      ? 'Completed'
-                      : level.state === 'locked'
-                      ? ''
-                      : `${level.progress} / ${level.maxProgress} modules`}
-                  </Text>
-                </TouchableOpacity>
-              </Animated.View>
-            );
-          })}
+          {levels.length > 0 && (
+            <>
+              {(() => {
+                const nodePositions = getNodePositions(levels) as any[];
+                const svgHeight =
+                  nodePositions[nodePositions.length - 1].y + 100;
+                const pathD = getSmoothPath(nodePositions);
+                return (
+                  <Svg height={svgHeight} width={width} style={styles.pathSvg}>
+                    {/* Main road path */}
+                    <Path
+                      d={pathD}
+                      stroke={COLORS.primary}
+                      strokeWidth={10}
+                      fill='none'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      opacity={0.18}
+                    />
+                    {/* Center line */}
+                    <Path
+                      d={pathD}
+                      stroke={COLORS.primary}
+                      strokeWidth={4}
+                      fill='none'
+                      strokeDasharray='12,8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </Svg>
+                );
+              })()}
+              {(() => {
+                const nodePositions = getNodePositions(levels) as any[];
+                return (levels as any[]).map((level: any, idx: number) => {
+                  const pos = nodePositions[idx];
+                  return (
+                    <Animated.View
+                      key={level.id}
+                      style={[
+                        {
+                          position: 'absolute',
+                          left: pos.x - 60, // center node
+                          top: pos.y - 60,
+                          zIndex: 2,
+                        },
+                      ]}
+                    >
+                      <TouchableOpacity
+                        style={[
+                          styles.levelCard,
+                          {
+                            backgroundColor: isDark
+                              ? COLORS.cardBackgroundDark
+                              : COLORS.cardBackground,
+                            borderColor: COLORS.primary,
+                            borderWidth: 4,
+                            shadowColor: COLORS.primary,
+                            shadowOpacity: 0.15,
+                            shadowRadius: 12,
+                            elevation: 4,
+                          },
+                        ]}
+                        onPress={() => handleLevelPress(level)}
+                        activeOpacity={0.8}
+                      >
+                        <View style={styles.levelAvatarWrap}>
+                          <Ionicons
+                            name='star'
+                            size={40}
+                            color={COLORS.primary}
+                          />
+                        </View>
+                        <Text
+                          style={[
+                            styles.levelName,
+                            {
+                              color: isDark ? COLORS.textDark : COLORS.text,
+                              fontSize: 16,
+                              marginTop: 48,
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                            },
+                          ]}
+                        >
+                          {level.name}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.levelProgress,
+                            {
+                              color: isDark
+                                ? COLORS.textSecondaryDark
+                                : COLORS.textSecondary,
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              fontSize: 13,
+                            },
+                          ]}
+                        >
+                          {level.modules} modules
+                        </Text>
+                      </TouchableOpacity>
+                    </Animated.View>
+                  );
+                });
+              })()}
+            </>
+          )}
+          {loading && (
+            <Text
+              style={{
+                color: isDark ? '#fff' : '#000',
+                textAlign: 'center',
+                marginTop: 32,
+              }}
+            >
+              Loading...
+            </Text>
+          )}
         </View>
         {/* {showConfetti && (
           <ConfettiCannon count={100} origin={{ x: width / 2, y: 0 }} fadeOut />
@@ -583,15 +647,11 @@ export default function LearningPathScreen() {
           levelTitle={selectedLevel.name}
           description={`Level ${selectedLevel.id} description`}
           xpReward={100}
-          modules={
-            (MOCK_MODULES[
-              selectedLevel.id as keyof typeof MOCK_MODULES
-            ] as Module[]) || []
-          }
+          modules={modules}
+          loading={modulesLoading}
           onModulePress={module => {
             // Navigation logic for unlocked module
             if (module.status !== 'locked') {
-              // TODO: Replace with navigation to LessonContentScreen
               setShowModulesModal(false);
             }
           }}

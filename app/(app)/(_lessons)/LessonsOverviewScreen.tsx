@@ -12,100 +12,26 @@ import {
   View,
 } from 'react-native';
 import { COLORS, SIZES, SPACING } from '../../../constants/theme';
+import lessonsData from '../../../course-structure.json';
 
-// --- Mock Lessons Data ---
-const MOCK_LESSONS = [
-  {
-    id: '1',
-    title: 'What is Trading vs. Investing',
-    slides: [
-      {
-        title: 'Slide 1: Introduction',
-        image: 'https://via.placeholder.com/300x150.png?text=Intro+Chart',
-        audioUrl: '',
-        description: 'Welcome to trading! This lesson introduces the basics.',
-        reveals: [
-          {
-            label: 'Tap to Reveal: What is Trading?',
-            content: 'Trading is buying and selling assets.',
-          },
-        ],
-        mentorTip: 'Start with the basics and build your knowledge.',
-        xp: 10,
-      },
-      {
-        title: 'Slide 2: Markets',
-        image: 'https://via.placeholder.com/300x150.png?text=Markets',
-        audioUrl: '',
-        description: 'Markets are where trading happens.',
-        reveals: [
-          { label: 'Tap to Reveal: Example Market', content: 'Stock Market' },
-        ],
-        xp: 10,
-      },
-      {
-        title: 'Slide 3: Trading vs. Investing',
-        image:
-          'https://via.placeholder.com/300x150.png?text=Trading+vs+Investing',
-        audioUrl: '',
-        description: 'Trading and investing differ in approach and duration.',
-        reveals: [
-          {
-            label: 'Tap to Reveal: Risk Level',
-            content: 'Trading is usually riskier.',
-          },
-          {
-            label: 'Tap to Reveal: Timeframe',
-            content: 'Trading is short-term, investing is long-term.',
-          },
-        ],
-        mentorTip: 'Understand your risk tolerance.',
-        xp: 10,
-      },
-      {
-        title: 'Slide 4: Chart Example',
-        image: 'https://via.placeholder.com/300x150.png?text=Chart',
-        audioUrl: '',
-        description: 'Charts help visualize price movements.',
-        reveals: [],
-        xp: 10,
-      },
-    ],
-    totalXP: 40,
-    stars: 125,
-  },
-  {
-    id: '2',
-    title: 'Financial Markets Overview',
-    slides: [
-      {
-        title: 'Slide 1: What is a Market?',
-        image: 'https://via.placeholder.com/300x150.png?text=Market',
-        audioUrl: '',
-        description: 'A market is a place where buyers and sellers meet.',
-        reveals: [{ label: 'Tap to Reveal: Example', content: 'Stock Market' }],
-        xp: 10,
-      },
-      {
-        title: 'Slide 2: Types of Markets',
-        image: 'https://via.placeholder.com/300x150.png?text=Types+of+Markets',
-        audioUrl: '',
-        description:
-          'There are many types: Forex, Stocks, Crypto, Commodities.',
-        reveals: [
-          {
-            label: 'Tap to Reveal: Crypto',
-            content: 'Bitcoin, Ethereum, etc.',
-          },
-        ],
-        xp: 10,
-      },
-    ],
-    totalXP: 20,
-    stars: 80,
-  },
-  // ...add more lessons as needed
-];
+// --- Dynamic Lessons Data from course-structure.json ---
+const MOCK_LESSONS = lessonsData.lessons.map((lesson, idx) => ({
+  id: lesson.id,
+  title: lesson.title,
+  slides: [
+    {
+      title: lesson.title,
+      image: 'https://via.placeholder.com/300x150.png?text=Lesson',
+      audioUrl: '',
+      description: 'Lesson content coming soon.',
+      reveals: [],
+      mentorTip: '',
+      xp: 10,
+    },
+  ],
+  totalXP: 10,
+  stars: 0,
+}));
 
 const { width } = Dimensions.get('window');
 
@@ -145,14 +71,42 @@ function ProgressCircle({
 
 const LessonsOverviewScreen = () => {
   const { lessonId } = useLocalSearchParams();
-  const lesson = MOCK_LESSONS.find(l => l.id === lessonId) || MOCK_LESSONS[0];
-
+  const [lesson, setLesson] = useState<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [revealed, setRevealed] = useState<{ [key: number]: boolean }>({});
   const [completed, setCompleted] = useState(false);
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const flatListRef = useRef<FlatList>(null);
+
+  React.useEffect(() => {
+    const lessonData = lessonsData.lessons.find(l => l.id === lessonId);
+    console.log('lessonId:', lessonId, 'lessonData:', lessonData);
+    if (lessonData) {
+      setLesson({
+        id: lessonData.id,
+        title: lessonData.title,
+        slides: [
+          {
+            title: lessonData.title,
+            image: 'https://via.placeholder.com/300x150.png?text=Lesson',
+            audioUrl: '',
+            description: 'Lesson content coming soon.',
+            reveals: [],
+            mentorTip: '',
+            xp: 10,
+          },
+        ],
+        totalXP: 10,
+        stars: 0,
+      });
+    } else {
+      setLesson(null);
+    }
+    setCurrentSlide(0);
+    setRevealed({});
+    setCompleted(false);
+  }, [lessonId]);
 
   // Handlers
   const handleReveal = (idx: number) => {
@@ -183,96 +137,36 @@ const LessonsOverviewScreen = () => {
 
   return (
     <View
+      key={lessonId}
       style={{
         flex: 1,
         backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
       }}
     >
       {/* Header */}
-      <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.title,
-            { color: isDark ? COLORS.textDark : COLORS.text },
-          ]}
-        >
-          {lesson.title}
-        </Text>
-        <Text
-          style={[
-            styles.subtitle,
-            { color: isDark ? COLORS.textSecondaryDark : COLORS.textSecondary },
-          ]}
-        >
-          {lesson.slides[currentSlide]?.title}
-        </Text>
-      </View>
-      {/* Slide Card Carousel */}
-      <FlatList
-        ref={flatListRef}
-        data={lesson.slides}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(_, idx) => idx.toString()}
-        renderItem={({ item: slide, index }) => (
+      {lesson ? (
+        <>
           <View
             style={[
-              styles.card,
+              styles.header,
               {
                 backgroundColor: isDark
-                  ? COLORS.cardBackgroundDark
-                  : COLORS.cardBackground,
-                width: width - 32,
+                  ? COLORS.backgroundDark
+                  : COLORS.background,
               },
             ]}
           >
-            {/* Card Header Row: Progress + XP */}
-            <View style={styles.cardHeaderRow}>
-              <ProgressCircle
-                percent={(index + 1) / lesson.slides.length}
-                isDark={isDark}
-              />
-              <View style={styles.xpRow}>
-                <Ionicons
-                  name='star'
-                  size={16}
-                  color='#F6C244'
-                  style={{ marginRight: 2 }}
-                />
-                <Text style={styles.xpText}>+{slide.xp || 0} XP</Text>
-              </View>
-            </View>
-            {/* Slide Title */}
             <Text
               style={[
-                styles.cardTitle,
+                styles.title,
                 { color: isDark ? COLORS.textDark : COLORS.text },
               ]}
             >
-              {slide.title}
+              {lesson.title}
             </Text>
-            {/* Slide Image/Chart */}
-            {slide.image && (
-              <View style={styles.chartPlaceholder}>
-                <Image
-                  source={{ uri: slide.image }}
-                  style={{ width: '100%', height: 80, borderRadius: 12 }}
-                  resizeMode='cover'
-                />
-              </View>
-            )}
-            {/* Description */}
             <Text
               style={[
-                styles.cardDesc,
+                styles.subtitle,
                 {
                   color: isDark
                     ? COLORS.textSecondaryDark
@@ -280,79 +174,168 @@ const LessonsOverviewScreen = () => {
                 },
               ]}
             >
-              {slide.description}
+              {lesson.slides[currentSlide]?.title}
             </Text>
-            {/* Tap to Reveal Cards */}
-            {slide.reveals?.map((reveal: any, idx: number) => (
-              <TouchableOpacity
-                key={idx}
-                onPress={() => handleReveal(idx)}
-                style={[
-                  styles.revealCard,
-                  { backgroundColor: isDark ? '#23242a' : '#f0f0f0' },
-                ]}
-              >
-                <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
-                  {reveal.label}
-                </Text>
-                {revealed[idx] && (
-                  <Text
-                    style={{ marginTop: 6, color: isDark ? '#fff' : '#181A20' }}
-                  >
-                    {reveal.content}
-                  </Text>
-                )}
-              </TouchableOpacity>
-            ))}
-            {/* Mentor Tip */}
-            {slide.mentorTip && (
+          </View>
+          {/* Slide Card Carousel */}
+          <FlatList
+            ref={flatListRef}
+            data={lesson.slides}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(_: unknown, idx: number) => idx.toString()}
+            renderItem={({
+              item: slide,
+              index,
+            }: {
+              item: any;
+              index: number;
+            }) => (
               <View
                 style={[
-                  styles.mentorTip,
-                  { backgroundColor: isDark ? '#23242a' : '#e0e0e0' },
+                  styles.card,
+                  {
+                    backgroundColor: isDark
+                      ? COLORS.cardBackgroundDark
+                      : COLORS.cardBackground,
+                    width: width - 32,
+                  },
                 ]}
               >
-                <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
-                  💡 {slide.mentorTip}
+                {/* Card Header Row: Progress + XP */}
+                <View style={styles.cardHeaderRow}>
+                  <ProgressCircle
+                    percent={(index + 1) / lesson.slides.length}
+                    isDark={isDark}
+                  />
+                  <View style={styles.xpRow}>
+                    <Ionicons
+                      name='star'
+                      size={16}
+                      color='#F6C244'
+                      style={{ marginRight: 2 }}
+                    />
+                    <Text style={styles.xpText}>+{slide.xp || 0} XP</Text>
+                  </View>
+                </View>
+                {/* Slide Title */}
+                <Text
+                  style={[
+                    styles.cardTitle,
+                    { color: isDark ? COLORS.textDark : COLORS.text },
+                  ]}
+                >
+                  {slide.title}
                 </Text>
+                {/* Slide Image/Chart */}
+                {slide.image && (
+                  <View style={styles.chartPlaceholder}>
+                    <Image
+                      source={{ uri: slide.image }}
+                      style={{ width: '100%', height: 80, borderRadius: 12 }}
+                      resizeMode='cover'
+                    />
+                  </View>
+                )}
+                {/* Description */}
+                <Text
+                  style={[
+                    styles.cardDesc,
+                    {
+                      color: isDark
+                        ? COLORS.textSecondaryDark
+                        : COLORS.textSecondary,
+                    },
+                  ]}
+                >
+                  {slide.description}
+                </Text>
+                {/* Tap to Reveal Cards */}
+                {slide.reveals?.map((reveal: any, idx: number) => (
+                  <TouchableOpacity
+                    key={idx}
+                    onPress={() => handleReveal(idx)}
+                    style={[
+                      styles.revealCard,
+                      { backgroundColor: isDark ? '#23242a' : '#f0f0f0' },
+                    ]}
+                  >
+                    <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
+                      {reveal.label}
+                    </Text>
+                    {revealed[idx] && (
+                      <Text
+                        style={{
+                          marginTop: 6,
+                          color: isDark ? '#fff' : '#181A20',
+                        }}
+                      >
+                        {reveal.content}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                ))}
+                {/* Mentor Tip */}
+                {slide.mentorTip && (
+                  <View
+                    style={[
+                      styles.mentorTip,
+                      { backgroundColor: isDark ? '#23242a' : '#e0e0e0' },
+                    ]}
+                  >
+                    <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
+                      💡 {slide.mentorTip}
+                    </Text>
+                  </View>
+                )}
+                {/* Continue/Complete Button */}
+                <TouchableOpacity style={styles.ctaBtn} onPress={handleNext}>
+                  <Text style={styles.ctaBtnText}>
+                    {index === 0
+                      ? 'Start'
+                      : index === lesson.slides.length - 1
+                      ? 'Completed'
+                      : 'Continue'}
+                  </Text>
+                </TouchableOpacity>
               </View>
             )}
-            {/* Continue/Complete Button */}
-            <TouchableOpacity style={styles.ctaBtn} onPress={handleNext}>
-              <Text style={styles.ctaBtnText}>
-                {index === 0
-                  ? 'Start'
-                  : index === lesson.slides.length - 1
-                  ? 'Completed'
-                  : 'Continue'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
-        extraData={revealed}
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingTop: 8,
-          paddingBottom: 24,
-        }}
-      />
-      {/* Pagination Dots */}
-      <View style={styles.dotsRow}>
-        {lesson.slides.map((_, idx) => (
-          <View
-            key={idx}
-            style={[
-              styles.dot,
-              {
-                backgroundColor:
-                  idx === currentSlide ? COLORS.primary : COLORS.cardBackground,
-              },
-            ]}
+            onViewableItemsChanged={onViewableItemsChanged}
+            viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
+            extraData={revealed}
+            contentContainerStyle={{
+              paddingHorizontal: 16,
+              paddingTop: 8,
+              paddingBottom: 24,
+            }}
           />
-        ))}
-      </View>
+          {/* Pagination Dots */}
+          <View style={styles.dotsRow}>
+            {lesson.slides.map((_, idx) => (
+              <View
+                key={idx}
+                style={[
+                  styles.dot,
+                  {
+                    backgroundColor:
+                      idx === currentSlide
+                        ? COLORS.primary
+                        : COLORS.cardBackground,
+                  },
+                ]}
+              />
+            ))}
+          </View>
+        </>
+      ) : (
+        <Text
+          style={{ color: COLORS.text, textAlign: 'center', marginTop: 40 }}
+        >
+          Lesson not found for lessonId: {lessonId}. Check navigation and
+          course-structure.json.
+        </Text>
+      )}
     </View>
   );
 };

@@ -5,7 +5,10 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import {
   Image,
+  Platform,
+  SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -59,10 +62,11 @@ export default function Home2Screen() {
   const router = useRouter();
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
@@ -342,7 +346,7 @@ export default function Home2Screen() {
         </View>
       </ScrollView>
       {/* Bottom Navigation Placeholder (actual nav handled by layout) */}
-    </View>
+    </SafeAreaView>
   );
 }
 

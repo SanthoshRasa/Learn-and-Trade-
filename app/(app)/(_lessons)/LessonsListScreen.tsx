@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { COLORS, SIZES } from '../../../constants/theme';
+import lessonsData from '../../../course-structure.json';
 
 const { width } = Dimensions.get('window');
 
@@ -26,80 +27,6 @@ export type Lesson = {
   icon?: string;
 };
 
-// Mock lessons data
-const MOCK_LESSONS: Lesson[] = [
-  {
-    id: '1',
-    title: 'What is Trading vs. Investing',
-    subtitle: 'Learn the key differences and why it matters.',
-    status: 'inprogress',
-    progress: 0.3,
-    steps: 10,
-    xp: 10,
-    icon: 'book',
-  },
-  {
-    id: '2',
-    title: 'Financial Markets Overview',
-    subtitle: 'Forex, Stocks, Crypto, Commodities',
-    status: 'locked',
-    progress: 0,
-    steps: 12,
-    xp: 12,
-    icon: 'scale-balance',
-  },
-  {
-    id: '3',
-    title: 'How Trading Works: Buyers, Sellers, Brokers',
-    subtitle: 'Understand market participants and their roles.',
-    status: 'locked',
-    progress: 0,
-    steps: 15,
-    xp: 20,
-    icon: 'account-group',
-  },
-  {
-    id: '4',
-    title: 'Order Types',
-    subtitle: 'Market, Limit, Stop',
-    status: 'locked',
-    progress: 0,
-    steps: 8,
-    xp: 8,
-    icon: 'clipboard-list',
-  },
-  {
-    id: '5',
-    title: 'Trading Platforms, Charts, and Accounts',
-    subtitle: 'Get set up to trade',
-    status: 'locked',
-    progress: 0,
-    steps: 12,
-    xp: 12,
-    icon: 'chart-line',
-  },
-  {
-    id: '6',
-    title: 'Risk vs. Reward Basics',
-    subtitle: 'Learn to balance risk and reward',
-    status: 'locked',
-    progress: 0,
-    steps: 9,
-    xp: 9,
-    icon: 'shield-half-full',
-  },
-  {
-    id: '7',
-    title: 'Your First Demo Trade',
-    subtitle: 'Practice trading in a risk-free environment',
-    status: 'locked',
-    progress: 0,
-    steps: 7,
-    xp: 10,
-    icon: 'lightning-bolt',
-  },
-];
-
 export default function LessonsListScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{
@@ -109,7 +36,29 @@ export default function LessonsListScreen() {
     xpReward: string;
   }>();
 
-  const [lessons, setLessons] = useState<Lesson[]>(MOCK_LESSONS);
+  // Get lessons for the current module from course-structure.json
+  const filteredLessons = lessonsData.lessons.filter(
+    lesson => lesson.moduleId === params.moduleId
+  );
+  console.log(
+    'moduleId:',
+    params.moduleId,
+    'filteredLessons:',
+    filteredLessons
+  );
+  // Map to Lesson type with placeholder values
+  const initialLessons: Lesson[] = filteredLessons.map((lesson, idx) => ({
+    id: lesson.id,
+    title: lesson.title,
+    subtitle: 'Lesson content coming soon.',
+    status: idx === 0 ? 'inprogress' : 'locked',
+    progress: 0,
+    steps: 1,
+    xp: 10,
+    icon: 'book',
+  }));
+
+  const [lessons, setLessons] = useState<Lesson[]>(initialLessons);
   const [xp, setXp] = useState(320);
   // Unlock logic: only next lesson unlocked after current completed
   const unlockNextLesson = (idx: number) => {
@@ -126,7 +75,7 @@ export default function LessonsListScreen() {
     if (lesson.status === 'inprogress' || lesson.status === 'completed') {
       // Navigate to the new LessonsOverviewScreen
       router.push({
-        pathname: '/(app)/_lessons/LessonsOverviewScreen',
+        pathname: '/(app)/(_lessons)/LessonsOverviewScreen',
         params: { lessonId: lesson.id },
       });
     }
@@ -161,129 +110,141 @@ export default function LessonsListScreen() {
       </View>
       {/* Lessons List */}
       <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
-        {lessons.map((lesson, idx) => {
-          const isLocked = lesson.status === 'locked';
-          const isCompleted = lesson.status === 'completed';
-          const isInProgress = lesson.status === 'inprogress';
-          return (
-            <View
-              key={lesson.id}
-              style={[
-                styles.card,
-                isLocked && styles.cardLocked,
-                isCompleted && styles.cardCompleted,
-              ]}
-            >
-              <View style={styles.cardHeaderRow}>
-                <View
-                  style={[
-                    styles.iconWrap,
-                    isLocked && styles.iconWrapLocked,
-                    isCompleted && styles.iconWrapCompleted,
-                  ]}
-                >
-                  <MaterialCommunityIcons
-                    name={lesson.icon as any}
-                    size={28}
-                    color={
-                      isLocked
-                        ? COLORS.textSecondary
-                        : isCompleted
-                        ? COLORS.success
-                        : COLORS.primary
-                    }
-                  />
-                </View>
-                <View style={{ flex: 1, marginLeft: 12 }}>
-                  <Text
+        {lessons.length === 0 ? (
+          <Text
+            style={{ color: COLORS.text, textAlign: 'center', marginTop: 40 }}
+          >
+            No lessons found for this module. Check moduleId and
+            course-structure.json.
+          </Text>
+        ) : (
+          lessons.map((lesson, idx) => {
+            const isLocked = lesson.status === 'locked';
+            const isCompleted = lesson.status === 'completed';
+            const isInProgress = lesson.status === 'inprogress';
+            return (
+              <View
+                key={lesson.id}
+                style={[
+                  styles.card,
+                  isLocked && styles.cardLocked,
+                  isCompleted && styles.cardCompleted,
+                ]}
+              >
+                <View style={styles.cardHeaderRow}>
+                  <View
                     style={[
-                      styles.cardTitle,
-                      isLocked && styles.textLocked,
-                      isCompleted && styles.textCompleted,
+                      styles.iconWrap,
+                      isLocked && styles.iconWrapLocked,
+                      isCompleted && styles.iconWrapCompleted,
                     ]}
                   >
-                    {lesson.title}
-                  </Text>
-                  <Text
-                    style={[styles.cardSubtitle, isLocked && styles.textLocked]}
+                    <MaterialCommunityIcons
+                      name={lesson.icon as any}
+                      size={28}
+                      color={
+                        isLocked
+                          ? COLORS.textSecondary
+                          : isCompleted
+                          ? COLORS.success
+                          : COLORS.primary
+                      }
+                    />
+                  </View>
+                  <View style={{ flex: 1, marginLeft: 12 }}>
+                    <Text
+                      style={[
+                        styles.cardTitle,
+                        isLocked && styles.textLocked,
+                        isCompleted && styles.textCompleted,
+                      ]}
+                    >
+                      {lesson.title}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.cardSubtitle,
+                        isLocked && styles.textLocked,
+                      ]}
+                    >
+                      {lesson.subtitle}
+                    </Text>
+                  </View>
+                  <View style={styles.statusTagWrap}>
+                    {isCompleted ? (
+                      <View style={styles.statusTagCompleted}>
+                        <Ionicons
+                          name='checkmark-circle'
+                          size={16}
+                          color='#fff'
+                        />
+                        <Text style={styles.statusTagText}>Completed</Text>
+                      </View>
+                    ) : isInProgress ? (
+                      <View style={styles.statusTagInProgress}>
+                        <Text style={styles.statusTagText}>In Progress</Text>
+                      </View>
+                    ) : (
+                      <View style={styles.statusTagLocked}>
+                        <Ionicons name='lock-closed' size={14} color='#fff' />
+                        <Text style={styles.statusTagText}>Locked</Text>
+                      </View>
+                    )}
+                  </View>
+                </View>
+                {/* Progress Bar */}
+                <View style={styles.progressBarBg}>
+                  <View
+                    style={[
+                      styles.progressBarFill,
+                      {
+                        width: `${Math.round(lesson.progress * 100)}%`,
+                        backgroundColor: isCompleted
+                          ? COLORS.success
+                          : isInProgress
+                          ? COLORS.primary
+                          : COLORS.textSecondary,
+                      },
+                    ]}
+                  />
+                </View>
+                <View style={styles.cardFooterRow}>
+                  <View style={styles.xpRow}>
+                    <MaterialCommunityIcons
+                      name='star-circle'
+                      size={18}
+                      color={COLORS.primary}
+                    />
+                    <Text style={styles.xpText}>+{lesson.xp} XP</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={[
+                      styles.actionBtn,
+                      isLocked && styles.actionBtnLocked,
+                      isCompleted && styles.actionBtnCompleted,
+                    ]}
+                    disabled={isLocked}
+                    onPress={() => handleLessonAction(lesson, idx)}
                   >
-                    {lesson.subtitle}
-                  </Text>
-                </View>
-                <View style={styles.statusTagWrap}>
-                  {isCompleted ? (
-                    <View style={styles.statusTagCompleted}>
-                      <Ionicons
-                        name='checkmark-circle'
-                        size={16}
-                        color='#fff'
-                      />
-                      <Text style={styles.statusTagText}>Completed</Text>
-                    </View>
-                  ) : isInProgress ? (
-                    <View style={styles.statusTagInProgress}>
-                      <Text style={styles.statusTagText}>In Progress</Text>
-                    </View>
-                  ) : (
-                    <View style={styles.statusTagLocked}>
-                      <Ionicons name='lock-closed' size={14} color='#fff' />
-                      <Text style={styles.statusTagText}>Locked</Text>
-                    </View>
-                  )}
-                </View>
-              </View>
-              {/* Progress Bar */}
-              <View style={styles.progressBarBg}>
-                <View
-                  style={[
-                    styles.progressBarFill,
-                    {
-                      width: `${Math.round(lesson.progress * 100)}%`,
-                      backgroundColor: isCompleted
-                        ? COLORS.success
+                    <Text
+                      style={[
+                        styles.actionBtnText,
+                        isLocked && styles.textLocked,
+                        isCompleted && styles.textCompleted,
+                      ]}
+                    >
+                      {isCompleted
+                        ? 'Review'
                         : isInProgress
-                        ? COLORS.primary
-                        : COLORS.textSecondary,
-                    },
-                  ]}
-                />
-              </View>
-              <View style={styles.cardFooterRow}>
-                <View style={styles.xpRow}>
-                  <MaterialCommunityIcons
-                    name='star-circle'
-                    size={18}
-                    color={COLORS.primary}
-                  />
-                  <Text style={styles.xpText}>+{lesson.xp} XP</Text>
+                        ? 'Continue'
+                        : 'Locked'}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                  style={[
-                    styles.actionBtn,
-                    isLocked && styles.actionBtnLocked,
-                    isCompleted && styles.actionBtnCompleted,
-                  ]}
-                  disabled={isLocked}
-                  onPress={() => handleLessonAction(lesson, idx)}
-                >
-                  <Text
-                    style={[
-                      styles.actionBtnText,
-                      isLocked && styles.textLocked,
-                      isCompleted && styles.textCompleted,
-                    ]}
-                  >
-                    {isCompleted
-                      ? 'Review'
-                      : isInProgress
-                      ? 'Continue'
-                      : 'Locked'}
-                  </Text>
-                </TouchableOpacity>
               </View>
-            </View>
-          );
-        })}
+            );
+          })
+        )}
       </ScrollView>
     </View>
   );

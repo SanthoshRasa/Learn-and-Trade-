@@ -2,7 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-  ScrollView,
+  Platform,
+  SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -42,9 +44,11 @@ export default function LearnScreen() {
   const advancedTextColor = '#fff';
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor }]}
-      contentContainerStyle={{ paddingBottom: 24 }}
+    <SafeAreaView
+      style={[
+        styles.container,
+        { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 },
+      ]}
     >
       {/* Section Title */}
       <View style={styles.sectionHeader}>
@@ -272,7 +276,7 @@ export default function LearnScreen() {
           ))}
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 

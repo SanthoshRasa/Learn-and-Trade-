@@ -2,7 +2,10 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
   Image,
+  Platform,
+  SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Switch,
   Text,
@@ -40,327 +43,341 @@ export default function SettingsScreen() {
   const textColor = isDark ? '#fff' : COLORS.text;
 
   return (
-    <ScrollView
+    <SafeAreaView
       style={{
+        flex: 1,
         backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
-      {/* Header */}
-      <View style={styles.header}>
-        <Text
+      <ScrollView
+        style={{
+          backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        }}
+      >
+        {/* Header */}
+        <View style={styles.header}>
+          <Text
+            style={[
+              styles.headerTitle,
+              {
+                color: textColor,
+                textAlign: 'center',
+                flex: 1,
+              },
+            ]}
+          >
+            Settings
+          </Text>
+        </View>
+
+        {/* Account Section */}
+        <View
           style={[
-            styles.headerTitle,
+            styles.card,
             {
-              color: textColor,
-              textAlign: 'center',
-              flex: 1,
+              backgroundColor: isDark
+                ? COLORS.cardBackgroundDark
+                : COLORS.cardBackground,
             },
           ]}
         >
-          Settings
-        </Text>
-      </View>
-
-      {/* Account Section */}
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: isDark
-              ? COLORS.cardBackgroundDark
-              : COLORS.cardBackground,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.sectionLabel,
-            { color: textColor, fontWeight: 'bold' },
-          ]}
-        >
-          Account
-        </Text>
-        <View style={styles.accountRow}>
-          <Image source={{ uri: MOCK_USER.avatar }} style={styles.avatar} />
-          <View style={{ flex: 1, marginLeft: 12 }}>
+          <Text
+            style={[
+              styles.sectionLabel,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Account
+          </Text>
+          <View style={styles.accountRow}>
+            <Image source={{ uri: MOCK_USER.avatar }} style={styles.avatar} />
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text
+                style={[
+                  styles.accountName,
+                  { color: textColor, fontWeight: 'bold' },
+                ]}
+              >
+                {MOCK_USER.name}
+              </Text>
+              <Text style={[styles.accountSub, { color: textColor }]}>
+                Nickname: {MOCK_USER.nickname}
+              </Text>
+              <Text style={[styles.accountSub, { color: textColor }]}>
+                {MOCK_USER.email}
+              </Text>
+            </View>
+            <TouchableOpacity>
+              <Ionicons name='pencil' size={20} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.rowBtn}>
             <Text
               style={[
-                styles.accountName,
+                styles.rowBtnText,
                 { color: textColor, fontWeight: 'bold' },
               ]}
             >
-              {MOCK_USER.name}
+              Change Password
             </Text>
-            <Text style={[styles.accountSub, { color: textColor }]}>
-              Nickname: {MOCK_USER.nickname}
+          </TouchableOpacity>
+        </View>
+
+        {/* Learning Preferences */}
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: isDark
+                ? COLORS.cardBackgroundDark
+                : COLORS.cardBackground,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.sectionLabel,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Learning Preferences
+          </Text>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: '#fff' }]}>Daily Goal</Text>
+            <TouchableOpacity style={styles.dropdown}>
+              <Text style={[styles.dropdownText, { color: '#fff' }]}>
+                10 min/day
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={[styles.sectionSubLabel, { color: textColor }]}>
+            Notifications
+          </Text>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              Quiz Reminders
             </Text>
-            <Text style={[styles.accountSub, { color: textColor }]}>
-              {MOCK_USER.email}
+            <Switch value={quizReminders} onValueChange={setQuizReminders} />
+          </View>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              Badge Unlocks
+            </Text>
+            <Switch value={badgeUnlocks} onValueChange={setBadgeUnlocks} />
+          </View>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              Level Ups
+            </Text>
+            <Switch value={levelUps} onValueChange={setLevelUps} />
+          </View>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              New Modules
+            </Text>
+            <Switch value={newModules} onValueChange={setNewModules} />
+          </View>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              Audio Lessons Autoplay
+            </Text>
+            <Switch value={audioAutoplay} onValueChange={setAudioAutoplay} />
+          </View>
+        </View>
+
+        {/* Reminders & Streaks */}
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: isDark
+                ? COLORS.cardBackgroundDark
+                : COLORS.cardBackground,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.sectionLabel,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Reminders & Streaks
+          </Text>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: '#fff' }]}>
+              Daily Reminder
+            </Text>
+            <TouchableOpacity style={styles.timeBtn}>
+              <Text style={[styles.timeBtnText, { color: '#fff' }]}>09:00</Text>
+            </TouchableOpacity>
+            <Switch value={dailyReminder} onValueChange={setDailyReminder} />
+          </View>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              Weekly Progress Report
+            </Text>
+            <Switch value={weeklyReport} onValueChange={setWeeklyReport} />
+          </View>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>
+              Push Notifications
+            </Text>
+            <Switch
+              value={pushNotifications}
+              onValueChange={setPushNotifications}
+            />
+          </View>
+        </View>
+
+        {/* Community & Friends */}
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: isDark
+                ? COLORS.cardBackgroundDark
+                : COLORS.cardBackground,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.sectionLabel,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            Community & Friends
+          </Text>
+          <TouchableOpacity style={styles.rowBtn}>
+            <Text
+              style={[
+                styles.rowBtnText,
+                { color: textColor, fontWeight: 'bold' },
+              ]}
+            >
+              Manage Friends
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.rowBtn}>
+            <Text
+              style={[
+                styles.rowBtnText,
+                { color: textColor, fontWeight: 'bold' },
+              ]}
+            >
+              Block/Unblock Users
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* App Settings (merged) */}
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: isDark
+                ? COLORS.cardBackgroundDark
+                : COLORS.cardBackground,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.sectionLabel,
+              { color: textColor, fontWeight: 'bold' },
+            ]}
+          >
+            App Settings
+          </Text>
+          <View style={styles.rowBetween}>
+            <Text style={[styles.rowLabel, { color: textColor }]}>Version</Text>
+            <Text style={[styles.versionText, { color: textColor }]}>
+              v3.2.1 (2025)
             </Text>
           </View>
-          <TouchableOpacity>
-            <Ionicons name='pencil' size={20} color={COLORS.primary} />
+          <TouchableOpacity style={styles.rowBtn}>
+            <Text
+              style={[
+                styles.rowBtnText,
+                { color: textColor, fontWeight: 'bold' },
+              ]}
+            >
+              Contact Support
+            </Text>
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity style={styles.rowBtn}>
-          <Text
-            style={[
-              styles.rowBtnText,
-              { color: textColor, fontWeight: 'bold' },
-            ]}
-          >
-            Change Password
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Learning Preferences */}
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: isDark
-              ? COLORS.cardBackgroundDark
-              : COLORS.cardBackground,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.sectionLabel,
-            { color: textColor, fontWeight: 'bold' },
-          ]}
-        >
-          Learning Preferences
-        </Text>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: '#fff' }]}>Daily Goal</Text>
-          <TouchableOpacity style={styles.dropdown}>
-            <Text style={[styles.dropdownText, { color: '#fff' }]}>
-              10 min/day
+          <TouchableOpacity style={styles.rowBtn}>
+            <Text
+              style={[
+                styles.rowBtnText,
+                { color: textColor, fontWeight: 'bold' },
+              ]}
+            >
+              Submit Feedback
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.rowBtn}>
+            <Text
+              style={[
+                styles.rowBtnText,
+                { color: textColor, fontWeight: 'bold' },
+              ]}
+            >
+              Report a Bug
             </Text>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.sectionSubLabel, { color: textColor }]}>
-          Notifications
-        </Text>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>
-            Quiz Reminders
-          </Text>
-          <Switch value={quizReminders} onValueChange={setQuizReminders} />
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>
-            Badge Unlocks
-          </Text>
-          <Switch value={badgeUnlocks} onValueChange={setBadgeUnlocks} />
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>Level Ups</Text>
-          <Switch value={levelUps} onValueChange={setLevelUps} />
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>
-            New Modules
-          </Text>
-          <Switch value={newModules} onValueChange={setNewModules} />
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>
-            Audio Lessons Autoplay
-          </Text>
-          <Switch value={audioAutoplay} onValueChange={setAudioAutoplay} />
-        </View>
-      </View>
 
-      {/* Reminders & Streaks */}
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: isDark
-              ? COLORS.cardBackgroundDark
-              : COLORS.cardBackground,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.sectionLabel,
-            { color: textColor, fontWeight: 'bold' },
-          ]}
-        >
-          Reminders & Streaks
-        </Text>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: '#fff' }]}>
-            Daily Reminder
-          </Text>
-          <TouchableOpacity style={styles.timeBtn}>
-            <Text style={[styles.timeBtnText, { color: '#fff' }]}>09:00</Text>
+        {/* Bottom Action Buttons */}
+        <View style={{ marginHorizontal: 16, marginTop: 24, marginBottom: 32 }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: isDark ? '#181F2A' : '#181F2A',
+              borderRadius: 8,
+              paddingVertical: 16,
+              alignItems: 'center',
+              marginBottom: 12,
+            }}
+          >
+            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
+              Logout
+            </Text>
           </TouchableOpacity>
-          <Switch value={dailyReminder} onValueChange={setDailyReminder} />
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#fff',
+              borderColor: '#181F2A',
+              borderWidth: 2,
+              borderRadius: 8,
+              paddingVertical: 16,
+              alignItems: 'center',
+              marginBottom: 12,
+            }}
+          >
+            <Text
+              style={{ color: '#181F2A', fontWeight: 'bold', fontSize: 18 }}
+            >
+              Delete Account
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: isDark ? '#232B38' : '#F3F4F6',
+              borderRadius: 8,
+              paddingVertical: 16,
+              alignItems: 'center',
+            }}
+          >
+            <Text
+              style={{ color: '#6B7280', fontWeight: 'bold', fontSize: 18 }}
+            >
+              Progress Reset
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>
-            Weekly Progress Report
-          </Text>
-          <Switch value={weeklyReport} onValueChange={setWeeklyReport} />
-        </View>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>
-            Push Notifications
-          </Text>
-          <Switch
-            value={pushNotifications}
-            onValueChange={setPushNotifications}
-          />
-        </View>
-      </View>
-
-      {/* Community & Friends */}
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: isDark
-              ? COLORS.cardBackgroundDark
-              : COLORS.cardBackground,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.sectionLabel,
-            { color: textColor, fontWeight: 'bold' },
-          ]}
-        >
-          Community & Friends
-        </Text>
-        <TouchableOpacity style={styles.rowBtn}>
-          <Text
-            style={[
-              styles.rowBtnText,
-              { color: textColor, fontWeight: 'bold' },
-            ]}
-          >
-            Manage Friends
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.rowBtn}>
-          <Text
-            style={[
-              styles.rowBtnText,
-              { color: textColor, fontWeight: 'bold' },
-            ]}
-          >
-            Block/Unblock Users
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* App Settings (merged) */}
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: isDark
-              ? COLORS.cardBackgroundDark
-              : COLORS.cardBackground,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.sectionLabel,
-            { color: textColor, fontWeight: 'bold' },
-          ]}
-        >
-          App Settings
-        </Text>
-        <View style={styles.rowBetween}>
-          <Text style={[styles.rowLabel, { color: textColor }]}>Version</Text>
-          <Text style={[styles.versionText, { color: textColor }]}>
-            v3.2.1 (2025)
-          </Text>
-        </View>
-        <TouchableOpacity style={styles.rowBtn}>
-          <Text
-            style={[
-              styles.rowBtnText,
-              { color: textColor, fontWeight: 'bold' },
-            ]}
-          >
-            Contact Support
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.rowBtn}>
-          <Text
-            style={[
-              styles.rowBtnText,
-              { color: textColor, fontWeight: 'bold' },
-            ]}
-          >
-            Submit Feedback
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.rowBtn}>
-          <Text
-            style={[
-              styles.rowBtnText,
-              { color: textColor, fontWeight: 'bold' },
-            ]}
-          >
-            Report a Bug
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Bottom Action Buttons */}
-      <View style={{ marginHorizontal: 16, marginTop: 24, marginBottom: 32 }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: isDark ? '#181F2A' : '#181F2A',
-            borderRadius: 8,
-            paddingVertical: 16,
-            alignItems: 'center',
-            marginBottom: 12,
-          }}
-        >
-          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
-            Logout
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#fff',
-            borderColor: '#181F2A',
-            borderWidth: 2,
-            borderRadius: 8,
-            paddingVertical: 16,
-            alignItems: 'center',
-            marginBottom: 12,
-          }}
-        >
-          <Text style={{ color: '#181F2A', fontWeight: 'bold', fontSize: 18 }}>
-            Delete Account
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: isDark ? '#232B38' : '#F3F4F6',
-            borderRadius: 8,
-            paddingVertical: 16,
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: '#6B7280', fontWeight: 'bold', fontSize: 18 }}>
-            Progress Reset
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

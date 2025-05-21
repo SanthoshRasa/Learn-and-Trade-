@@ -134,31 +134,6 @@ export default function LessonsListScreen() {
   // Render
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.background }}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name='arrow-back' size={28} color={COLORS.text} />
-        </TouchableOpacity>
-        <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text style={styles.headerTitle}>{params.levelTitle}</Text>
-          <Text style={styles.headerSubtitle}>{params.moduleTitle}</Text>
-        </View>
-        <View style={styles.headerXPRow}>
-          <MaterialCommunityIcons
-            name='star-circle'
-            size={22}
-            color={COLORS.primary}
-          />
-          <Text style={styles.headerXPText}>XP {xp}</Text>
-        </View>
-        <TouchableOpacity style={{ marginLeft: 8 }}>
-          <Ionicons
-            name='settings-outline'
-            size={24}
-            color={COLORS.textSecondary}
-          />
-        </TouchableOpacity>
-      </View>
       {/* Lessons List */}
       <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
         {lessons.map((lesson, idx) => {
