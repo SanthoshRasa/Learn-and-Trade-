@@ -11,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { COLORS, SIZES, SPACING } from '../../constants/theme';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function LoginScreen() {
   const colorScheme = useColorScheme();
@@ -18,10 +19,17 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const { signIn } = useAuth();
 
-  const handleLogin = () => {
-    // TODO: Implement login logic
-    router.replace('/');
+  const handleLogin = async () => {
+    setError('');
+    try {
+      await signIn(email, password);
+      router.replace('/(app)/home');
+    } catch (e) {
+      setError('Login failed. Please try again.');
+    }
   };
 
   return (
@@ -48,6 +56,9 @@ export default function LoginScreen() {
         >
           Sign in to continue your trading journey
         </Text>
+        {error ? (
+          <Text style={{ color: COLORS.error, marginTop: 8 }}>{error}</Text>
+        ) : null}
       </View>
 
       <View style={styles.form}>

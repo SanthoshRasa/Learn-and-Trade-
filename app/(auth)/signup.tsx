@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { COLORS, SIZES, SPACING } from '../../constants/theme';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function SignupScreen() {
   const colorScheme = useColorScheme();
@@ -22,10 +23,21 @@ export default function SignupScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+  const { signIn } = useAuth();
 
-  const handleSignup = () => {
-    // TODO: Implement signup logic
-    router.replace('/(app)');
+  const handleSignup = async () => {
+    setError('');
+    if (!email || !password || password !== confirmPassword) {
+      setError('Please fill all fields and make sure passwords match.');
+      return;
+    }
+    try {
+      await signIn(email, password); // Mimic signup
+      router.replace('/(app)/home');
+    } catch (e) {
+      setError('Signup failed. Please try again.');
+    }
   };
 
   return (
@@ -52,6 +64,9 @@ export default function SignupScreen() {
         >
           Start your trading journey today
         </Text>
+        {error ? (
+          <Text style={{ color: COLORS.error, marginTop: 8 }}>{error}</Text>
+        ) : null}
       </View>
 
       <View style={styles.form}>

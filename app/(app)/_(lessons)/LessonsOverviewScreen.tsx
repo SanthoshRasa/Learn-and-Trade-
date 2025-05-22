@@ -13,100 +13,6 @@ import {
 } from 'react-native';
 import { COLORS, SIZES, SPACING } from '../../../constants/theme';
 
-// --- Mock Lessons Data ---
-const MOCK_LESSONS = [
-  {
-    id: '1',
-    title: 'What is Trading vs. Investing',
-    slides: [
-      {
-        title: 'Slide 1: Introduction',
-        image: 'https://via.placeholder.com/300x150.png?text=Intro+Chart',
-        audioUrl: '',
-        description: 'Welcome to trading! This lesson introduces the basics.',
-        reveals: [
-          {
-            label: 'Tap to Reveal: What is Trading?',
-            content: 'Trading is buying and selling assets.',
-          },
-        ],
-        mentorTip: 'Start with the basics and build your knowledge.',
-        xp: 10,
-      },
-      {
-        title: 'Slide 2: Markets',
-        image: 'https://via.placeholder.com/300x150.png?text=Markets',
-        audioUrl: '',
-        description: 'Markets are where trading happens.',
-        reveals: [
-          { label: 'Tap to Reveal: Example Market', content: 'Stock Market' },
-        ],
-        xp: 10,
-      },
-      {
-        title: 'Slide 3: Trading vs. Investing',
-        image:
-          'https://via.placeholder.com/300x150.png?text=Trading+vs+Investing',
-        audioUrl: '',
-        description: 'Trading and investing differ in approach and duration.',
-        reveals: [
-          {
-            label: 'Tap to Reveal: Risk Level',
-            content: 'Trading is usually riskier.',
-          },
-          {
-            label: 'Tap to Reveal: Timeframe',
-            content: 'Trading is short-term, investing is long-term.',
-          },
-        ],
-        mentorTip: 'Understand your risk tolerance.',
-        xp: 10,
-      },
-      {
-        title: 'Slide 4: Chart Example',
-        image: 'https://via.placeholder.com/300x150.png?text=Chart',
-        audioUrl: '',
-        description: 'Charts help visualize price movements.',
-        reveals: [],
-        xp: 10,
-      },
-    ],
-    totalXP: 40,
-    stars: 125,
-  },
-  {
-    id: '2',
-    title: 'Financial Markets Overview',
-    slides: [
-      {
-        title: 'Slide 1: What is a Market?',
-        image: 'https://via.placeholder.com/300x150.png?text=Market',
-        audioUrl: '',
-        description: 'A market is a place where buyers and sellers meet.',
-        reveals: [{ label: 'Tap to Reveal: Example', content: 'Stock Market' }],
-        xp: 10,
-      },
-      {
-        title: 'Slide 2: Types of Markets',
-        image: 'https://via.placeholder.com/300x150.png?text=Types+of+Markets',
-        audioUrl: '',
-        description:
-          'There are many types: Forex, Stocks, Crypto, Commodities.',
-        reveals: [
-          {
-            label: 'Tap to Reveal: Crypto',
-            content: 'Bitcoin, Ethereum, etc.',
-          },
-        ],
-        xp: 10,
-      },
-    ],
-    totalXP: 20,
-    stars: 80,
-  },
-  // ...add more lessons as needed
-];
-
 const { width } = Dimensions.get('window');
 
 function ProgressCircle({
@@ -145,7 +51,9 @@ function ProgressCircle({
 
 const LessonsOverviewScreen = () => {
   const { lessonId } = useLocalSearchParams();
-  const lesson = MOCK_LESSONS.find(l => l.id === lessonId) || MOCK_LESSONS[0];
+  const lessonIdStr = Array.isArray(lessonId) ? lessonId[0] : lessonId;
+  const [lesson, setLesson] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [revealed, setRevealed] = useState<{ [key: number]: boolean }>({});
@@ -154,12 +62,36 @@ const LessonsOverviewScreen = () => {
   const isDark = colorScheme === 'dark';
   const flatListRef = useRef<FlatList>(null);
 
+  React.useEffect(() => {
+    if (!lessonIdStr) return;
+    setLoading(true);
+    console.log('Fetching lessonId:', lessonIdStr);
+    // Fetch lesson details
+    fetch(`http://192.168.0.145:3002/lessons/${lessonIdStr}`)
+      .then(res => res.json())
+      .then(lessonData => {
+        console.log('Fetched lessonData:', lessonData);
+        // Fetch slides for this lesson
+        fetch(`http://192.168.0.145:3002/slides?lessonId=${lessonIdStr}`)
+          .then(res => res.json())
+          .then(slidesData => {
+            setLesson({ ...lessonData, slides: slidesData });
+            setLoading(false);
+          })
+          .catch(() => setLoading(false));
+      })
+      .catch(() => setLoading(false));
+    setCurrentSlide(0);
+    setRevealed({});
+    setCompleted(false);
+  }, [lessonIdStr]);
+
   // Handlers
   const handleReveal = (idx: number) => {
     setRevealed(prev => ({ ...prev, [idx]: !prev[idx] }));
   };
   const handleNext = () => {
-    if (currentSlide < lesson.slides.length - 1) {
+    if (lesson && currentSlide < lesson.slides.length - 1) {
       flatListRef.current?.scrollToIndex({ index: currentSlide + 1 });
     } else {
       setCompleted(true);
@@ -181,6 +113,38 @@ const LessonsOverviewScreen = () => {
     }
   ).current;
 
+  if (loading || !lessonIdStr) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        }}
+      >
+        <Text style={{ color: isDark ? '#fff' : '#000' }}>
+          Loading lesson...
+        </Text>
+      </View>
+    );
+  }
+  if (!lesson) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
+        }}
+      >
+        <Text style={{ color: isDark ? '#fff' : '#000' }}>
+          Lesson not found.
+        </Text>
+      </View>
+    );
+  }
   return (
     <View
       style={{
@@ -340,7 +304,7 @@ const LessonsOverviewScreen = () => {
       />
       {/* Pagination Dots */}
       <View style={styles.dotsRow}>
-        {lesson.slides.map((_, idx) => (
+        {lesson.slides.map((_: any, idx: number) => (
           <View
             key={idx}
             style={[

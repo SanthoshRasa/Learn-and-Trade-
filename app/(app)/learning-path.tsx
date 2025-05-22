@@ -363,7 +363,7 @@ export default function LearningPathScreen() {
   const [modulesLoading, setModulesLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/learningPath')
+    fetch('http://192.168.0.145:3002/learningPath')
       .then(res => res.json())
       .then(data => {
         setLevels(data);
@@ -376,6 +376,10 @@ export default function LearningPathScreen() {
   }, []);
 
   // Path curve points for SVG (mocked for 4 levels)
+  const nodePositions = getNodePositions(levels) as any[];
+  const svgHeight = nodePositions.length
+    ? nodePositions[nodePositions.length - 1].y + 100
+    : 800; // fallback
   const pathD = `M${width / 2},80
     Q${width * 0.8},200 ${width / 2},320
     Q${width * 0.2},440 ${width / 2},560
@@ -390,7 +394,7 @@ export default function LearningPathScreen() {
     try {
       // Replace with your local IP if needed
       const res = await fetch(
-        `http://localhost:3001/modules?levelId=${level.id}`
+        `http://192.168.0.145:3002/modules?levelId=${level.id}`
       );
       let data = await res.json();
       // For testing: unlock all modules (set status to 'inprogress')
@@ -514,7 +518,7 @@ export default function LearningPathScreen() {
         )}
         scrollEventThrottle={16}
       >
-        <View style={styles.pathContainer}>
+        <View style={[styles.pathContainer, { minHeight: svgHeight }]}>
           {levels.length > 0 && (
             <>
               {(() => {

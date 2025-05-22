@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import {
+  Animated,
   Dimensions,
   FlatList,
   StyleSheet,
@@ -176,12 +177,13 @@ export default function AdvancedLearningScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const [activeIndex, setActiveIndex] = useState(0);
+  const scrollX = useRef(new Animated.Value(0)).current;
   const flatListRef = useRef<FlatList>(null);
   const router = useRouter();
 
   const handleScroll = (event: any) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-    const idx = Math.round(offsetX / (width - 32));
+    const idx = Math.round(offsetX / width);
     setActiveIndex(idx);
   };
 
@@ -194,113 +196,248 @@ export default function AdvancedLearningScreen() {
     >
       {/* Header */}
       <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: isDark ? COLORS.backgroundDark : COLORS.background,
-          },
-        ]}
+        style={{
+          backgroundColor: isDark ? '#232B3B' : '#232B3B',
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          borderBottomLeftRadius: 12,
+          borderBottomRightRadius: 12,
+          marginTop: 0,
+          paddingTop: 0,
+          paddingBottom: SPACING.lg,
+          marginLeft: 0,
+          marginRight: 0,
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          shadowColor: '#000',
+          shadowOpacity: 0.08,
+          shadowRadius: 8,
+          shadowOffset: { width: 0, height: 2 },
+          elevation: 2,
+          minHeight: 90,
+        }}
       >
-        <Text
-          style={[
-            styles.title,
-            { color: isDark ? COLORS.textDark : COLORS.text },
-          ]}
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={{ marginRight: 10, padding: 4 }}
         >
-          Advanced Learning
-        </Text>
-        <Text
-          style={[
-            styles.subtitle,
-            { color: isDark ? COLORS.textSecondaryDark : COLORS.textSecondary },
-          ]}
+          <Ionicons name='arrow-back' size={24} color='#fff' />
+        </TouchableOpacity>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          Swipe to explore specialized trading topics
-        </Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 20,
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginBottom: 2,
+              width: '100%',
+            }}
+            numberOfLines={1}
+            ellipsizeMode='tail'
+          >
+            Advanced Learning
+          </Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 16,
+              textAlign: 'center',
+              width: '100%',
+            }}
+            numberOfLines={1}
+            ellipsizeMode='tail'
+          >
+            Swipe to explore specialized trading topics
+          </Text>
+        </View>
       </View>
       {/* Carousel */}
-      <FlatList
+      <Animated.FlatList
         ref={flatListRef}
         data={CHAPTERS}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id.toString()}
-        onScroll={handleScroll}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          {
+            useNativeDriver: true,
+            listener: handleScroll,
+          }
+        )}
         scrollEventThrottle={16}
-        renderItem={({ item }) => (
-          <View
-            style={[
-              styles.card,
-              {
-                backgroundColor: isDark
-                  ? COLORS.cardBackgroundDark
-                  : COLORS.cardBackground,
-                width: width - 32,
-              },
-            ]}
-          >
-            <View style={styles.cardHeaderRow}>
-              <View style={styles.tagBadge}>
-                <Text style={styles.tagBadgeText}>{item.tag}</Text>
-              </View>
-              <ProgressCircle percent={item.progress} isDark={isDark} />
-            </View>
-            <Text
+        renderItem={({ item, index }) => {
+          const inputRange = [
+            (index - 1) * width,
+            index * width,
+            (index + 1) * width,
+          ];
+          const scale = scrollX.interpolate({
+            inputRange,
+            outputRange: [0.92, 1, 0.92],
+            extrapolate: 'clamp',
+          });
+          const opacity = scrollX.interpolate({
+            inputRange,
+            outputRange: [0.7, 1, 0.7],
+            extrapolate: 'clamp',
+          });
+          return (
+            <Animated.View
               style={[
-                styles.cardTitle,
-                { color: isDark ? COLORS.textDark : COLORS.text },
-              ]}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={[
-                styles.cardDesc,
+                styles.card,
                 {
-                  color: isDark
-                    ? COLORS.textSecondaryDark
-                    : COLORS.textSecondary,
+                  backgroundColor: isDark
+                    ? COLORS.cardBackgroundDark
+                    : COLORS.cardBackground,
+                  width: width,
+                  alignSelf: 'center',
+                  paddingHorizontal: 16,
+                  marginRight: 0,
+                  transform: [{ scale }],
+                  opacity,
+                  borderRadius: 20,
+                  borderWidth: 1,
+                  borderColor: isDark ? COLORS.borderDark : COLORS.border,
+                  shadowColor: '#000',
+                  shadowOpacity: 0.08,
+                  shadowRadius: 8,
+                  shadowOffset: { width: 0, height: 2 },
+                  elevation: 2,
                 },
               ]}
             >
-              {item.description}
-            </Text>
-            <View style={styles.chartPlaceholder}>
-              <Text style={styles.chartText}>{item.chart}</Text>
-            </View>
-            <View style={styles.cardFooterRow}>
-              <View style={styles.lessonsRow}>
-                <Ionicons
-                  name='reader-outline'
-                  size={16}
-                  color={COLORS.textSecondary}
-                  style={{ marginRight: 4 }}
-                />
-                <Text style={styles.lessonsText}>
-                  {item.lessons} of {item.totalLessons} lessons
+              <View style={styles.cardHeaderRow}>
+                <View
+                  style={{
+                    backgroundColor: isDark ? '#2D3748' : '#E6EAF2',
+                    borderRadius: 8,
+                    paddingHorizontal: 10,
+                    paddingVertical: 2,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: isDark
+                        ? COLORS.textSecondaryDark
+                        : COLORS.textSecondary,
+                      fontSize: SIZES.body5,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {item.tag}
+                  </Text>
+                </View>
+                <ProgressCircle percent={item.progress} isDark={isDark} />
+              </View>
+              <Text
+                style={[
+                  styles.cardTitle,
+                  { color: isDark ? COLORS.textDark : COLORS.text },
+                ]}
+              >
+                {item.title}
+              </Text>
+              <Text
+                style={[
+                  styles.cardDesc,
+                  {
+                    color: isDark
+                      ? COLORS.textSecondaryDark
+                      : COLORS.textSecondary,
+                  },
+                ]}
+              >
+                {item.description}
+              </Text>
+              <View
+                style={{
+                  backgroundColor: isDark ? '#232B3B' : '#E6EAF2',
+                  borderRadius: 12,
+                  height: 80,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 16,
+                }}
+              >
+                <Text
+                  style={{
+                    color: isDark
+                      ? COLORS.textSecondaryDark
+                      : COLORS.textSecondary,
+                    fontSize: SIZES.body4,
+                  }}
+                >
+                  {item.chart}
                 </Text>
               </View>
-              <View style={styles.xpRow}>
-                <Ionicons
-                  name='star'
-                  size={16}
-                  color='#F6C244'
-                  style={{ marginRight: 2 }}
-                />
-                <Text style={styles.xpText}>Earn {item.xp} XP</Text>
+              <View style={styles.cardFooterRow}>
+                <View style={styles.lessonsRow}>
+                  <Ionicons
+                    name='reader-outline'
+                    size={16}
+                    color={
+                      isDark ? COLORS.textSecondaryDark : COLORS.textSecondary
+                    }
+                    style={{ marginRight: 4 }}
+                  />
+                  <Text
+                    style={{
+                      color: isDark
+                        ? COLORS.textSecondaryDark
+                        : COLORS.textSecondary,
+                      fontSize: SIZES.body5,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {item.lessons} of {item.totalLessons} lessons
+                  </Text>
+                </View>
+                <View style={styles.xpRow}>
+                  <Ionicons
+                    name='star'
+                    size={16}
+                    color='#F6C244'
+                    style={{ marginRight: 2 }}
+                  />
+                  <Text style={styles.xpText}>Earn {item.xp} XP</Text>
+                </View>
               </View>
-            </View>
-            <TouchableOpacity
-              style={styles.ctaBtn}
-              onPress={() => router.push('./advanced-learning-chapter')}
-            >
-              <Text style={styles.ctaBtnText}>Continue Learning</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+              <TouchableOpacity
+                style={{
+                  backgroundColor: COLORS.primary,
+                  borderRadius: 16,
+                  paddingVertical: 12,
+                  alignItems: 'center',
+                  marginTop: 8,
+                }}
+                onPress={() => router.push('./advanced-learning-chapter')}
+              >
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontSize: SIZES.body3,
+                  }}
+                >
+                  Continue Learning
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
+          );
+        }}
         contentContainerStyle={{
-          paddingHorizontal: 16,
           paddingTop: 8,
           paddingBottom: 24,
         }}
@@ -325,19 +462,6 @@ export default function AdvancedLearningScreen() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    padding: SPACING.lg,
-    paddingBottom: 0,
-  },
-  title: {
-    fontSize: SIZES.body2,
-    fontWeight: 'bold',
-    marginBottom: 2,
-  },
-  subtitle: {
-    fontSize: SIZES.body5,
-    marginBottom: 8,
-  },
   card: {
     borderRadius: SIZES.radius,
     padding: SPACING.lg,
@@ -356,17 +480,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 8,
   },
-  tagBadge: {
-    backgroundColor: '#E6EAF2',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-  },
-  tagBadgeText: {
-    color: COLORS.textSecondary,
-    fontSize: SIZES.body5,
-    fontWeight: 'bold',
-  },
   cardTitle: {
     fontSize: SIZES.body2,
     fontWeight: 'bold',
@@ -375,18 +488,6 @@ const styles = StyleSheet.create({
   cardDesc: {
     fontSize: SIZES.body5,
     marginBottom: 12,
-  },
-  chartPlaceholder: {
-    backgroundColor: '#E6EAF2',
-    borderRadius: 12,
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  chartText: {
-    color: COLORS.textSecondary,
-    fontSize: SIZES.body4,
   },
   cardFooterRow: {
     flexDirection: 'row',
@@ -398,11 +499,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  lessonsText: {
-    color: COLORS.textSecondary,
-    fontSize: SIZES.body5,
-    fontWeight: 'bold',
-  },
   xpRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -411,17 +507,6 @@ const styles = StyleSheet.create({
     color: '#F6C244',
     fontSize: SIZES.body5,
     fontWeight: 'bold',
-  },
-  ctaBtn: {
-    backgroundColor: COLORS.text,
-    borderRadius: 16,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  ctaBtnText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: SIZES.body3,
   },
   dotsRow: {
     flexDirection: 'row',

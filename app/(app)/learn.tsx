@@ -2,8 +2,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
+  Dimensions,
   Platform,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -42,6 +44,8 @@ export default function LearnScreen() {
   const advancedCardBackground = isDark ? 'rgba(255,255,255,0.06)' : '#F8F9FB';
   const advancedCardBorder = isDark ? 'rgba(255,255,255,0.10)' : '#E6EAF2';
   const advancedTextColor = '#fff';
+  const screenWidth = Dimensions.get('window').width;
+  const isMobile = screenWidth < 600;
 
   return (
     <SafeAreaView
@@ -50,232 +54,255 @@ export default function LearnScreen() {
         { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 },
       ]}
     >
-      {/* Section Title */}
-      <View style={styles.sectionHeader}>
-        <Text style={[styles.sectionTitle, { color: '#fff' }]}>
-          Choose Your Learning Journey
-        </Text>
-        <Text style={[styles.sectionSubtitle, { color: '#fff' }]}>
-          Learn the way that suits you best!
-        </Text>
-      </View>
-      {/* Full Learning Path Card */}
-      <View style={[styles.card, { backgroundColor: cardBackground }]}>
-        <View style={styles.cardHeaderRow}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons
-              name='rocket-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 6 }}
-            />
-            <Text style={[styles.cardTitle, { color: '#fff' }]}>
-              Full Learning Path
-            </Text>
-          </View>
-          <View style={styles.levelBadge}>
-            <Text style={[styles.levelBadgeText, { color: '#fff' }]}>
-              Level {LEVEL}/{TOTAL_LEVELS}
-            </Text>
-          </View>
-        </View>
-        <Text style={[styles.cardDesc, { color: '#fff' }]}>
-          Complete structured journey across 10+ levels, from novice to master
-          trader.
-        </Text>
-        <View style={styles.stepsRow}>
-          <View style={styles.stepCol}>
-            <View
-              style={[
-                styles.stepCircleActive,
-                { backgroundColor: COLORS.primary },
-              ]}
-            >
-              <Text style={[styles.stepCircleText, { color: '#fff' }]}>1</Text>
-            </View>
-            <Text style={[styles.stepLabel, { color: '#fff' }]}>Unlocked</Text>
-          </View>
-          <View style={styles.stepCol}>
-            <View
-              style={[
-                styles.stepCircleCurrent,
-                { backgroundColor: isDark ? COLORS.textDark : COLORS.text },
-              ]}
-            >
-              <Text style={[styles.stepCircleText, { color: '#222' }]}>2</Text>
-            </View>
-            <Text style={[styles.stepLabel, { color: '#fff' }]}>Current</Text>
-          </View>
-          <View style={styles.stepCol}>
-            <View
-              style={[
-                styles.stepCircleLocked,
-                { backgroundColor: progressBarBackground },
-              ]}
-            >
-              <Ionicons
-                name='lock-closed'
-                size={14}
-                color={COLORS.textSecondary}
-              />
-            </View>
-            <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
-          </View>
-          <View style={styles.stepCol}>
-            <View
-              style={[
-                styles.stepCircleLocked,
-                { backgroundColor: progressBarBackground },
-              ]}
-            >
-              <Ionicons
-                name='lock-closed'
-                size={14}
-                color={COLORS.textSecondary}
-              />
-            </View>
-            <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
-          </View>
-          <View style={styles.stepCol}>
-            <View
-              style={[
-                styles.stepCircleLocked,
-                { backgroundColor: progressBarBackground },
-              ]}
-            >
-              <Ionicons
-                name='lock-closed'
-                size={14}
-                color={COLORS.textSecondary}
-              />
-            </View>
-            <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
-          </View>
-          <View style={styles.stepCol}>
-            <View
-              style={[
-                styles.stepCircleLocked,
-                { backgroundColor: progressBarBackground },
-              ]}
-            >
-              <Ionicons
-                name='lock-closed'
-                size={14}
-                color={COLORS.textSecondary}
-              />
-            </View>
-            <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
-          </View>
-        </View>
-        <TouchableOpacity
-          style={styles.ctaBtn}
-          onPress={() => router.push('/learning-path')}
-        >
-          <Text style={[styles.ctaBtnText, { color: '#fff' }]}>
-            Start Your Journey
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 32 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Section Title */}
+        <View style={styles.sectionHeader}>
+          <Text style={[styles.sectionTitle, { color: '#fff' }]}>
+            Choose Your Learning Journey
           </Text>
-        </TouchableOpacity>
-        <View style={styles.xpRowCard}>
-          <Ionicons
-            name='flash'
-            size={14}
-            color={COLORS.primary}
-            style={{ marginRight: 2 }}
-          />
-          <Text style={[styles.xpText, { color: '#fff' }]}>+100 XP</Text>
+          <Text style={[styles.sectionSubtitle, { color: '#fff' }]}>
+            Learn the way that suits you best!
+          </Text>
         </View>
-        {/* Progress Bar and Label */}
-        <View style={{ width: '100%', marginTop: 10, marginBottom: 2 }}>
-          <View
-            style={{
-              height: 8,
-              backgroundColor: isDark ? '#6B7280' : '#E6EAF2',
-              borderRadius: 4,
-              overflow: 'hidden',
-              width: '100%',
-            }}
+        {/* Full Learning Path Card */}
+        <View style={[styles.card, { backgroundColor: cardBackground }]}>
+          <View style={styles.cardHeaderRow}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Ionicons
+                name='rocket-outline'
+                size={18}
+                color={COLORS.primary}
+                style={{ marginRight: 6 }}
+              />
+              <Text style={[styles.cardTitle, { color: '#fff' }]}>
+                Full Learning Path
+              </Text>
+            </View>
+            <View style={styles.levelBadge}>
+              <Text style={[styles.levelBadgeText, { color: '#fff' }]}>
+                Level {LEVEL}/{TOTAL_LEVELS}
+              </Text>
+            </View>
+          </View>
+          <Text style={[styles.cardDesc, { color: '#fff' }]}>
+            Complete structured journey across 10+ levels, from novice to master
+            trader.
+          </Text>
+          <View style={styles.stepsRow}>
+            <View style={styles.stepCol}>
+              <View
+                style={[
+                  styles.stepCircleActive,
+                  { backgroundColor: COLORS.primary },
+                ]}
+              >
+                <Text style={[styles.stepCircleText, { color: '#fff' }]}>
+                  1
+                </Text>
+              </View>
+              <Text style={[styles.stepLabel, { color: '#fff' }]}>
+                Unlocked
+              </Text>
+            </View>
+            <View style={styles.stepCol}>
+              <View
+                style={[
+                  styles.stepCircleCurrent,
+                  { backgroundColor: isDark ? COLORS.textDark : COLORS.text },
+                ]}
+              >
+                <Text style={[styles.stepCircleText, { color: '#222' }]}>
+                  2
+                </Text>
+              </View>
+              <Text style={[styles.stepLabel, { color: '#fff' }]}>Current</Text>
+            </View>
+            <View style={styles.stepCol}>
+              <View
+                style={[
+                  styles.stepCircleLocked,
+                  { backgroundColor: progressBarBackground },
+                ]}
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={14}
+                  color={COLORS.textSecondary}
+                />
+              </View>
+              <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
+            </View>
+            <View style={styles.stepCol}>
+              <View
+                style={[
+                  styles.stepCircleLocked,
+                  { backgroundColor: progressBarBackground },
+                ]}
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={14}
+                  color={COLORS.textSecondary}
+                />
+              </View>
+              <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
+            </View>
+            <View style={styles.stepCol}>
+              <View
+                style={[
+                  styles.stepCircleLocked,
+                  { backgroundColor: progressBarBackground },
+                ]}
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={14}
+                  color={COLORS.textSecondary}
+                />
+              </View>
+              <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
+            </View>
+            <View style={styles.stepCol}>
+              <View
+                style={[
+                  styles.stepCircleLocked,
+                  { backgroundColor: progressBarBackground },
+                ]}
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={14}
+                  color={COLORS.textSecondary}
+                />
+              </View>
+              <Text style={[styles.stepLabel, { color: '#fff' }]}>Locked</Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={styles.ctaBtn}
+            onPress={() => router.push('/learning-path')}
           >
+            <Text style={[styles.ctaBtnText, { color: '#fff' }]}>
+              Start Your Journey
+            </Text>
+          </TouchableOpacity>
+          <View style={styles.xpRowCard}>
+            <Ionicons
+              name='flash'
+              size={14}
+              color={COLORS.primary}
+              style={{ marginRight: 2 }}
+            />
+            <Text style={[styles.xpText, { color: '#fff' }]}>+100 XP</Text>
+          </View>
+          {/* Progress Bar and Label */}
+          <View style={{ width: '100%', marginTop: 10, marginBottom: 2 }}>
             <View
               style={{
-                height: '100%',
-                backgroundColor: COLORS.primary,
+                height: 8,
+                backgroundColor: isDark ? '#6B7280' : '#E6EAF2',
                 borderRadius: 4,
-                width: `${PROGRESS * 100}%`,
+                overflow: 'hidden',
+                width: '100%',
               }}
-            />
+            >
+              <View
+                style={{
+                  height: '100%',
+                  backgroundColor: COLORS.primary,
+                  borderRadius: 4,
+                  width: `${PROGRESS * 100}%`,
+                }}
+              />
+            </View>
           </View>
+          <Text style={[styles.progressLabel, { color: '#fff' }]}>
+            Progress {LEVEL}/{TOTAL_LEVELS}
+          </Text>
         </View>
-        <Text style={[styles.progressLabel, { color: '#fff' }]}>
-          Progress {LEVEL}/{TOTAL_LEVELS}
-        </Text>
-      </View>
-      {/* Divider */}
-      <View style={styles.sectionDivider} />
-      {/* Advanced Learning Card */}
-      <View style={[styles.card, { backgroundColor: cardBackground }]}>
-        <View style={styles.cardHeaderRow}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons
-              name='bulb-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 6 }}
-            />
-            <Text style={[styles.cardTitle, { color: '#fff' }]}>
-              Advanced Learning
-            </Text>
+        {/* Divider */}
+        <View style={styles.sectionDivider} />
+        {/* Advanced Learning Card */}
+        <View style={[styles.card, { backgroundColor: cardBackground }]}>
+          <View style={styles.cardHeaderRow}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Ionicons
+                name='bulb-outline'
+                size={18}
+                color={COLORS.primary}
+                style={{ marginRight: 6 }}
+              />
+              <Text style={[styles.cardTitle, { color: '#fff' }]}>
+                Advanced Learning
+              </Text>
+            </View>
           </View>
-          <TouchableOpacity onPress={() => router.push('/advanced-learning')}>
-            <Text style={[styles.viewAll, { color: '#fff' }]}>View All</Text>
+          <Text style={[styles.cardDesc, { color: '#fff' }]}>
+            Pick exactly what you want to learn — Forex, Crypto, Price Action,
+            and more.
+          </Text>
+          <View style={styles.advancedGrid}>
+            {ADVANCED_TOPICS.map((topic, idx) => (
+              <View
+                key={idx}
+                style={[
+                  styles.advancedCard,
+                  {
+                    backgroundColor: 'transparent',
+                    borderWidth: 1,
+                    borderColor: advancedCardBorder,
+                    shadowColor: 'transparent',
+                    borderRadius: 12,
+                    width: '47%',
+                    alignSelf: 'auto',
+                  },
+                ]}
+              >
+                <Ionicons
+                  name={topic.icon as any}
+                  size={28}
+                  color={COLORS.primary}
+                  style={{ marginBottom: 4 }}
+                />
+                <Text
+                  style={[styles.advancedTitle, { color: advancedTextColor }]}
+                >
+                  {topic.title}
+                </Text>
+                <Text
+                  style={[styles.advancedLevel, { color: advancedTextColor }]}
+                >
+                  {topic.level}
+                </Text>
+                <Text style={[styles.advancedXP, { color: advancedTextColor }]}>
+                  XP: {topic.xp}
+                </Text>
+                <TouchableOpacity style={styles.advancedBtn}>
+                  <Text
+                    style={[
+                      styles.advancedBtnText,
+                      { color: advancedTextColor },
+                    ]}
+                  >
+                    Start Learning
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+          <TouchableOpacity
+            style={styles.ctaBtn}
+            onPress={() => router.push('/advanced-learning')}
+          >
+            <Text style={[styles.ctaBtnText, { color: '#fff' }]}>
+              View All Advanced Topics
+            </Text>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.cardDesc, { color: '#fff' }]}>
-          Pick exactly what you want to learn — Forex, Crypto, Price Action, and
-          more.
-        </Text>
-        <View style={styles.advancedGrid}>
-          {ADVANCED_TOPICS.map((topic, idx) => (
-            <View
-              key={idx}
-              style={[
-                styles.advancedCard,
-                {
-                  backgroundColor: advancedCardBackground,
-                  borderWidth: 1,
-                  borderColor: advancedCardBorder,
-                },
-              ]}
-            >
-              <Ionicons
-                name={topic.icon as any}
-                size={28}
-                color={COLORS.primary}
-                style={{ marginBottom: 4 }}
-              />
-              <Text
-                style={[styles.advancedTitle, { color: advancedTextColor }]}
-              >
-                {topic.title}
-              </Text>
-              <Text
-                style={[styles.advancedLevel, { color: advancedTextColor }]}
-              >
-                {topic.level}
-              </Text>
-              <Text style={[styles.advancedXP, { color: advancedTextColor }]}>
-                XP: {topic.xp}
-              </Text>
-              <TouchableOpacity style={styles.advancedBtn}>
-                <Text
-                  style={[styles.advancedBtnText, { color: advancedTextColor }]}
-                >
-                  Start Learning
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

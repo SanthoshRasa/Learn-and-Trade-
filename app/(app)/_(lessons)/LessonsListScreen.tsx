@@ -127,6 +127,7 @@ export default function LessonsListScreen() {
   };
   // Handle lesson action
   const handleLessonAction = (lesson: Lesson, idx: number) => {
+    console.log('Navigating to lessonId:', lesson.id);
     // Navigate to the new LessonsOverviewScreen for any lesson
     router.push({
       pathname: '/(app)/_(lessons)/LessonsOverviewScreen',
@@ -136,7 +137,7 @@ export default function LessonsListScreen() {
   useEffect(() => {
     if (!params.moduleId) return;
     setLoading(true);
-    fetch(`http://localhost:3001/lessons?moduleId=${params.moduleId}`)
+    fetch(`http://192.168.0.145:3002/lessons?moduleId=${params.moduleId}`)
       .then(res => res.json())
       .then(data => {
         setLessons(data);

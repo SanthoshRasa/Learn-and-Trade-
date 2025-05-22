@@ -23,7 +23,7 @@ export default function AppLayout() {
   const isDark = colorScheme === 'dark';
   const router = useRouter();
   const segments = useSegments();
-  const current = segments[segments.length - 1];
+  const current = segments.length > 0 ? segments[segments.length - 1] : '';
 
   return (
     <View

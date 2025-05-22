@@ -73,9 +73,8 @@ export default function LessonsListScreen() {
   // Handle lesson action
   const handleLessonAction = (lesson: Lesson, idx: number) => {
     if (lesson.status === 'inprogress' || lesson.status === 'completed') {
-      // Navigate to the new LessonsOverviewScreen
       router.push({
-        pathname: '/(app)/(_lessons)/LessonsOverviewScreen',
+        pathname: '/(app)/(_lessons)/LessonIntroScreen',
         params: { lessonId: lesson.id },
       });
     }
