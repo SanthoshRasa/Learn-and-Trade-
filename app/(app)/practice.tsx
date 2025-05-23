@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
   Platform,
@@ -84,6 +85,7 @@ const CHALLENGES = [
 export default function PracticeScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
+  const router = useRouter();
 
   // TODO: Replace with real user stats
   const userStats = { xp: 45, streak: 7, coins: 320 };
@@ -274,6 +276,12 @@ export default function PracticeScreen() {
                 <TouchableOpacity
                   style={styles.actionBtn}
                   onPress={() => {
+                    if (
+                      challenge.title === 'Quiz Challenges' &&
+                      challenge.action === 'Choose Topics'
+                    ) {
+                      router.push('/quiz');
+                    }
                     /* TODO: navigate to challenge */
                   }}
                 >

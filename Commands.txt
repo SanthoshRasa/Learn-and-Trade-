@@ -1,0 +1,18 @@
+Start json server 
+  json-server --host 192.168.0.145 --watch course-structure.json --port 3000 - online /lan
+  json-server --watch course-structure.json --port 3002 - local
+
+github
+  git status
+  git add . 
+  git commit -m "message"
+  git push
+
+Expo build
+    eas build
+    eas build --platform android
+    eas build --platform ios
+    eas build --platform android --profile preview
+    eas build --platform android --profile production
+    eas build --platform ios --profile preview
+    eas build --platform ios --profile production
