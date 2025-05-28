@@ -1,0 +1,20 @@
+📦 Lesson Structure (Per Lesson) Each lesson must be broken down into 6–10 mobile swipes/screens, using the following layout: 
+
+| Slide Type                | Tag                       | Purpose                                                               |
+| ------------------------- | ------------------------- | --------------------------------------------------------------------- |
+| 🟩 **Intro Slide**        | `Intro Slide`             | Lesson title + learning objective in 1–2 lines                        |
+| 🔹 **Concept Slide**      | `Concept Slide`           | Teach a single idea or topic using bullets, tips, or simplified text  |
+| 🧠 **Glossary Slide**     | `Glossary Slide`          | Definitions of 2–4 trading terms (in swipeable card or tap-to-reveal) |
+| 💡 **Example Slide**      | `Example Slide`           | Real-world or market-based scenario showing how the concept works     |
+| 🧠 **Analogy Slide**      | `Analogy Slide`           | Explains complex topics via relatable metaphors (e.g., chess, pizza)  |
+| 🎓 **Case Study Slide**   | `Case Study Slide`        | Real-life trader journey or performance-based story                   |
+| ❌ **Myth Buster Slide**   | `Myth Buster Slide`       | Busts common trading myths with truth (tap-to-flip)                   |
+| 🔍 **Swipe-to-Compare**   | `Compare Slide`           | Side-by-side view of related topics (Trading vs. Investing, etc.)     |
+| 🔄 **Matching Slide**     | `Interactive Match Slide` | User matches roles/actions (e.g., Market Maker → Liquidity)           |
+| 🧪 **Quiz Slide**         | `Quiz Slide`              | Interactive questions (MCQs, True/False) with explanations            |
+| ✨ **Motivation Slide**    | `Motivational Slide`      | Quote relevant to mindset, growth, trading discipline                 |
+| 🎮 **Gamification Slide** | `Gamification Slide`      | Shows XP, badges, next unlock, challenge hint, etc.         
+| 🖼️ **Chart Interaction Slide** | `Interactive Chart Slide` | Prompt user to analyze chart: “Find support”, “Draw trendline”, etc. |
+| 🎨 **Chart Prompt Slide**       | `Chart Prompt Slide`      | Show detailed instruction to generate a chart (for developers or AI) |
+| 🧩 **Visual Tap Slide**         | `Tap-to-Identify Slide`   | e.g., “Click on the Doji candle” or “Tap breakout zone”              |
+| 📋 **Canvas Export Format**     | *(Export style)*          | Structured layout for copying to Notion/Docs without breaking format |
