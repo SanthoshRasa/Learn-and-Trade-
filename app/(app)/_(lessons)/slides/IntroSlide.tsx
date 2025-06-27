@@ -40,6 +40,49 @@ export default function IntroSlide(props: any) {
     : COLORS.textSecondary;
   const hasPrev = slide > 1;
   const hasNext = slide < totalSlides;
+  const { onNext } = props;
+
+  const handleNext = () => {
+    if (props.onNext) {
+      props.onNext();
+    } else {
+      // Fallback: navigate to ConceptSlide if possible
+      if (params.lessonId) {
+        router.push({
+          pathname: '/(app)/_(lessons)/slides/ConceptSlide',
+          params: {
+            lessonId: params.lessonId,
+            moduleId: params.moduleId,
+            moduleTitle: params.moduleTitle,
+            levelTitle: params.levelTitle,
+            xpReward: params.xpReward,
+            // Example ConceptSlide props:
+            title: 'Concept: Buy Low, Sell High',
+            coreConceptRating: 4,
+            bullets: JSON.stringify([
+              {
+                icon: 'trending-up',
+                text: 'Traders aim to buy an asset when the price is low',
+              },
+              {
+                icon: 'trending-down',
+                text: 'They sell it after it rises to lock in profit',
+              },
+              { icon: 'alarm', text: 'Timing and strategy are key to success' },
+              {
+                icon: 'bulb',
+                text: 'This is the most basic form of trading logic',
+              },
+            ]),
+            illustrationText: 'Buy low, sell high illustration',
+            xp: 10,
+            slide: 2,
+            totalSlides: 6,
+          },
+        });
+      }
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: mainBg }}>
@@ -296,7 +339,7 @@ export default function IntroSlide(props: any) {
             </Text>
           </View>
           {hasNext ? (
-            <TouchableOpacity style={styles.footerBtn}>
+            <TouchableOpacity style={styles.footerBtn} onPress={handleNext}>
               <Ionicons
                 name='chevron-forward'
                 size={22}

@@ -1,0 +1,380 @@
+{
+  "lessonStructure": {
+    "version": "1.0",
+    "lessonId": "M1L1",
+    "lessonTitle": "Lesson Title Here",
+    "moduleTitle": "Module Title Here",
+    "chapterTitle": "Chapter Title Here",
+    "level": "Novice Apprentice",
+    "totalXP": 100,
+    "estimatedDuration": "5 min",
+    "unlockCondition": {
+      "requiresPreviousLesson": true,
+      "requiresQuizScore": 70
+    },
+    "slides": [
+      // Array of slide objects, see slideTypes below for structure
+    ],
+    "imagePrompts": [
+      {
+        "slideNumber": 1,
+        "slideName": "Slide Name/Title",
+        "prompt": "Detailed image prompt for the AI image generator"
+      }
+      // ...more prompts
+    ]
+  },
+  "slideTypes": {
+    "introSlide": {
+      "slideId": "string",
+      "type": "Intro Slide",
+      "slideNumber": 1,
+      "xpReward": 5,
+      "isKeySlide": true,
+      "estimatedReadTime": "20s",
+      "showNavigation": false,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "objective": "string"
+      }
+    },
+    "openerSlide": {
+      "slideId": "string",
+      "type": "Opener Slide",
+      "slideNumber": 2,
+      "xpReward": 5,
+      "isKeySlide": true,
+      "estimatedReadTime": "30s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "points": [
+          "string",
+          "..."
+        ],
+        "note": "string"
+      }
+    },
+    "conceptSlide": {
+      "slideId": "string",
+      "type": "Concept Slide",
+      "slideNumber": 3,
+      "xpReward": 10,
+      "isKeySlide": true,
+      "estimatedReadTime": "45s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "introduction": "string",
+        "points": [
+          "string",
+          "..."
+        ],
+        "funFact": "string (optional)",
+        "teacherNote": "string"
+      }
+    },
+    "exampleSlide": {
+      "slideId": "string",
+      "type": "Example Slide",
+      "slideNumber": 4,
+      "xpReward": 8,
+      "isKeySlide": false,
+      "estimatedReadTime": "40s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "scenario": "string",
+        "teacherNote": "string"
+      }
+    },
+    "compareSlide": {
+      "slideId": "string",
+      "type": "Compare Slide",
+      "slideNumber": 5,
+      "xpReward": 12,
+      "isKeySlide": true,
+      "estimatedReadTime": "60s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "introduction": "string",
+        "tableHeaders": [
+          "string",
+          "..."
+        ],
+        "tableRows": [
+          [
+            "string",
+            "..."
+          ],
+          "..."
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "analogySlide": {
+      "slideId": "string",
+      "type": "Analogy Slide",
+      "slideNumber": 6,
+      "xpReward": 8,
+      "isKeySlide": false,
+      "estimatedReadTime": "45s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "introduction": "string",
+        "points": [
+          "string",
+          "..."
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "caseStudySlide": {
+      "slideId": "string",
+      "type": "Case Study Slide",
+      "slideNumber": 7,
+      "xpReward": 15,
+      "isKeySlide": true,
+      "estimatedReadTime": "90s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "story": "string",
+        "keyTakeaways": [
+          "string",
+          "..."
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "mythBusterSlide": {
+      "slideId": "string",
+      "type": "Myth Buster Slide",
+      "slideNumber": 8,
+      "xpReward": 12,
+      "isKeySlide": true,
+      "estimatedReadTime": "60s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "unlockCondition": {
+        "requiresPreviousSlide": true
+      },
+      "content": {
+        "title": "string",
+        "introduction": "string",
+        "instruction": "string",
+        "myths": [
+          {
+            "myth": "string",
+            "reality": "string"
+          }
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "interactiveChartSlide": {
+      "slideId": "string",
+      "type": "Interactive Chart Slide",
+      "slideNumber": 9,
+      "xpReward": 20,
+      "isKeySlide": true,
+      "estimatedReadTime": "75s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "unlockCondition": {
+        "requiresPreviousSlide": true
+      },
+      "content": {
+        "title": "string",
+        "instruction": "string",
+        "chartDescription": "string",
+        "interactionType": "string",
+        "answer": "string",
+        "teacherNote": "string"
+      }
+    },
+    "tapToIdentifySlide": {
+      "slideId": "string",
+      "type": "Tap-to-Identify Slide",
+      "slideNumber": 10,
+      "xpReward": 15,
+      "isKeySlide": true,
+      "estimatedReadTime": "60s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "unlockCondition": {
+        "requiresPreviousSlide": true
+      },
+      "content": {
+        "title": "string",
+        "instruction": "string",
+        "options": [
+          {
+            "text": "string",
+            "isCorrect": true,
+            "explanation": "string"
+          }
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "interactiveMatchSlide": {
+      "slideId": "string",
+      "type": "Interactive Match Slide",
+      "slideNumber": 11,
+      "xpReward": 18,
+      "isKeySlide": true,
+      "estimatedReadTime": "60s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "unlockCondition": {
+        "requiresPreviousSlide": true
+      },
+      "content": {
+        "title": "string",
+        "instruction": "string",
+        "matches": [
+          {
+            "item": "string",
+            "match": "string",
+            "explanation": "string"
+          }
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "glossarySlide": {
+      "slideId": "string",
+      "type": "Glossary Slide",
+      "slideNumber": 12,
+      "xpReward": 10,
+      "isKeySlide": false,
+      "estimatedReadTime": "45s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "introduction": "string",
+        "terms": [
+          {
+            "term": "string",
+            "definition": "string"
+          }
+        ],
+        "teacherNote": "string"
+      }
+    },
+    "motivationalSlide": {
+      "slideId": "string",
+      "type": "Motivational Slide",
+      "slideNumber": 13,
+      "xpReward": 8,
+      "isKeySlide": false,
+      "estimatedReadTime": "30s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "content": {
+        "title": "string",
+        "quote": "string (optional)",
+        "message": "string",
+        "teacherNote": "string"
+      }
+    },
+    "quizSlide": {
+      "slideId": "string",
+      "type": "Quiz Slide",
+      "slideNumber": 14,
+      "xpReward": 25,
+      "isKeySlide": true,
+      "estimatedReadTime": "90s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "string",
+        "audioNarrationURL": "string",
+        "videoURL": "string or null"
+      },
+      "unlockCondition": {
+        "requiresPreviousSlide": true,
+        "requiresQuizScore": 70
+      },
+      "content": {
+        "title": "string",
+        "introduction": "string",
+        "instructions": "string",
+        "questions": [
+          {
+            "number": 1,
+            "question": "string",
+            "options": [
+              "string",
+              "..."
+            ],
+            "correctAnswer": "string",
+            "explanation": "string"
+          }
+        ]
+      }
+    }
+  }
+}

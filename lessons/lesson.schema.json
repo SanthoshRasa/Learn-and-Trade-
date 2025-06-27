@@ -1,0 +1,655 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lesson",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "lessonId": {
+      "type": "string"
+    },
+    "lessonTitle": {
+      "type": "string"
+    },
+    "moduleTitle": {
+      "type": "string"
+    },
+    "chapterTitle": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "totalXP": {
+      "type": "number"
+    },
+    "estimatedDuration": {
+      "type": "string"
+    },
+    "unlockCondition": {
+      "type": "object",
+      "properties": {
+        "requiresPreviousLesson": {
+          "type": "boolean"
+        },
+        "requiresQuizScore": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "requiresPreviousLesson",
+        "requiresQuizScore"
+      ]
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/slide"
+      }
+    },
+    "imagePrompts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slideNumber": {
+            "type": "number"
+          },
+          "slideName": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "slideNumber",
+          "slideName",
+          "prompt"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "lessonId",
+    "lessonTitle",
+    "moduleTitle",
+    "chapterTitle",
+    "level",
+    "totalXP",
+    "estimatedDuration",
+    "unlockCondition",
+    "slides",
+    "imagePrompts"
+  ],
+  "definitions": {
+    "media": {
+      "type": "object",
+      "properties": {
+        "imageURL": {
+          "type": "string"
+        },
+        "audioNarrationURL": {
+          "type": "string"
+        },
+        "videoURL": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "imageURL",
+        "audioNarrationURL",
+        "videoURL"
+      ]
+    },
+    "unlockCondition": {
+      "type": "object",
+      "properties": {
+        "requiresPreviousSlide": {
+          "type": "boolean"
+        },
+        "requiresQuizScore": {
+          "type": "number"
+        }
+      },
+      "required": []
+    },
+    "slide": {
+      "type": "object",
+      "properties": {
+        "slideId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "slideNumber": {
+          "type": "number"
+        },
+        "xpReward": {
+          "type": "number"
+        },
+        "isKeySlide": {
+          "type": "boolean"
+        },
+        "estimatedReadTime": {
+          "type": "string"
+        },
+        "showNavigation": {
+          "type": "boolean"
+        },
+        "media": {
+          "$ref": "#/definitions/media"
+        },
+        "unlockCondition": {
+          "$ref": "#/definitions/unlockCondition"
+        },
+        "content": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/introSlideContent"
+            },
+            {
+              "$ref": "#/definitions/openerSlideContent"
+            },
+            {
+              "$ref": "#/definitions/conceptSlideContent"
+            },
+            {
+              "$ref": "#/definitions/exampleSlideContent"
+            },
+            {
+              "$ref": "#/definitions/compareSlideContent"
+            },
+            {
+              "$ref": "#/definitions/analogySlideContent"
+            },
+            {
+              "$ref": "#/definitions/caseStudySlideContent"
+            },
+            {
+              "$ref": "#/definitions/mythBusterSlideContent"
+            },
+            {
+              "$ref": "#/definitions/interactiveChartSlideContent"
+            },
+            {
+              "$ref": "#/definitions/tapToIdentifySlideContent"
+            },
+            {
+              "$ref": "#/definitions/interactiveMatchSlideContent"
+            },
+            {
+              "$ref": "#/definitions/glossarySlideContent"
+            },
+            {
+              "$ref": "#/definitions/motivationalSlideContent"
+            },
+            {
+              "$ref": "#/definitions/quizSlideContent"
+            }
+          ]
+        }
+      },
+      "required": [
+        "slideId",
+        "type",
+        "slideNumber",
+        "xpReward",
+        "isKeySlide",
+        "estimatedReadTime",
+        "showNavigation",
+        "media",
+        "content"
+      ]
+    },
+    "introSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "objective"
+      ]
+    },
+    "openerSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "points",
+        "note"
+      ]
+    },
+    "conceptSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "funFact": {
+          "type": "string"
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "points",
+        "teacherNote"
+      ]
+    },
+    "exampleSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string"
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "scenario",
+        "teacherNote"
+      ]
+    },
+    "compareSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "tableHeaders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tableRows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "tableHeaders",
+        "tableRows",
+        "teacherNote"
+      ]
+    },
+    "analogySlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "points",
+        "teacherNote"
+      ]
+    },
+    "caseStudySlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "story": {
+          "type": "string"
+        },
+        "keyTakeaways": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "story",
+        "keyTakeaways",
+        "teacherNote"
+      ]
+    },
+    "mythBusterSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "myths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "myth": {
+                "type": "string"
+              },
+              "reality": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "myth",
+              "reality"
+            ]
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "instruction",
+        "myths",
+        "teacherNote"
+      ]
+    },
+    "interactiveChartSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "chartDescription": {
+          "type": "string"
+        },
+        "interactionType": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "instruction",
+        "chartDescription",
+        "interactionType",
+        "answer",
+        "teacherNote"
+      ]
+    },
+    "tapToIdentifySlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "isCorrect": {
+                "type": "boolean"
+              },
+              "explanation": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "text",
+              "isCorrect",
+              "explanation"
+            ]
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "instruction",
+        "options",
+        "teacherNote"
+      ]
+    },
+    "interactiveMatchSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "type": "string"
+              },
+              "match": {
+                "type": "string"
+              },
+              "explanation": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "item",
+              "match",
+              "explanation"
+            ]
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "instruction",
+        "matches",
+        "teacherNote"
+      ]
+    },
+    "glossarySlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "term",
+              "definition"
+            ]
+          }
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "terms",
+        "teacherNote"
+      ]
+    },
+    "motivationalSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "teacherNote": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "message",
+        "teacherNote"
+      ]
+    },
+    "quizSlideContent": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "instructions": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "number"
+              },
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "correctAnswer": {
+                "type": "string"
+              },
+              "explanation": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "number",
+              "question",
+              "options",
+              "correctAnswer",
+              "explanation"
+            ]
+          }
+        }
+      },
+      "required": [
+        "title",
+        "introduction",
+        "instructions",
+        "questions"
+      ]
+    }
+  }
+}

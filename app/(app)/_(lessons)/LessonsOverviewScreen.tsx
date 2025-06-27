@@ -12,6 +12,10 @@ import {
   View,
 } from 'react-native';
 import { COLORS, SIZES, SPACING } from '../../../constants/theme';
+import AnalogySlide from './slides/AnalogySlide';
+import CaseStudySlide from './slides/CaseStudySlide';
+import IntroSlide from './slides/IntroSlide';
+import MythBusterSlide from './slides/MythBusterSlide';
 
 const { width } = Dimensions.get('window');
 
@@ -186,113 +190,133 @@ const LessonsOverviewScreen = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         keyExtractor={(_, idx) => idx.toString()}
-        renderItem={({ item: slide, index }) => (
-          <View
-            style={[
-              styles.card,
-              {
-                backgroundColor: isDark
-                  ? COLORS.cardBackgroundDark
-                  : COLORS.cardBackground,
-                width: width - 32,
-              },
-            ]}
-          >
-            {/* Card Header Row: Progress + XP */}
-            <View style={styles.cardHeaderRow}>
-              <ProgressCircle
-                percent={(index + 1) / lesson.slides.length}
-                isDark={isDark}
-              />
-              <View style={styles.xpRow}>
-                <Ionicons
-                  name='star'
-                  size={16}
-                  color='#F6C244'
-                  style={{ marginRight: 2 }}
-                />
-                <Text style={styles.xpText}>+{slide.xp || 0} XP</Text>
-              </View>
-            </View>
-            {/* Slide Title */}
-            <Text
+        renderItem={({ item: slide, index }) =>
+          index === 0 ? (
+            <IntroSlide {...slide} onNext={handleNext} />
+          ) : slide.title === 'Real Trader Story: Path to Freedom' ? (
+            <CaseStudySlide
+              {...slide}
+              onPrev={handleBack}
+              onNext={handleNext}
+            />
+          ) : slide.title && slide.title.includes('Myth Buster') ? (
+            <MythBusterSlide
+              {...slide}
+              onPrev={handleBack}
+              onNext={handleNext}
+            />
+          ) : slide.title &&
+            slide.title.includes('Trading is Like Shopping') ? (
+            <AnalogySlide {...slide} onPrev={handleBack} onNext={handleNext} />
+          ) : (
+            <View
               style={[
-                styles.cardTitle,
-                { color: isDark ? COLORS.textDark : COLORS.text },
-              ]}
-            >
-              {slide.title}
-            </Text>
-            {/* Slide Image/Chart */}
-            {slide.image && (
-              <View style={styles.chartPlaceholder}>
-                <Image
-                  source={{ uri: slide.image }}
-                  style={{ width: '100%', height: 80, borderRadius: 12 }}
-                  resizeMode='cover'
-                />
-              </View>
-            )}
-            {/* Description */}
-            <Text
-              style={[
-                styles.cardDesc,
+                styles.card,
                 {
-                  color: isDark
-                    ? COLORS.textSecondaryDark
-                    : COLORS.textSecondary,
+                  backgroundColor: isDark
+                    ? COLORS.cardBackgroundDark
+                    : COLORS.cardBackground,
+                  width: width - 32,
                 },
               ]}
             >
-              {slide.description}
-            </Text>
-            {/* Tap to Reveal Cards */}
-            {slide.reveals?.map((reveal: any, idx: number) => (
-              <TouchableOpacity
-                key={idx}
-                onPress={() => handleReveal(idx)}
-                style={[
-                  styles.revealCard,
-                  { backgroundColor: isDark ? '#23242a' : '#f0f0f0' },
-                ]}
-              >
-                <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
-                  {reveal.label}
-                </Text>
-                {revealed[idx] && (
-                  <Text
-                    style={{ marginTop: 6, color: isDark ? '#fff' : '#181A20' }}
-                  >
-                    {reveal.content}
-                  </Text>
-                )}
-              </TouchableOpacity>
-            ))}
-            {/* Mentor Tip */}
-            {slide.mentorTip && (
-              <View
-                style={[
-                  styles.mentorTip,
-                  { backgroundColor: isDark ? '#23242a' : '#e0e0e0' },
-                ]}
-              >
-                <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
-                  💡 {slide.mentorTip}
-                </Text>
+              {/* Card Header Row: Progress + XP */}
+              <View style={styles.cardHeaderRow}>
+                <ProgressCircle
+                  percent={(index + 1) / lesson.slides.length}
+                  isDark={isDark}
+                />
+                <View style={styles.xpRow}>
+                  <Ionicons
+                    name='star'
+                    size={16}
+                    color='#F6C244'
+                    style={{ marginRight: 2 }}
+                  />
+                  <Text style={styles.xpText}>+{slide.xp || 0} XP</Text>
+                </View>
               </View>
-            )}
-            {/* Continue/Complete Button */}
-            <TouchableOpacity style={styles.ctaBtn} onPress={handleNext}>
-              <Text style={styles.ctaBtnText}>
-                {index === 0
-                  ? 'Start'
-                  : index === lesson.slides.length - 1
-                  ? 'Completed'
-                  : 'Continue'}
+              {/* Slide Title */}
+              <Text
+                style={[
+                  styles.cardTitle,
+                  { color: isDark ? COLORS.textDark : COLORS.text },
+                ]}
+              >
+                {slide.title}
               </Text>
-            </TouchableOpacity>
-          </View>
-        )}
+              {/* Slide Image/Chart */}
+              {slide.image && (
+                <View style={styles.chartPlaceholder}>
+                  <Image
+                    source={{ uri: slide.image }}
+                    style={{ width: '100%', height: 80, borderRadius: 12 }}
+                    resizeMode='cover'
+                  />
+                </View>
+              )}
+              {/* Description */}
+              <Text
+                style={[
+                  styles.cardDesc,
+                  {
+                    color: isDark
+                      ? COLORS.textSecondaryDark
+                      : COLORS.textSecondary,
+                  },
+                ]}
+              >
+                {slide.description}
+              </Text>
+              {/* Tap to Reveal Cards */}
+              {slide.reveals?.map((reveal: any, idx: number) => (
+                <TouchableOpacity
+                  key={idx}
+                  onPress={() => handleReveal(idx)}
+                  style={[
+                    styles.revealCard,
+                    { backgroundColor: isDark ? '#23242a' : '#f0f0f0' },
+                  ]}
+                >
+                  <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
+                    {reveal.label}
+                  </Text>
+                  {revealed[idx] && (
+                    <Text
+                      style={{
+                        marginTop: 6,
+                        color: isDark ? '#fff' : '#181A20',
+                      }}
+                    >
+                      {reveal.content}
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              ))}
+              {/* Mentor Tip */}
+              {slide.mentorTip && (
+                <View
+                  style={[
+                    styles.mentorTip,
+                    { backgroundColor: isDark ? '#23242a' : '#e0e0e0' },
+                  ]}
+                >
+                  <Text style={{ color: isDark ? '#fff' : '#181A20' }}>
+                    💡 {slide.mentorTip}
+                  </Text>
+                </View>
+              )}
+              {/* Continue/Complete Button */}
+              <TouchableOpacity style={styles.ctaBtn} onPress={handleNext}>
+                <Text style={styles.ctaBtnText}>
+                  {index === lesson.slides.length - 1
+                    ? 'Completed'
+                    : 'Continue'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )
+        }
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
         extraData={revealed}

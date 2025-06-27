@@ -1,0 +1,149 @@
+{
+  "version": "1.0",
+  "lessonId": "M1L1",
+  "lessonTitle": "Introduction to Trading Basics",
+  "moduleTitle": "Module 1: Foundations",
+  "chapterTitle": "Chapter 1: Getting Started",
+  "level": "Novice Apprentice",
+  "totalXP": 100,
+  "estimatedDuration": "5 min",
+  "unlockCondition": {
+    "requiresPreviousLesson": true,
+    "requiresQuizScore": 70
+  },
+  "slides": [
+    {
+      "slideId": "M1L1S1",
+      "type": "Intro Slide",
+      "slideNumber": 1,
+      "xpReward": 5,
+      "isKeySlide": true,
+      "estimatedReadTime": "20s",
+      "showNavigation": false,
+      "media": {
+        "imageURL": "link-to-ai-generated-image.jpg",
+        "audioNarrationURL": "link-to-audio.mp3",
+        "videoURL": null
+      },
+      "content": {
+        "title": "Welcome to Trading!",
+        "objective": "Discover what trading is and why it matters."
+      }
+    },
+    {
+      "slideId": "M1L1S2",
+      "type": "Concept Slide",
+      "slideNumber": 2,
+      "xpReward": 10,
+      "isKeySlide": true,
+      "estimatedReadTime": "45s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "link-to-ai-generated-image.jpg",
+        "audioNarrationURL": "link-to-audio.mp3",
+        "videoURL": null
+      },
+      "content": {
+        "title": "What is Trading?",
+        "introduction": "Trading is the act of buying and selling assets to make a profit.",
+        "points": [
+          "Trading happens in many markets, like stocks, forex, and crypto.",
+          "Traders use strategies to decide when to buy or sell.",
+          "Risk management is key to long-term success."
+        ],
+        "funFact": "The New York Stock Exchange is over 200 years old!",
+        "teacherNote": "Don't worry if this feels new—everyone starts somewhere."
+      }
+    },
+    {
+      "slideId": "M1L1S3",
+      "type": "Example Slide",
+      "slideNumber": 3,
+      "xpReward": 8,
+      "isKeySlide": false,
+      "estimatedReadTime": "40s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "link-to-ai-generated-image.jpg",
+        "audioNarrationURL": "link-to-audio.mp3",
+        "videoURL": null
+      },
+      "content": {
+        "title": "A Day in the Life of a Trader",
+        "scenario": "Alex checks the market every morning, looking for opportunities. Today, Alex notices a stock price dropping and decides to buy, hoping it will rebound.",
+        "teacherNote": "Notice how Alex uses observation and timing."
+      }
+    },
+    {
+      "slideId": "M1L1S4",
+      "type": "Quiz Slide",
+      "slideNumber": 4,
+      "xpReward": 25,
+      "isKeySlide": true,
+      "estimatedReadTime": "90s",
+      "showNavigation": true,
+      "media": {
+        "imageURL": "link-to-ai-generated-image.jpg",
+        "audioNarrationURL": "link-to-audio.mp3",
+        "videoURL": null
+      },
+      "unlockCondition": {
+        "requiresPreviousSlide": true,
+        "requiresQuizScore": 70
+      },
+      "content": {
+        "title": "Let's Test What You've Learned!",
+        "introduction": "Ready for a quick quiz?",
+        "instructions": "Select the best answer for each question:",
+        "questions": [
+          {
+            "number": 1,
+            "question": "What is trading?",
+            "options": [
+              "A way to buy and sell assets",
+              "A type of cooking",
+              "A form of exercise",
+              "A holiday tradition"
+            ],
+            "correctAnswer": "A way to buy and sell assets",
+            "explanation": "Trading involves buying and selling assets for profit."
+          },
+          {
+            "number": 2,
+            "question": "What is important for long-term trading success?",
+            "options": [
+              "Risk management",
+              "Guessing",
+              "Ignoring the market",
+              "Copying others"
+            ],
+            "correctAnswer": "Risk management",
+            "explanation": "Managing risk helps traders avoid big losses."
+          }
+        ]
+      }
+    }
+  ],
+  "imagePrompts": [
+    {
+      "slideNumber": 1,
+      "slideName": "Welcome to Trading!",
+      "prompt": "A friendly teacher in front of a chalkboard with trading symbols."
+    },
+    {
+      "slideNumber": 2,
+      "slideName": "What is Trading?",
+      "prompt": "A simple diagram showing buying and selling arrows."
+    },
+    {
+      "slideNumber": 3,
+      "slideName": "A Day in the Life of a Trader",
+      "prompt": "A young person looking at a computer screen with stock charts."
+    },
+    {
+      "slideNumber": 4,
+      "slideName": "Let's Test What You've Learned!",
+      "prompt": "A quiz sheet with checkmarks and question marks."
+    }
+  ]
+}

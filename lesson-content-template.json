@@ -1,0 +1,344 @@
+{
+  "lessonId": "M1L3",
+  "lessonTitle": "Lesson Title Here",
+  "moduleTitle": "Module Title Here",
+  "chapterTitle": "Chapter Title Here",
+  "slides": [
+    {
+      "type": "IntroSlide",
+      "content": {
+        "title": "Lesson Title Here",
+        "objective": "In this lesson, you'll discover:",
+        "bulletPoints": [
+          "First learning objective",
+          "Second learning objective",
+          "Third learning objective",
+          "Fourth learning objective"
+        ]
+      }
+    },
+    {
+      "type": "ConceptSlide",
+      "content": {
+        "title": "Main Concept Title",
+        "introduction": "Brief introduction to the concept in a friendly, conversational tone.",
+        "points": [
+          "First key point about the concept",
+          "Second key point about the concept",
+          "Third key point about the concept",
+          "Fourth key point about the concept",
+          "Fifth key point about the concept"
+        ],
+        "note": "An encouraging note or interesting fact related to the concept."
+      }
+    },
+    {
+      "type": "ExampleSlide",
+      "content": {
+        "title": "Real-World Example",
+        "scenario": "A detailed, relatable story that illustrates the concept in action. Use simple language and a narrative style.",
+        "keyPoints": [
+          "First key takeaway from the example",
+          "Second key takeaway from the example",
+          "Third key takeaway from the example",
+          "Fourth key takeaway from the example"
+        ],
+        "note": "A tip or insight related to the example."
+      }
+    },
+    {
+      "type": "CompareSlide",
+      "content": {
+        "title": "Comparison Title",
+        "introduction": "Brief introduction to what's being compared and why it matters.",
+        "comparison": [
+          {
+            "aspect": "First Aspect",
+            "option1": "Description for first option",
+            "option2": "Description for second option"
+          },
+          {
+            "aspect": "Second Aspect",
+            "option1": "Description for first option",
+            "option2": "Description for second option"
+          },
+          {
+            "aspect": "Third Aspect",
+            "option1": "Description for first option",
+            "option2": "Description for second option"
+          },
+          {
+            "aspect": "Fourth Aspect",
+            "option1": "Description for first option",
+            "option2": "Description for second option"
+          }
+        ],
+        "note": "A helpful insight about the comparison."
+      }
+    },
+    {
+      "type": "AnalogySlide",
+      "content": {
+        "title": "Analogy Title",
+        "introduction": "Brief introduction to the analogy in a friendly tone.",
+        "analogy": "The main analogy statement that compares the trading concept to something familiar.",
+        "points": [
+          "First point explaining how the analogy relates to trading",
+          "Second point explaining how the analogy relates to trading",
+          "Third point explaining how the analogy relates to trading",
+          "Fourth point explaining how the analogy relates to trading",
+          "Fifth point explaining how the analogy relates to trading"
+        ],
+        "note": "An insight or tip related to the analogy."
+      }
+    },
+    {
+      "type": "CaseStudySlide",
+      "content": {
+        "title": "Case Study: Person or Situation Name",
+        "introduction": "Brief introduction to the case study in a conversational tone.",
+        "story": "A detailed narrative about a real or fictional trading situation. This should tell a complete story with a beginning, middle, and end. Include specific details that make it relatable and educational.",
+        "keyTakeaways": [
+          "First major lesson from the case study",
+          "Second major lesson from the case study",
+          "Third major lesson from the case study",
+          "Fourth major lesson from the case study"
+        ],
+        "note": "A reflection question or insight related to the case study."
+      }
+    },
+    {
+      "type": "MythBusterSlide",
+      "content": {
+        "title": "Myth Busters: Topic Area",
+        "introduction": "Brief introduction to the myths in a friendly, conversational tone.",
+        "myths": [
+          {
+            "myth": "First common misconception stated clearly",
+            "reality": "The actual truth explained in simple, clear language with enough detail to be educational."
+          },
+          {
+            "myth": "Second common misconception stated clearly",
+            "reality": "The actual truth explained in simple, clear language with enough detail to be educational."
+          },
+          {
+            "myth": "Third common misconception stated clearly",
+            "reality": "The actual truth explained in simple, clear language with enough detail to be educational."
+          },
+          {
+            "myth": "Fourth common misconception stated clearly",
+            "reality": "The actual truth explained in simple, clear language with enough detail to be educational."
+          }
+        ],
+        "note": "An encouraging note about how understanding these realities helps."
+      }
+    },
+    {
+      "type": "InteractiveChartSlide",
+      "content": {
+        "title": "Interactive Chart Activity",
+        "instruction": "Clear instructions for what the user should do with the chart in a friendly tone.",
+        "interactionType": "draw-trendline, identify-pattern, or other interaction type",
+        "answer": "The correct answer or insight that will be revealed after the user interacts with the chart.",
+        "note": "An encouraging note about chart reading skills."
+      }
+    },
+    {
+      "type": "TapToIdentifySlide",
+      "content": {
+        "title": "Tap to Identify: Topic",
+        "instruction": "Clear, friendly instructions for what the user should tap on.",
+        "options": [
+          {
+            "text": "First option text",
+            "isCorrect": true,
+            "explanation": "Explanation of why this option is correct or incorrect."
+          },
+          {
+            "text": "Second option text",
+            "isCorrect": false,
+            "explanation": "Explanation of why this option is correct or incorrect."
+          },
+          {
+            "text": "Third option text",
+            "isCorrect": false,
+            "explanation": "Explanation of why this option is correct or incorrect."
+          },
+          {
+            "text": "Fourth option text",
+            "isCorrect": false,
+            "explanation": "Explanation of why this option is correct or incorrect."
+          },
+          {
+            "text": "Fifth option text",
+            "isCorrect": false,
+            "explanation": "Explanation of why this option is correct or incorrect."
+          }
+        ],
+        "note": "An encouraging note about the identification skill."
+      }
+    },
+    {
+      "type": "InteractiveMatchSlide",
+      "content": {
+        "title": "Match the Pairs",
+        "instruction": "Clear, friendly instructions for how to match the items.",
+        "pairs": [
+          {
+            "left": "First left item",
+            "right": "First right item that matches",
+            "explanation": "Explanation of why these two items match."
+          },
+          {
+            "left": "Second left item",
+            "right": "Second right item that matches",
+            "explanation": "Explanation of why these two items match."
+          },
+          {
+            "left": "Third left item",
+            "right": "Third right item that matches",
+            "explanation": "Explanation of why these two items match."
+          },
+          {
+            "left": "Fourth left item",
+            "right": "Fourth right item that matches",
+            "explanation": "Explanation of why these two items match."
+          }
+        ],
+        "note": "An encouraging note about the matching activity."
+      }
+    },
+    {
+      "type": "GlossarySlide",
+      "content": {
+        "title": "Key Terms to Know",
+        "introduction": "Brief introduction to the terms in a friendly tone.",
+        "terms": [
+          {
+            "term": "First Term",
+            "definition": "Clear, simple definition of the first term with enough detail to be educational."
+          },
+          {
+            "term": "Second Term",
+            "definition": "Clear, simple definition of the second term with enough detail to be educational."
+          },
+          {
+            "term": "Third Term",
+            "definition": "Clear, simple definition of the third term with enough detail to be educational."
+          },
+          {
+            "term": "Fourth Term",
+            "definition": "Clear, simple definition of the fourth term with enough detail to be educational."
+          },
+          {
+            "term": "Fifth Term",
+            "definition": "Clear, simple definition of the fifth term with enough detail to be educational."
+          }
+        ],
+        "note": "An encouraging note about learning these terms."
+      }
+    },
+    {
+      "type": "MotivationalSlide",
+      "content": {
+        "title": "Motivational Title",
+        "quote": "An inspiring quote related to the lesson topic.",
+        "author": "Name of quote author",
+        "message": "An encouraging message that relates the lesson content to the learner's journey in a personal way.",
+        "reflection": "A thought-provoking question or prompt for the learner to consider."
+      }
+    },
+    {
+      "type": "QuizSlide",
+      "content": {
+        "title": "Test Your Understanding",
+        "introduction": "Friendly introduction to the quiz that encourages rather than intimidates.",
+        "questions": [
+          {
+            "number": 1,
+            "question": "First quiz question in a clear, simple format?",
+            "options": [
+              "First answer option",
+              "Second answer option",
+              "Third answer option",
+              "Fourth answer option"
+            ],
+            "correctAnswer": "The correct answer option exactly as written above",
+            "explanation": "Explanation of why this answer is correct, providing additional educational value."
+          },
+          {
+            "number": 2,
+            "question": "Second quiz question in a clear, simple format?",
+            "options": [
+              "First answer option",
+              "Second answer option",
+              "Third answer option",
+              "Fourth answer option"
+            ],
+            "correctAnswer": "The correct answer option exactly as written above",
+            "explanation": "Explanation of why this answer is correct, providing additional educational value."
+          },
+          {
+            "number": 3,
+            "question": "Third quiz question in a clear, simple format?",
+            "options": [
+              "First answer option",
+              "Second answer option",
+              "Third answer option",
+              "Fourth answer option"
+            ],
+            "correctAnswer": "The correct answer option exactly as written above",
+            "explanation": "Explanation of why this answer is correct, providing additional educational value."
+          }
+        ],
+        "encouragement": "An encouraging message regardless of how the learner performed on the quiz."
+      }
+    },
+    {
+      "type": "ChartPromptSlide",
+      "content": {
+        "title": "Chart Analysis Activity",
+        "instruction": "Clear instructions for what to look for or analyze in the chart.",
+        "promptQuestion": "A specific question about the chart that the user should answer.",
+        "hints": [
+          "First hint to help guide analysis",
+          "Second hint to help guide analysis",
+          "Third hint to help guide analysis"
+        ],
+        "note": "An encouraging note about chart analysis skills."
+      }
+    },
+    {
+      "type": "GamificationSlide",
+      "content": {
+        "title": "Game Activity Title",
+        "instruction": "Clear, engaging instructions for the game activity.",
+        "gameType": "Type of game (e.g., memory match, trading simulation, etc.)",
+        "rules": [
+          "First rule of the game",
+          "Second rule of the game",
+          "Third rule of the game"
+        ],
+        "learningObjective": "What trading skill or knowledge this game helps develop.",
+        "note": "An encouraging note about the game and its relevance to trading."
+      }
+    }
+  ],
+  "imagePrompts": [
+    {
+      "slideNumber": 1,
+      "placement": "Main content area",
+      "prompt": "Detailed description of the image needed for the intro slide."
+    },
+    {
+      "slideNumber": 2,
+      "placement": "Below the points",
+      "prompt": "Detailed description of the image needed for the second slide."
+    },
+    {
+      "slideNumber": 3,
+      "placement": "Right side of content",
+      "prompt": "Detailed description of the image needed for the third slide."
+    }
+  ]
+}
