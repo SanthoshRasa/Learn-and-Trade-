@@ -1,0 +1,31 @@
+{
+  "slideId": "unique-slide-id",
+  "type": "exampleSlide",
+  "slideNumber": 5,
+  "xpReward": 10,
+  "isKeySlide": false,
+  "estimatedReadTime": "45s",
+  "showNavigation": true,
+  "media": {
+    "images": [
+      {
+        "url": "https://example.com/example-image.png",
+        "caption": "BTC price chart"
+      }
+    ],
+    "audioNarrationURL": "https://example.com/audio.mp3",
+    "videoURL": null
+  },
+  "content": {
+    "title": "Real-World Example: BTC Long Trade",
+    "introduction": "A trader enters a long position on BTC at $40,000 and sells at $44,000. The $4,000 difference is their profit, minus any fees.",
+    "steps": [
+      "Trader buys BTC at $40,000.",
+      "BTC price rises to $44,000.",
+      "Trader sells BTC, making a $4,000 profit (minus fees)."
+    ],
+    "keyTakeaway": "Profit is made by buying low and selling high.",
+    "funFact": "The largest single-day BTC gain was over 20%!",
+    "teacherNote": "Always consider trading fees and market volatility."
+  }
+}

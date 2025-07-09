@@ -128,17 +128,10 @@ export default function LessonsListScreen() {
   // Handle lesson action
   const handleLessonAction = (lesson: Lesson, idx: number) => {
     console.log('Navigating to lessonId:', lesson.id);
-    // Navigate to the new IntroSlide screen, passing all necessary lessons list params
+    // Navigate to the dynamic slide route for the first slide
     router.push({
-      pathname: '/(app)/_(lessons)/slides/IntroSlide',
-      params: {
-        lessonId: lesson.id,
-        title: lesson.title,
-        moduleId: params.moduleId, // Pass module ID
-        moduleTitle: params.moduleTitle, // Pass module title
-        levelTitle: params.levelTitle, // Pass level title
-        xpReward: params.xpReward, // Pass XP reward
-      },
+      pathname: '/(app)/_(lessons)/slides/[slideIndex]',
+      params: { slideIndex: 0 },
     });
   };
   useEffect(() => {

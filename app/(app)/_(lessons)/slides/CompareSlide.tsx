@@ -3,17 +3,18 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Dimensions,
+  Image,
+  PanResponder,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS, SPACING } from '../../../../constants/theme';
+import { COLORS } from '../../../../constants/theme';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-type TabKey = 'time' | 'risk' | 'profit';
 interface CompareSlideProps {
   title?: string;
   xp?: number;
@@ -21,64 +22,12 @@ interface CompareSlideProps {
   totalSlides?: number;
   onPrev?: () => void;
   onNext?: () => void;
+  tabs?: any[];
+  introduction?: string;
+  teacherNote?: string;
+  media?: any;
+  moduleTitle?: string;
 }
-
-const TABS: { key: TabKey; label: string; icon: any }[] = [
-  { key: 'time', label: 'Time', icon: 'time-outline' },
-  { key: 'risk', label: 'Risk', icon: 'flash-outline' },
-  { key: 'profit', label: 'Profit', icon: 'funnel-outline' },
-];
-
-const TABLE: Record<
-  TabKey,
-  { aspect: string; trading: string; investing: string }[]
-> = {
-  time: [
-    {
-      aspect: 'Time Frame',
-      trading: 'Short-term (minutes to months)',
-      investing: 'Long-term (years to decades)',
-    },
-    {
-      aspect: 'Focus',
-      trading: 'Price movements & timing',
-      investing: 'Company growth & value',
-    },
-    {
-      aspect: 'Activity Level',
-      trading: 'More frequent actions',
-      investing: 'Buy and hold',
-    },
-    {
-      aspect: 'Risk Level',
-      trading: 'Usually higher',
-      investing: 'Usually lower',
-    },
-    {
-      aspect: 'Profit Source',
-      trading: 'Price changes',
-      investing: 'Price changes + dividends',
-    },
-  ],
-  risk: [
-    {
-      aspect: 'Risk Level',
-      trading: 'Usually higher',
-      investing: 'Usually lower',
-    },
-    { aspect: 'Volatility', trading: 'High', investing: 'Lower' },
-    { aspect: 'Loss Potential', trading: 'Significant', investing: 'Moderate' },
-  ],
-  profit: [
-    {
-      aspect: 'Profit Source',
-      trading: 'Price changes',
-      investing: 'Price changes + dividends',
-    },
-    { aspect: 'Frequency', trading: 'Frequent', investing: 'Less frequent' },
-    { aspect: 'Growth', trading: 'Rapid', investing: 'Steady' },
-  ],
-};
 
 const styles = StyleSheet.create({
   headerBar: {
@@ -91,6 +40,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 12,
     paddingBottom: 8,
+    width: '100%',
   },
   headerBackBtn: {
     marginRight: 8,
@@ -139,9 +89,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   scrollContainer: {
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: 12,
     paddingBottom: 24,
     alignItems: 'center',
+    width: '100%',
   },
   subtitle: {
     color: COLORS.textSecondary,
@@ -154,11 +105,11 @@ const styles = StyleSheet.create({
   comparisonCard: {
     backgroundColor: '#232B3B',
     borderRadius: 12,
-    padding: 24,
+    padding: 16,
     alignItems: 'center',
     marginBottom: 16,
     width: '100%',
-    maxWidth: 340,
+    alignSelf: 'center',
   },
   comparisonCardText: {
     color: '#fff',
@@ -172,7 +123,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 4,
     width: '100%',
-    maxWidth: 340,
+    alignSelf: 'center',
   },
   tabBtn: {
     flexDirection: 'row',
@@ -198,48 +149,45 @@ const styles = StyleSheet.create({
     backgroundColor: '#232B3B',
     borderRadius: 12,
     width: '100%',
-    maxWidth: 340,
-    marginBottom: 0,
+    alignSelf: 'center',
+    marginBottom: 16,
     overflow: 'hidden',
-    borderWidth: 0,
   },
   tableHeaderRow: {
     flexDirection: 'row',
-    backgroundColor: '#2E3440',
-    borderBottomWidth: 1,
-    borderColor: '#232B3B',
+    backgroundColor: '#181A20',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    width: '100%',
   },
   tableHeaderCell: {
     flex: 1,
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
-    padding: 10,
     textAlign: 'center',
-    backgroundColor: '#2E3440',
   },
   tableRow: {
     flexDirection: 'row',
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     borderBottomWidth: 1,
-    borderColor: '#232B3B',
-    backgroundColor: '#232B3B',
+    borderBottomColor: '#232B3B',
+    width: '100%',
   },
   tableCellAspect: {
     flex: 1,
     color: '#fff',
     fontSize: 14,
-    padding: 10,
     textAlign: 'center',
-    fontWeight: 'bold',
-    backgroundColor: '#2E3440',
   },
   tableCell: {
     flex: 1,
     color: '#fff',
     fontSize: 14,
-    padding: 10,
     textAlign: 'center',
-    backgroundColor: '#232B3B',
   },
   styleBtnRow: {
     flexDirection: 'row',
@@ -270,26 +218,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
   },
-  badgeBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F5F7FA',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 18,
-    width: '100%',
-    maxWidth: 340,
-  },
-  badgeTitle: {
-    color: COLORS.primary,
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom: 2,
-  },
-  badgeDesc: {
-    color: COLORS.textSecondary,
-    fontSize: 14,
-  },
   footerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -299,6 +227,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 18,
     margin: 8,
+    width: '100%',
+    alignSelf: 'center',
   },
   circleBtn: {
     width: 40,
@@ -328,7 +258,53 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  teacherNoteCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2A3240',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  teacherNoteLabel: {
+    color: COLORS.primary,
+    fontWeight: 'bold',
+    fontSize: 13,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+  teacherNoteText: {
+    color: '#fff',
+    fontSize: 14,
+    flex: 1,
+  },
 });
+
+// Add LinearProgressBar component
+function LinearProgressBar({ progress }: { progress: number }) {
+  return (
+    <View
+      style={{
+        width: '100%',
+        height: 6,
+        backgroundColor: '#232B3B',
+        borderRadius: 3,
+        marginBottom: 12,
+      }}
+    >
+      <View
+        style={{
+          width: `${Math.round(progress * 100)}%`,
+          height: '100%',
+          backgroundColor: '#3B82F6',
+          borderRadius: 3,
+        }}
+      />
+    </View>
+  );
+}
 
 export default function CompareSlide({
   title = 'Trading vs. Investing',
@@ -337,10 +313,46 @@ export default function CompareSlide({
   totalSlides = 10,
   onPrev,
   onNext,
+  tabs = [],
+  introduction = '',
+  teacherNote = '',
+  media = {},
+  moduleTitle = '',
 }: CompareSlideProps) {
-  const [tab, setTab] = useState<TabKey>('time');
+  const [tabKey, setTabKey] = useState(tabs[0]?.key || '');
+  const currentTab = tabs.find(t => t.key === tabKey) || tabs[0];
   const router = useRouter();
   const params = useLocalSearchParams();
+
+  // Image placeholder logic
+  let imageUrl = '';
+  let imageCaption = '';
+  if (media && Array.isArray(media.images) && media.images.length > 0) {
+    imageUrl = media.images[0].imageURL;
+    imageCaption = media.images[0].caption || '';
+  }
+  const fallbackImageUrl =
+    'https://i0.wp.com/port2flavors.com/wp-content/uploads/2022/07/placeholder-614.png?w=1200&ssl=1';
+  const showImage = !!imageUrl;
+  const screenWidth = Dimensions.get('window').width;
+  const imageWidth = screenWidth - 32;
+  const imageHeight = Math.round((imageWidth * 9) / 16);
+
+  // Add pan responder for swipe gestures
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        return Math.abs(gestureState.dx) > 20 && Math.abs(gestureState.dy) < 20;
+      },
+      onPanResponderRelease: (_, gestureState) => {
+        if (gestureState.dx < -40 && onNext) {
+          onNext();
+        } else if (gestureState.dx > 40 && onPrev) {
+          onPrev();
+        }
+      },
+    })
+  ).current;
 
   const handlePrev = () => {
     if (onPrev) {
@@ -358,15 +370,32 @@ export default function CompareSlide({
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.backgroundDark }}>
+    <View
+      style={{ flex: 1, backgroundColor: '#232B3B' }}
+      {...panResponder.panHandlers}
+    >
       {/* Header */}
       <View style={styles.headerBar}>
         <TouchableOpacity style={styles.headerBackBtn} onPress={onPrev}>
-          <Ionicons name='chevron-back' size={20} color='#fff' />
+          <Ionicons name='chevron-back' size={20} color={'#fff'} />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Trading Basics</Text>
           <Text style={styles.headerTitle}>{title}</Text>
+          {moduleTitle ? (
+            <Text
+              style={[
+                styles.subtitle,
+                {
+                  fontSize: 14,
+                  marginTop: 2,
+                  textAlign: 'left',
+                  alignSelf: 'flex-start',
+                },
+              ]}
+            >
+              {moduleTitle}
+            </Text>
+          ) : null}
         </View>
         <View style={styles.headerRightCol}>
           <View style={styles.streakBadge}>
@@ -383,12 +412,70 @@ export default function CompareSlide({
           </View>
         </View>
       </View>
+      {/* Linear Progress Bar below header */}
+      <LinearProgressBar progress={slide / totalSlides} />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Subtitle/Description */}
-        <Text style={styles.subtitle}>
-          While trading and investing both involve financial markets,
-          they&apos;re quite different approaches.
-        </Text>
+        {/* Top Section: Slide count, title, subtitle, introduction */}
+        <View style={{ paddingHorizontal: 18, paddingTop: 8, marginBottom: 8 }}>
+          <Text style={{ color: '#B0B4C1', fontSize: 14, marginBottom: 2 }}>
+            Slide {slide} of {totalSlides}
+          </Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontWeight: 'bold',
+              fontSize: 22,
+              marginBottom: 4,
+            }}
+          >
+            {title}
+          </Text>
+          {introduction ? (
+            <Text style={{ color: '#B0B4C1', fontSize: 15, marginBottom: 8 }}>
+              {introduction}
+            </Text>
+          ) : null}
+        </View>
+        {/* Image Placeholder above Table */}
+        <View
+          style={{
+            width: imageWidth,
+            height: imageHeight,
+            alignSelf: 'center',
+            marginBottom: 16,
+            borderRadius: 12,
+            overflow: 'hidden',
+            backgroundColor: '#232B3B',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {showImage ? (
+            <Image
+              source={{ uri: imageUrl }}
+              style={{
+                width: imageWidth,
+                height: imageHeight,
+                borderRadius: 12,
+              }}
+              resizeMode='cover'
+            />
+          ) : (
+            <Ionicons name='image-outline' size={64} color='#555' />
+          )}
+        </View>
+        {imageCaption ? (
+          <Text
+            style={{
+              color: COLORS.textSecondary,
+              fontSize: 13,
+              textAlign: 'center',
+              marginBottom: 8,
+            }}
+          >
+            {imageCaption}
+          </Text>
+        ) : null}
         {/* Comparison Card */}
         <View style={styles.comparisonCard}>
           <Ionicons
@@ -403,20 +490,23 @@ export default function CompareSlide({
         </View>
         {/* Tab Bar */}
         <View style={styles.tabBar}>
-          {TABS.map(t => (
+          {tabs.map(t => (
             <TouchableOpacity
               key={t.key}
-              style={[styles.tabBtn, tab === t.key && styles.tabBtnActive]}
-              onPress={() => setTab(t.key)}
+              style={[styles.tabBtn, tabKey === t.key && styles.tabBtnActive]}
+              onPress={() => setTabKey(t.key)}
             >
               <Ionicons
                 name={t.icon}
                 size={18}
-                color={tab === t.key ? COLORS.primary : COLORS.textSecondary}
+                color={tabKey === t.key ? COLORS.primary : COLORS.textSecondary}
                 style={{ marginRight: 4 }}
               />
               <Text
-                style={[styles.tabText, tab === t.key && styles.tabTextActive]}
+                style={[
+                  styles.tabText,
+                  tabKey === t.key && styles.tabTextActive,
+                ]}
               >
                 {t.label}
               </Text>
@@ -425,50 +515,94 @@ export default function CompareSlide({
         </View>
         {/* Table */}
         <View style={styles.tableWrap}>
-          <View style={styles.tableHeaderRow}>
+          <View style={[styles.tableHeaderRow, { backgroundColor: '#2A3240' }]}>
             <Text style={styles.tableHeaderCell}>Aspect</Text>
             <Text style={styles.tableHeaderCell}>Trading</Text>
             <Text style={styles.tableHeaderCell}>Investing</Text>
           </View>
-          {TABLE[tab].map(
+          {/* First column background as a continuous bar */}
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 40,
+              bottom: 0,
+              width: '33%',
+              backgroundColor: '#2A3240',
+              zIndex: 0,
+              borderBottomLeftRadius: 12,
+              borderTopLeftRadius: 0,
+            }}
+          />
+          {currentTab?.rows?.map(
             (
               row: { aspect: string; trading: string; investing: string },
               idx: number
             ) => (
               <View key={idx} style={styles.tableRow}>
-                <Text style={styles.tableCellAspect}>{row.aspect}</Text>
+                <View style={{ flex: 1, zIndex: 1 }}>
+                  <Text
+                    style={[
+                      styles.tableCellAspect,
+                      {
+                        backgroundColor: 'transparent',
+                        borderTopLeftRadius: idx === 0 ? 12 : 0,
+                        borderBottomLeftRadius:
+                          idx === currentTab.rows.length - 1 ? 12 : 0,
+                        paddingVertical: 12,
+                        paddingHorizontal: 4,
+                        marginVertical: 0,
+                      },
+                    ]}
+                  >
+                    {row.aspect}
+                  </Text>
+                </View>
                 <Text style={styles.tableCell}>{row.trading}</Text>
                 <Text style={styles.tableCell}>{row.investing}</Text>
               </View>
             )
           )}
         </View>
-        {/* Style Buttons */}
-        <View style={styles.styleBtnRow}>
-          <TouchableOpacity style={styles.styleBtn}>
-            <Text style={styles.styleBtnText}>Trading Style</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.styleBtn}>
-            <Text style={styles.styleBtnText}>Investing Style</Text>
-          </TouchableOpacity>
-        </View>
-        {/* Badge Unlocked */}
-        <View style={styles.badgeBox}>
-          <Ionicons
-            name='ribbon-outline'
-            size={28}
-            color={COLORS.primary}
-            style={{ marginRight: 10 }}
-          />
-          <View>
-            <Text style={styles.badgeTitle}>Badge Unlocked!</Text>
-            <Text style={styles.badgeDesc}>
-              {' '}
-              <Text style={{ color: '#E573C0' }}>●</Text> Mastered the
-              Difference
-            </Text>
+        {/* Teacher Note Card */}
+        {teacherNote ? (
+          <View
+            style={[
+              styles.teacherNoteCard,
+              {
+                backgroundColor: '#2A3240',
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                borderRadius: 12,
+                padding: 16,
+                marginBottom: 16,
+              },
+            ]}
+          >
+            <Ionicons
+              name='person-circle-outline'
+              size={20}
+              color={COLORS.primary}
+              style={{ marginRight: 12, marginTop: 2 }}
+            />
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  fontWeight: 'bold',
+                  fontSize: 13,
+                  textTransform: 'uppercase',
+                  marginBottom: 2,
+                }}
+              >
+                TEACHER NOTE
+              </Text>
+              <Text style={{ color: '#fff', fontSize: 15, lineHeight: 21 }}>
+                {teacherNote}
+              </Text>
+            </View>
           </View>
-        </View>
+        ) : null}
         {/* Navigation Bar */}
         <View style={styles.footerRow}>
           <TouchableOpacity style={styles.circleBtn} onPress={handlePrev}>

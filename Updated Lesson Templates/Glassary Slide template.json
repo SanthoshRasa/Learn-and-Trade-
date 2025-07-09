@@ -1,0 +1,44 @@
+{
+  "slideNumber": 10,
+  "type": "glossarySlide",
+  "xpReward": 10,
+  "isKeySlide": false,
+  "estimatedReadTime": "45s",
+  "content": {
+    "lessonTitle": "Glossary of Key Terms",
+    "title": "Glossary of Key Terms",
+    "subtitle": "Review these important trading concepts:",
+    "terms": [
+      {
+        "term": "Liquidity",
+        "definition": "How easily an asset can be bought or sold without affecting its price.",
+        "icon": "water-outline"
+      },
+      {
+        "term": "Volatility",
+        "definition": "How much the price of an asset moves up and down.",
+        "icon": "flash-outline"
+      },
+      {
+        "term": "Order Book",
+        "definition": "A real-time list of buy and sell orders for a specific asset.",
+        "icon": "book-outline"
+      },
+      {
+        "term": "Leverage",
+        "definition": "Using borrowed funds to increase the size of a trade.",
+        "icon": "trending-up-outline"
+      },
+      {
+        "term": "Stop Loss",
+        "definition": "An order to sell an asset when it reaches a certain price to limit losses.",
+        "icon": "close-circle-outline"
+      }
+    ],
+    "didYouKnow": {
+      "icon": "bulb-outline",
+      "title": "Did You Know?",
+      "text": "High volatility can mean bigger opportunities, but also higher risks!"
+    }
+  }
+}

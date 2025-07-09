@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   NativeScrollEvent,
@@ -12,40 +11,26 @@ import {
 } from 'react-native';
 import { COLORS } from '../../../../constants/theme';
 
-const TERMS = [
-  {
-    term: 'Asset',
-    def: 'Anything of value you can trade, like stocks or crypto.',
-    icon: 'layers-outline',
-  },
-  {
-    term: 'Market',
-    def: 'A place where trading happens.',
-    icon: 'business-outline',
-  },
-  {
-    term: 'Risk',
-    def: 'The chance you will lose money in a trade.',
-    icon: 'warning-outline',
-  },
-  {
-    term: 'Profit',
-    def: 'Money you make when prices go your way.',
-    icon: 'trending-up-outline',
-  },
-  {
-    term: 'Trendline',
-    def: 'A line on a chart showing price direction.',
-    icon: 'stats-chart-outline',
-  },
-];
-
 function GlossarySlide({
-  lessonTitle = 'Glossary of Key Terms',
+  lessonTitle,
+  title,
+  subtitle,
+  terms = [],
+  didYouKnow,
+  xpUnlocked,
+  slide,
+  totalSlides,
   onPrev,
   onNext,
 }: {
   lessonTitle?: string;
+  title?: string;
+  subtitle?: string;
+  terms?: { term: string; definition: string; icon: string }[];
+  didYouKnow?: { icon: string; title: string; text: string };
+  xpUnlocked?: { stars: number; text: string };
+  slide?: number;
+  totalSlides?: number;
   onPrev?: () => void;
   onNext?: () => void;
 }) {
@@ -65,22 +50,11 @@ function GlossarySlide({
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Trading Basics</Text>
-          <Text style={styles.headerTitle}>{lessonTitle}</Text>
+          <Text style={styles.headerLabel}>{lessonTitle}</Text>
+          <Text style={styles.headerTitle}>{title}</Text>
         </View>
         <View style={styles.headerRightCol}>
-          <View style={styles.streakBadge}>
-            <Ionicons
-              name='flame-outline'
-              size={16}
-              color={COLORS.primary}
-              style={{ marginRight: 4 }}
-            />
-            <Text style={styles.streakText}>3 day streak</Text>
-          </View>
-          <View style={styles.xpBadge}>
-            <Text style={styles.xpBadgeText}>+20 XP</Text>
-          </View>
+          {/* Optionally add badges here if needed */}
         </View>
       </View>
       <ScrollView
@@ -91,86 +65,67 @@ function GlossarySlide({
       >
         <View style={styles.card}>
           <View style={styles.topRow}>
-            <Text style={styles.slideCount}>Slide 13 of 15</Text>
-            <View style={styles.xpBadge}>
-              <Ionicons
-                name='flash'
-                size={14}
-                color='#fff'
-                style={{ marginRight: 4 }}
-              />
-              <Text style={styles.xpBadgeText}>+10 XP</Text>
-            </View>
+            <Text style={styles.slideCount}>
+              Slide {slide} of {totalSlides}
+            </Text>
+            {/* Optionally add XP badge here if needed */}
           </View>
-          <Text style={styles.title}>{lessonTitle}</Text>
-          <Text style={styles.subtitle}>
-            Here are some trading terms you&apos;ve learned:
-          </Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>{subtitle}</Text>
           {/* Table */}
           <View style={styles.table}>
             <View style={styles.tableHeader}>
               <Text style={styles.tableHeaderCell}>Term</Text>
               <Text style={styles.tableHeaderCell}>Definition</Text>
-              <Text style={styles.tableHeaderCell}>Icon</Text>
             </View>
-            {TERMS.map((row, idx) => (
+            {terms.map((row, idx) => (
               <View
                 key={row.term}
                 style={[styles.tableRow, idx % 2 === 1 && styles.tableRowAlt]}
               >
                 <Text style={styles.tableCellTerm}>{row.term}</Text>
-                <Text style={styles.tableCellDef}>{row.def}</Text>
-                <View style={styles.iconCircle}>
-                  <Ionicons name={row.icon as any} size={22} color='#fff' />
-                </View>
+                <Text style={styles.tableCellDef}>{row.definition}</Text>
               </View>
             ))}
           </View>
           {/* Did You Know Card */}
-          <View style={styles.didYouKnowCard}>
-            <Ionicons
-              name='bulb-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <View>
-              <Text style={styles.didYouKnowTitle}>Did You Know?</Text>
-              <Text style={styles.didYouKnowText}>
-                Learn these terms to speak the language of traders!
-              </Text>
+          {didYouKnow && (
+            <View style={styles.didYouKnowCard}>
+              <Ionicons
+                name={didYouKnow.icon || 'bulb-outline'}
+                size={18}
+                color={COLORS.primary}
+                style={{ marginRight: 8 }}
+              />
+              <View>
+                <Text style={styles.didYouKnowTitle}>{didYouKnow.title}</Text>
+                <Text style={styles.didYouKnowText}>{didYouKnow.text}</Text>
+              </View>
             </View>
-          </View>
+          )}
           {/* XP Unlocked Card */}
-          <View style={styles.xpUnlockedCard}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginBottom: 4,
-              }}
-            >
-              <Ionicons
-                name='star'
-                size={18}
-                color={'#fff'}
-                style={{ marginHorizontal: 2 }}
-              />
-              <Ionicons
-                name='star'
-                size={18}
-                color={'#fff'}
-                style={{ marginHorizontal: 2 }}
-              />
-              <Ionicons
-                name='star'
-                size={18}
-                color={'#fff'}
-                style={{ marginHorizontal: 2 }}
-              />
+          {xpUnlocked && (
+            <View style={styles.xpUnlockedCard}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginBottom: 4,
+                }}
+              >
+                {[...Array(xpUnlocked.stars || 0)].map((_, i) => (
+                  <Ionicons
+                    key={i}
+                    name='star'
+                    size={18}
+                    color={'#fff'}
+                    style={{ marginHorizontal: 2 }}
+                  />
+                ))}
+              </View>
+              <Text style={styles.xpUnlockedText}>{xpUnlocked.text}</Text>
             </View>
-            <Text style={styles.xpUnlockedText}>+10 XP Unlocked!</Text>
-          </View>
+          )}
         </View>
         {/* Spacer for nav bar */}
         <View style={{ height: 90 }} />
@@ -406,24 +361,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// Route handler for navigation and param parsing
-function GlossarySlideRoute() {
-  const params = useLocalSearchParams();
-  const router = useRouter();
-
-  return (
-    <GlossarySlide
-      {...params}
-      onPrev={() =>
-        router.replace('/(app)/_(lessons)/slides/AnalogySlide', { ...params })
-      }
-      onNext={() =>
-        router.replace('/(app)/_(lessons)/slides/MotivationalSlide', {
-          ...params,
-        })
-      }
-    />
-  );
-}
-
-export default GlossarySlideRoute;
+export default GlossarySlide;

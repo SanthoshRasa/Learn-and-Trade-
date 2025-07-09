@@ -1,0 +1,748 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "lessonId": "C1M1L1",
+      "lessonTitle": "Introduction to Trading",
+      "moduleTitle": "What is Trading?",
+      "chapterTitle": "Chapter 1: Novice Navigator – Welcome to Trading",
+      "level": "Novice Apprentice",
+      "totalXP": 150,
+      "moduleNumber": 1,
+      "lessionNumber": 1,
+      "estimatedDuration": "10 min",
+      "unlockCondition": {
+        "requiresPreviousLesson": false,
+        "requiresQuizScore": 70
+      },
+      "slides": [
+        {
+          "slideNumber": 1,
+          "type": "introSlide",
+          "xpReward": 10,
+          "estimatedReadTime": "20s",
+          "isKeySlide": true,
+          "content": {
+            "title": "Introduction to Trading",
+            "objective": "Explore what trading means, why people trade, and how it's different from investing."
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Macropus_giganteus_-_Brunkerville.jpg",
+                "caption": "Welcome to Trading",
+                "position": "main"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 2,
+          "type": "conceptSlide",
+          "xpReward": 10,
+          "estimatedReadTime": "45s",
+          "isKeySlide": true,
+          "content": {
+            "title": "What is Trading?",
+            "introduction": "Trading means buying and selling financial assets to make a profit from price changes.",
+            "points": [
+              "Traders look for price movements.",
+              "Trading can be short-term or long-term.",
+              "It happens in many markets like stocks, forex, and crypto.",
+              "Success requires knowledge and discipline.",
+              "Trading always involves risk."
+            ],
+            "funFact": "Some traders only look at charts, ignoring news completely!",
+            "teacherNote": "Remember: trading is about managing risk as much as seeking profit."
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "anna1.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              },
+              {
+                "imageURL": "anna2.jpg",
+                "caption": "Family celebrating",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "anna3.jpg",
+                "caption": "Trading journal",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 3,
+          "type": "conceptSlide",
+          "xpReward": 10,
+          "estimatedReadTime": "45s",
+          "isKeySlide": true,
+          "content": {
+            "title": "Trading vs. Investing",
+            "introduction": "Although people confuse them, trading and investing are different strategies.",
+            "points": [
+              "Investing is long-term. Trading is often short-term.",
+              "Investors care about business fundamentals. Traders care about price movements.",
+              "Investing seeks steady growth. Trading seeks quick profits.",
+              "Trading often means higher risk and stress.",
+              "Both need planning and discipline."
+            ],
+            "funFact": "Warren Buffett is an investor, not a trader!",
+            "teacherNote": "Understand your personality: are you a trader or an investor?"
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "anna1.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              },
+              {
+                "imageURL": "anna2.jpg",
+                "caption": "Family celebrating",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "anna3.jpg",
+                "caption": "Trading journal",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 4,
+          "type": "conceptSlide",
+          "xpReward": 10,
+          "estimatedReadTime": "45s",
+          "isKeySlide": true,
+          "content": {
+            "title": "Why People Trade",
+            "introduction": "Traders enter the markets for many reasons beyond just profit.",
+            "points": [
+              "To build wealth quickly.",
+              "To seek financial freedom.",
+              "For the thrill and challenge.",
+              "As a full-time profession.",
+              "To supplement other income."
+            ],
+            "funFact": "Some traders only trade for one hour a day!",
+            "teacherNote": "Trading can be life-changing—but it's not easy money."
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "anna1.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              },
+              {
+                "imageURL": "anna2.jpg",
+                "caption": "Family celebrating",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "anna3.jpg",
+                "caption": "Trading journal",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 5,
+          "type": "exampleSlide",
+          "xpReward": 8,
+          "estimatedReadTime": "40s",
+          "isKeySlide": false,
+          "content": {
+            "title": "Real-World Example: BTC Long Trade",
+            "introduction": "A trader enters a long position on BTC at $40,000 and sells at $44,000. The $4,000 difference is their profit, minus any fees.",
+            "steps": [
+              "Trader buys BTC at $140,000.",
+              "BTC price rises to $144,000.",
+              "Trader sells BTC, making a $14,000 profit (minus fees)."
+            ],
+            "keyTakeaway": "Profit is made by buying low and selling high.",
+            "funFact": "The largest single-day BTC gain was over 20%!",
+            "teacherNote": "Always consider trading fees and market volatility."
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "anna1.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              },
+              {
+                "imageURL": "anna2.jpg",
+                "caption": "Family celebrating",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "anna3.jpg",
+                "caption": "Trading journal",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 6,
+          "type": "compareSlide",
+          "xpReward": 12,
+          "estimatedReadTime": "60s",
+          "isKeySlide": true,
+          "content": {
+            "title": "Trading vs. Investing",
+            "introduction": "Let's compare trading and investing across key aspects.",
+            "tabs": [
+              {
+                "key": "time",
+                "label": "Time",
+                "icon": "time-outline",
+                "rows": [
+                  {
+                    "aspect": "Time Frame",
+                    "trading": "Short-term (minutes to months)",
+                    "investing": "Long-term (years to decades)"
+                  },
+                  {
+                    "aspect": "Focus",
+                    "trading": "Price movements & timing",
+                    "investing": "Company growth & value"
+                  },
+                  {
+                    "aspect": "Test 1",
+                    "trading": "XXXX XXXXX XXXXXX XXXXX",
+                    "investing": "YYYY YYYYY YYYYYY YYYYY"
+                  }
+                ]
+              },
+              {
+                "key": "risk",
+                "label": "Risk",
+                "icon": "flash-outline",
+                "rows": [
+                  {
+                    "aspect": "Risk Level",
+                    "trading": "Usually higher",
+                    "investing": "Usually lower"
+                  },
+                  {
+                    "aspect": "Test 2",
+                    "trading": "AAAA AAAAA AAAAAA AAAAA",
+                    "investing": "BBBB BBBBB BBBBBB BBBBB"
+                  },
+                  {
+                    "aspect": "Test 3",
+                    "trading": "CCCC CCCCC CCCCCC CCCCC",
+                    "investing": "DDDD DDDDD DDDDDD DDDDD"
+                  }
+                ]
+              },
+              {
+                "key": "profit",
+                "label": "Profit",
+                "icon": "funnel-outline",
+                "rows": [
+                  {
+                    "aspect": "Profit Source",
+                    "trading": "Price changes",
+                    "investing": "Price changes + dividends"
+                  },
+                  {
+                    "aspect": "Test 4",
+                    "trading": "EEEE EEEEE EEEEEE EEEEE",
+                    "investing": "FFFF FFFFF FFFFFF FFFFF"
+                  },
+                  {
+                    "aspect": "Test 5",
+                    "trading": "GGGG GGGGG GGGGGG GGGGG",
+                    "investing": "HHHH HHHHH HHHHHH HHHHH"
+                  }
+                ]
+              }
+            ],
+            "teacherNote": "Trading and investing serve different goals and suit different personalities. Choose what fits you best!"
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Macropus_giganteus_-_Brunkerville.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 7,
+          "type": "analogySlide",
+          "xpReward": 8,
+          "estimatedReadTime": "45s",
+          "isKeySlide": false,
+          "content": {
+            "title": "Trading is Like Gambling",
+            "analogyStatement": "Think of trading like smart gambling. Just as you look for discounts when buying clothes, traders look for good prices when buying assets.",
+            "analogyIcon": "bulb-outline",
+            "images": [
+              {
+                "url": "gambling_analogy_1.jpg",
+                "caption": null
+              }
+            ],
+            "table": {
+              "headers": [
+                {
+                  "label": "Everyday Gambling",
+                  "icon": "cart-outline"
+                },
+                {
+                  "label": "Trading Equivalent",
+                  "icon": "stats-chart-outline"
+                }
+              ],
+              "rows": [
+                [
+                  "Checking casino prices",
+                  "Analyzing market prices"
+                ],
+                [
+                  "Waiting for wins",
+                  "Waiting for good entry points"
+                ],
+                [
+                  "Comparing casinos",
+                  "Comparing different markets"
+                ]
+              ]
+            },
+            "tableImage": {
+              "url": "gambling_analogy_1.jpg",
+              "caption": null
+            },
+            "teacherNote": "This simple comparison helps understanding the basic concept of buying low and selling high",
+            "noteIcon": "person-circle-outline",
+            "noteImage": {
+              "url": "gambling_analogy_2.jpg",
+              "caption": null
+            }
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "anna1.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              },
+              {
+                "imageURL": "anna2.jpg",
+                "caption": "Family celebrating",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "anna3.jpg",
+                "caption": "Trading journal",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Case Study Slide",
+          "slideNumber": 8,
+          "xpReward": 20,
+          "isKeySlide": true,
+          "estimatedReadTime": "60s",
+          "content": {
+            "title": "Case Study: Carlos' Business Survival",
+            "lessonTitle": "Carlos's Resilience in Trading",
+            "timelineSteps": [
+              {
+                "icon": "business-outline",
+                "label": "Background",
+                "text": "Carlos owned a small café that struggled during an economic downturn."
+              },
+              {
+                "icon": "book-outline",
+                "label": "Approach",
+                "text": "He started learning about trading to create a new income stream."
+              },
+              {
+                "icon": "cash-outline",
+                "label": "Challenge",
+                "text": "Carlos made small, careful trades in the evenings after closing his café."
+              },
+              {
+                "icon": "refresh-outline",
+                "label": "Solution",
+                "text": "He faced losses at first, but kept a trading journal and learned from mistakes."
+              },
+              {
+                "icon": "trending-up-outline",
+                "label": "Outcome",
+                "text": "Gradually, his trading profits helped cover business expenses."
+              },
+              {
+                "icon": "happy-outline",
+                "label": "Lesson",
+                "text": "Carlos kept his café open and gained confidence in both business and trading."
+              }
+            ],
+            "chartTitle": "Trading Profits vs. Café Revenue",
+            "chartImage": {
+              "url": "https://thumbs.dreamstime.com/b/3d-man-presenting-business-growth-chart-graph-26504985.jpg"
+            },
+            "chartHint": "Carlos's trading profits and café revenue (2022-2024)",
+            "keyTakeawayTitle": "Key Takeaway",
+            "keyTakeawayText": "Adaptability and persistence can turn challenges into new opportunities."
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "casestudy1.jpg",
+                "caption": "Anna at her desk",
+                "position": "main"
+              },
+              {
+                "imageURL": "casestudy2.jpg",
+                "caption": "Family celebrating",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "casestudy3.jpg",
+                "caption": "Trading journal",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Myth Buster Slide",
+          "slideNumber": 9,
+          "xpReward": 15,
+          "isKeySlide": false,
+          "estimatedReadTime": "40s",
+          "content": {
+            "title": "Myth Buster: 'You Need a Lot of Money to Start Trading'",
+            "subtitle": "Many believe trading is only for the wealthy or those with big savings.",
+            "myth": {
+              "title": "The Myth",
+              "icon": "close",
+              "text": "You need thousands of dollars to start trading and only rich people can participate in the markets."
+            },
+            "reality": {
+              "title": "The Reality",
+              "icon": "checkmark-circle",
+              "text": "Many brokers allow you to start trading with small amounts. Success depends more on knowledge and discipline than on the size of your account."
+            },
+            "whyMyth": {
+              "title": "Why It's a Myth",
+              "text": "Modern trading platforms and fractional shares make it possible to begin with as little as $10 or $20. Learning and practicing with small amounts is a smart way to start.",
+              "impact": {
+                "icon": "warning-outline",
+                "title": "Impact of This Misconception",
+                "text": "Believing you need a lot of money stops many people from learning and building skills. It can also lead to risky behavior if someone invests more than they can afford."
+              }
+            },
+            "evidence": [
+              {
+                "icon": "book-outline",
+                "source": "NerdWallet",
+                "text": "'Many online brokers have no minimum deposit and allow you to buy fractional shares, making trading accessible to almost everyone.'"
+              },
+              {
+                "icon": "bar-chart-outline",
+                "source": "SEC.gov",
+                "text": "'Start small and learn as you go. Even a small account can teach you the basics of trading and risk management.'"
+              }
+            ],
+            "takeaways": [
+              "You can start trading with a small amount of money",
+              "Focus on learning and practicing, not just account size",
+              "Start small, manage risk, and grow your skills over time"
+            ]
+          },
+          "media": {
+            "images": [
+              {
+                "imageURL": "myth1.jpg",
+                "caption": "Myth vs. reality cards",
+                "position": "main"
+              },
+              {
+                "imageURL": "myth2.jpg",
+                "caption": "Icons: myth busting",
+                "position": "secondary"
+              },
+              {
+                "imageURL": "myth3.jpg",
+                "caption": "Part-time trader",
+                "position": "background"
+              }
+            ]
+          }
+        },
+        {
+          "slideNumber": 10,
+          "type": "glossarySlide",
+          "xpReward": 10,
+          "estimatedReadTime": "45s",
+          "isKeySlide": false,
+          "content": {
+            "lessonTitle": "Glossary of Key Terms",
+            "title": "Glossary of Key Terms",
+            "subtitle": "Review these important trading concepts:",
+            "terms": [
+              {
+                "term": "Liquidity",
+                "definition": "How easily an asset can be bought or sold without affecting its price."
+              },
+              {
+                "term": "Volatility",
+                "definition": "How much the price of an asset moves up and down."
+              },
+              {
+                "term": "Order Book",
+                "definition": "A real-time list of buy and sell orders for a specific asset."
+              },
+              {
+                "term": "Leverage",
+                "definition": "Using borrowed funds to increase the size of a trade."
+              },
+              {
+                "term": "Stop Loss",
+                "definition": "An order to sell an asset when it reaches a certain price to limit losses."
+              }
+            ],
+            "didYouKnow": {
+              "icon": "bulb-outline",
+              "title": "Did You Know?",
+              "text": "High volatility can mean bigger opportunities, but also higher risks!"
+            }
+          }
+        },
+        {
+          "slideNumber": 11,
+          "type": "motivationalSlide",
+          "xpReward": 8,
+          "estimatedReadTime": "30s",
+          "isKeySlide": false,
+          "content": {
+            "lessonTitle": "Wisdom from the Legends",
+            "slide": 11,
+            "totalSlides": 15,
+            "title": "Wisdom from the Legends",
+            "quote": "In investing, what is comfortable is rarely profitable.",
+            "quoteSource": "— Robert Arnott\nSource: Financial Analysts Journal",
+            "lessonForTraders": {
+              "icon": "bulb-outline",
+              "title": "Lesson for Traders",
+              "text": "Growth happens outside your comfort zone. Don’t be afraid to take calculated risks."
+            }
+          }
+        },
+        {
+          "slideNumber": 12,
+          "type": "quizStartSlide",
+          "xpReward": 50,
+          "isKeySlide": false,
+          "estimatedReadTime": "30s",
+          "content": {
+            "lessonTitle": "Quiz Time",
+            "slide": 12,
+            "totalSlides": 15,
+            "title": "Ready to Take the Quiz?",
+            "quizDetails": [
+              {
+                "icon": "help-circle-outline",
+                "label": "Questions",
+                "value": "15 Questions"
+              },
+              {
+                "icon": "stats-chart-outline",
+                "label": "Passing Score",
+                "value": "Minimum 70% to pass"
+              },
+              {
+                "icon": "time-outline",
+                "label": "Time Estimate",
+                "value": "Approx 5 minutes"
+              },
+              {
+                "icon": "flash-outline",
+                "label": "XP Rewards",
+                "value": "Earn up to +100 XP"
+              },
+              {
+                "icon": "gift-outline",
+                "label": "Bonus XP",
+                "value": "+10 XP for 100% score"
+              }
+            ],
+            "unlockRewards": {
+              "icon": "trophy-outline",
+              "title": "Unlock Rewards",
+              "badge": "Market Explorer Badge",
+              "progress": 0.75,
+              "level": 3,
+              "xp": 150,
+              "xpToNextLevel": 200
+            },
+            "beforeYouStart": {
+              "icon": "bulb-outline",
+              "title": "Before you start:",
+              "text": "Read each question carefully. You'll see a mix of multiple-choice, true/false, interactive questions and etc."
+            },
+            "encouragement": {
+              "icon": "happy-outline",
+              "title": "You've got this!",
+              "text": "Ready to test what you have learned?"
+            }
+          }
+        },
+        {
+          "type": "Quiz Slide",
+          "slideNumber": 13,
+          "xpReward": 60,
+          "isKeySlide": true,
+          "estimatedReadTime": "5 min",
+          "content": {
+            "title": "Quiz: Why People Trade",
+            "questions": [
+              {
+                "id": 1,
+                "type": "multiple_choice",
+                "question": "Why do most people start trading?",
+                "options": [
+                  "To earn profit and get more freedom",
+                  "To avoid all risk",
+                  "To follow friends",
+                  "To become famous"
+                ],
+                "correctAnswer": "To earn profit and get more freedom",
+                "explanation": "Profit and freedom are the main reasons people start trading."
+              },
+              {
+                "id": 2,
+                "type": "true_false",
+                "question": "You must quit your job to start trading.",
+                "options": [
+                  "True",
+                  "False"
+                ],
+                "correctAnswer": "False",
+                "explanation": "Many people trade part-time or as a hobby."
+              },
+              {
+                "id": 3,
+                "type": "multiple_choice",
+                "question": "Trading is like:",
+                "options": [
+                  "Planting a garden",
+                  "Riding a rollercoaster",
+                  "Building a house",
+                  "Cooking dinner"
+                ],
+                "correctAnswer": "Planting a garden",
+                "explanation": "Trading takes time, care, and patience—just like gardening."
+              },
+              {
+                "id": 4,
+                "type": "multiple_choice",
+                "question": "What is a trading myth?",
+                "options": [
+                  "Trading is a quick way to get rich",
+                  "People trade for many reasons",
+                  "Trading can be done part-time",
+                  "You need patience to trade"
+                ],
+                "correctAnswer": "Trading is a quick way to get rich",
+                "explanation": "Most traders grow their money slowly, not quickly."
+              },
+              {
+                "id": 5,
+                "type": "true_false",
+                "question": "You can make money in trading only when prices go up.",
+                "options": [
+                  "True",
+                  "False"
+                ],
+                "correctAnswer": "False",
+                "explanation": "You can make money when prices go up or down."
+              },
+              {
+                "id": 6,
+                "type": "multiple_choice",
+                "question": "What is an example of trading for meaning?",
+                "options": [
+                  "Learning new skills",
+                  "Trying to get rich overnight",
+                  "Taking huge risks",
+                  "Copying others’ trades"
+                ],
+                "correctAnswer": "Learning new skills",
+                "explanation": "Trading for meaning is about personal growth and learning."
+              },
+              {
+                "id": 7,
+                "type": "multiple_choice",
+                "question": "What’s most important for long-term trading success?",
+                "options": [
+                  "Patience and discipline",
+                  "Trading every day",
+                  "Taking big risks",
+                  "Guessing market moves"
+                ],
+                "correctAnswer": "Patience and discipline",
+                "explanation": "Patience and discipline help you make smart, steady trades."
+              },
+              {
+                "id": 8,
+                "type": "true_false",
+                "question": "Trading can fit different lifestyles.",
+                "options": [
+                  "True",
+                  "False"
+                ],
+                "correctAnswer": "True",
+                "explanation": "You can trade full-time, part-time, or just for fun."
+              },
+              {
+                "id": 9,
+                "type": "multiple_choice",
+                "question": "What does Anna’s story teach us?",
+                "options": [
+                  "Trading is only for experts",
+                  "Trading can help you reach personal goals",
+                  "You need to risk a lot to win",
+                  "Trading is always easy"
+                ],
+                "correctAnswer": "Trading can help you reach personal goals",
+                "explanation": "Anna traded for her family and reached her goal with small, careful trades."
+              },
+              {
+                "id": 10,
+                "type": "multiple_choice",
+                "question": "What is the best way to learn trading?",
+                "options": [
+                  "Practice, learn, and trade with care",
+                  "Take big risks right away",
+                  "Trade without a plan",
+                  "Copy random trades"
+                ],
+                "correctAnswer": "Practice, learn, and trade with care",
+                "explanation": "Learning and practicing safely is the best way to start."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

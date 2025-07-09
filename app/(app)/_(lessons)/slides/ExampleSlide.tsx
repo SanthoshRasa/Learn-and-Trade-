@@ -2,34 +2,49 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS, SIZES, SPACING } from '../../../../constants/theme';
+import { COLORS, SPACING } from '../../../../constants/theme';
 
 interface ExampleSlideProps {
-  title: string;
-  description: string;
+  title?: string;
+  introduction?: string;
+  description?: string;
+  steps?: string[];
+  keyTakeaway?: string;
+  funFact?: string;
+  teacherNote?: string;
+  media?: any;
   onPrev?: () => void;
   onNext?: () => void;
   xp?: number;
   lessonTitle?: string;
+  moduleTitle?: string;
   slide?: number;
   totalSlides?: number;
 }
 
-export default function ExampleSlide({
-  title = 'Real-World Example: BTC Long Trade',
-  description = 'A trader enters a long position on BTC at $40,000 and sells at $44,000. The $4,000 difference is their profit, minus any fees.',
+export function ExampleSlide({
+  title = '',
+  introduction = '',
+  description = '',
+  steps = [],
+  keyTakeaway = '',
+  funFact = '',
+  teacherNote = '',
+  media = {},
   onPrev,
   onNext,
-  xp = 10,
-  lessonTitle = 'How Do Traders Make Money?',
-  slide = 3,
-  totalSlides = 5,
+  xp = 0,
+  lessonTitle = '',
+  moduleTitle = '',
+  slide = 1,
+  totalSlides = 1,
 }: ExampleSlideProps) {
   const params = useLocalSearchParams();
   const router = useRouter();
@@ -51,14 +66,28 @@ export default function ExampleSlide({
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.backgroundDark }}>
-      {/* Header */}
+      {/* Header - match Concept/CompareSlide */}
       <View style={styles.headerBar}>
         <TouchableOpacity style={styles.headerBackBtn} onPress={onPrev}>
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Trading Basics</Text>
-          <Text style={styles.headerTitle}>{lessonTitle}</Text>
+          <Text style={styles.headerTitle}>{title}</Text>
+          {moduleTitle ? (
+            <Text
+              style={[
+                styles.subtitle,
+                {
+                  fontSize: 14,
+                  marginTop: 2,
+                  textAlign: 'left',
+                  alignSelf: 'flex-start',
+                },
+              ]}
+            >
+              {moduleTitle}
+            </Text>
+          ) : null}
         </View>
         <View style={styles.headerRightCol}>
           <View style={styles.streakBadge}>
@@ -75,112 +104,219 @@ export default function ExampleSlide({
           </View>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Tag Row */}
-        <View style={styles.tagsRow}>
-          <View style={styles.tag}>
-            <Ionicons
-              name='bulb-outline'
-              size={14}
-              color={COLORS.primary}
-              style={{ marginRight: 4 }}
-            />
-            <Text style={{ color: COLORS.primary, fontSize: 12 }}>
-              Example Slide
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Ionicons
-              name='volume-high-outline'
-              size={18}
-              color={COLORS.primary}
-            />
-          </TouchableOpacity>
-        </View>
-        {/* Slide Title */}
+      {/* Linear Progress Bar below header */}
+      <View
+        style={{
+          width: '100%',
+          height: 6,
+          backgroundColor: '#232B3B',
+          borderRadius: 3,
+          marginBottom: 12,
+        }}
+      >
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 8,
+            width: `${Math.round((slide / totalSlides) * 100)}%`,
+            height: '100%',
+            backgroundColor: '#3B82F6',
+            borderRadius: 3,
           }}
-        >
-          <Ionicons
-            name='bulb'
-            size={20}
-            color={COLORS.primary}
-            style={{ marginRight: 6 }}
-          />
-          <Text style={styles.title}>{title}</Text>
-        </View>
-        {/* Chart/Illustration */}
-        <View style={styles.chartCard}>
-          {/* Placeholder for chart */}
-          <Ionicons
-            name='trending-up-outline'
-            size={48}
-            color={COLORS.textSecondary}
-            style={{ alignSelf: 'center' }}
-          />
-          <View
+        />
+      </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Slide count, title, introduction in body */}
+        <View style={{ paddingHorizontal: 18, paddingTop: 8, marginBottom: 8 }}>
+          <Text
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 8,
+              color: COLORS.textSecondary,
+              fontSize: 14,
+              marginBottom: 2,
             }}
           >
-            <Text style={styles.chartLabel}>$38K</Text>
-            <Text style={styles.chartLabel}>$46K</Text>
-          </View>
-          <Text style={styles.chartHint}>Tap points for details</Text>
-        </View>
-        {/* Key Example Box */}
-        <View style={styles.keyExampleBox}>
-          <Text style={styles.keyExampleText}>
-            BTC bought at $40,000 → Sold at $44,000 = +$4,000 gain
+            Slide {slide} of {totalSlides}
           </Text>
-        </View>
-        {/* Description */}
-        <Text style={styles.description}>{description}</Text>
-        {/* Feedback/Note Box */}
-        <View style={styles.noteBox}>
-          <Ionicons
-            name='happy-outline'
-            size={28}
-            color={COLORS.primary}
-            style={{ marginRight: 8 }}
-          />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.noteTitle}>
-              ✅ Good job buying early and exiting smart!
+          <Text
+            style={{
+              color: '#fff',
+              fontWeight: 'bold',
+              fontSize: 22,
+              marginBottom: 4,
+            }}
+          >
+            {title}
+          </Text>
+          {introduction ? (
+            <Text
+              style={{
+                color: COLORS.textSecondary,
+                fontSize: 15,
+                marginBottom: 8,
+              }}
+            >
+              {introduction}
             </Text>
-            <Text style={styles.noteText}>
-              This is a perfect example of a smart trade. You identified a gain
-              and exited with profit.
+          ) : null}
+        </View>
+        {/* Image Placeholder (from media.images) */}
+        {media.images && media.images.length > 0 ? (
+          <View
+            style={{ width: '100%', alignItems: 'center', marginBottom: 16 }}
+          >
+            <Image
+              source={{ uri: media.images[0].url }}
+              style={{
+                width: '100%',
+                aspectRatio: 16 / 9,
+                borderRadius: 12,
+                backgroundColor: '#232B3B',
+              }}
+              resizeMode='cover'
+            />
+            {media.images[0].caption ? (
+              <Text
+                style={{
+                  color: '#B0B4C1',
+                  fontSize: 13,
+                  marginTop: 4,
+                  textAlign: 'center',
+                }}
+              >
+                {media.images[0].caption}
+              </Text>
+            ) : null}
+          </View>
+        ) : (
+          <View
+            style={{
+              width: '100%',
+              aspectRatio: 16 / 9,
+              borderRadius: 12,
+              backgroundColor: '#232B3B',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 16,
+            }}
+          >
+            <Ionicons name='image-outline' size={48} color={'#444B5A'} />
+          </View>
+        )}
+        {/* Steps (if any) */}
+        {steps && steps.length > 0 && (
+          <View style={{ marginBottom: 12 }}>
+            {steps.map((step, idx) => (
+              <Text
+                key={idx}
+                style={{ color: '#fff', fontSize: 15, marginBottom: 4 }}
+              >
+                • {step}
+              </Text>
+            ))}
+          </View>
+        )}
+        {/* Key Example Box (keyTakeaway) */}
+        {keyTakeaway ? (
+          <View
+            style={{
+              backgroundColor: '#232B3B',
+              borderRadius: 12,
+              padding: 16,
+              marginBottom: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: 'bold',
+                fontSize: 15,
+                textAlign: 'center',
+              }}
+            >
+              {keyTakeaway}
             </Text>
           </View>
-        </View>
-        {/* Footer Actions */}
-        <View style={styles.footerActions}>
-          <TouchableOpacity style={styles.actionBtn}>
+        ) : null}
+        {/* Description */}
+        {description ? (
+          <Text style={styles.description}>{description}</Text>
+        ) : null}
+        {/* Fun Fact */}
+        {funFact ? (
+          <View
+            style={{
+              backgroundColor: '#232B3B',
+              borderRadius: 12,
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              padding: 16,
+              marginBottom: 16,
+            }}
+          >
             <Ionicons
-              name='refresh'
-              size={18}
+              name='sparkles-outline'
+              size={20}
               color={COLORS.primary}
-              style={{ marginRight: 4 }}
+              style={{ marginRight: 12, marginTop: 2 }}
             />
-            <Text style={styles.actionText}>Review Example</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn}>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  fontWeight: 'bold',
+                  fontSize: 13,
+                  textTransform: 'uppercase',
+                  marginBottom: 2,
+                }}
+              >
+                FUN FACT
+              </Text>
+              <Text
+                style={{ color: '#fff', fontSize: 15, lineHeight: 21, flex: 1 }}
+              >
+                {funFact}
+              </Text>
+            </View>
+          </View>
+        ) : null}
+        {/* Teacher Note */}
+        {teacherNote ? (
+          <View
+            style={{
+              backgroundColor: '#232B3B',
+              borderRadius: 12,
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              padding: 16,
+              marginBottom: 16,
+            }}
+          >
             <Ionicons
-              name='save-outline'
-              size={18}
+              name='person-circle-outline'
+              size={20}
               color={COLORS.primary}
-              style={{ marginRight: 4 }}
+              style={{ marginRight: 12, marginTop: 2 }}
             />
-            <Text style={styles.actionText}>Save to Journal</Text>
-          </TouchableOpacity>
-        </View>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: COLORS.primary,
+                  fontWeight: 'bold',
+                  fontSize: 13,
+                  textTransform: 'uppercase',
+                  marginBottom: 2,
+                }}
+              >
+                TEACHER NOTE
+              </Text>
+              <Text
+                style={{ color: '#fff', fontSize: 15, lineHeight: 21, flex: 1 }}
+              >
+                {teacherNote}
+              </Text>
+            </View>
+          </View>
+        ) : null}
         {/* Navigation Bar */}
         <View style={styles.footerRow}>
           <TouchableOpacity style={styles.circleBtn} onPress={handlePrev}>
@@ -211,11 +347,6 @@ const styles = StyleSheet.create({
   headerBackBtn: {
     marginRight: 8,
     padding: 4,
-  },
-  headerLabel: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 13,
   },
   headerTitle: {
     color: '#fff',
@@ -273,11 +404,10 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     marginRight: 8,
   },
-  title: {
-    fontSize: SIZES.h4,
+  subtitle: {
+    color: '#fff',
     fontWeight: 'bold',
-    color: COLORS.text,
-    flex: 1,
+    fontSize: 14,
   },
   chartCard: {
     backgroundColor: COLORS.cardBackground,
@@ -336,25 +466,6 @@ const styles = StyleSheet.create({
   noteText: {
     color: COLORS.textSecondary,
     fontSize: 13,
-  },
-  footerActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  actionBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.cardBackground,
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 8,
-  },
-  actionText: {
-    color: COLORS.primary,
-    fontWeight: 'bold',
-    fontSize: 14,
   },
   footerRow: {
     flexDirection: 'row',
@@ -424,3 +535,34 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+// Route handler for navigation and param parsing
+function ExampleSlideRoute() {
+  const params = useLocalSearchParams();
+  const router = useRouter();
+  const getString = (val: any, fallback: string) =>
+    Array.isArray(val) ? val[0] : val || fallback;
+  return (
+    <ExampleSlide
+      title={getString(params.title, 'Real-World Example: BTC Long Trade')}
+      introduction={getString(
+        params.introduction,
+        'A trader enters a long position on BTC at $40,000 and sells at $44,000. The $4,000 difference is their profit, minus any fees.'
+      )}
+      description={getString(params.description, '')}
+      steps={Array.isArray(params.steps) ? params.steps : []}
+      keyTakeaway={getString(params.keyTakeaway, '')}
+      funFact={getString(params.funFact, '')}
+      teacherNote={getString(params.teacherNote, '')}
+      media={params.media || {}}
+      onPrev={() =>
+        router.replace('/(app)/_(lessons)/slides/ConceptSlide', { ...params })
+      }
+      onNext={() =>
+        router.replace('/(app)/_(lessons)/slides/CaseStudySlide', { ...params })
+      }
+    />
+  );
+}
+
+export default ExampleSlideRoute;

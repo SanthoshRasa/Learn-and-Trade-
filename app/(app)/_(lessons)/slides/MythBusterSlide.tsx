@@ -21,27 +21,81 @@ interface MythBusterSlideProps {
   totalSlides?: number;
   onPrev?: () => void;
   onNext?: () => void;
+  title?: string;
+  subtitle?: string;
+  myth?: { title: string; icon: string; text: string };
+  reality?: { title: string; icon: string; text: string };
+  whyMyth?: {
+    title: string;
+    text: string;
+    impact: { icon: string; title: string; text: string };
+  };
+  evidence?: { icon: string; source: string; text: string }[];
+  takeaways?: string[];
 }
 
-function MythBusterSlide({
-  lessonTitle = 'Lesson 3: Market Myths',
-  streak = 3,
-  xp = 20,
-  slide = 9,
-  totalSlides = 10,
-  onPrev,
-  onNext,
-}: MythBusterSlideProps) {
+function MythBusterSlide(props: MythBusterSlideProps) {
+  console.log('MythBusterSlide props:', props);
+  const {
+    lessonTitle = 'Lesson 3: Market Myths',
+    streak = 3,
+    xp = 20,
+    slide = 9,
+    totalSlides = 10,
+    onPrev,
+    onNext,
+    title = 'Myth Buster: "Trading Is Just Like Gambling"',
+    subtitle = 'Many people believe trading is purely about luck, not skill',
+    myth = {
+      title: 'The Myth',
+      icon: 'close',
+      text: "Trading in financial markets is no different than gambling at a casino - it's all about luck and chance.",
+    },
+    reality = {
+      title: 'The Reality',
+      icon: 'checkmark-circle',
+      text: 'Trading is a skill-based activity that involves analysis, strategy, and risk management – success comes from knowledge and discipline.',
+    },
+    whyMyth = {
+      title: "Why It's a Myth",
+      text: 'Unlike gambling where outcomes are purely random, trading success depends on market analysis, economic understanding, and strategic decision making. Professional traders use fundamental and technical analysis to make informed decisions, not just hunches.',
+      impact: {
+        icon: 'warning-outline',
+        title: 'Impact of This Misconception',
+        text: 'Believing trading is pure gambling leads to poor risk management, emotional decisions, and failure to develop necessary skills.',
+      },
+    },
+    evidence = [
+      {
+        icon: 'book-outline',
+        source: 'Investopedia',
+        text: '"Research shows that disciplined traders who follow strategies consistently outperform random trading over time."',
+      },
+      {
+        icon: 'bar-chart-outline',
+        source: 'Journal of Finance',
+        text: '"Study of 10,000 traders found that those with financial education had 42% better returns than untrained participants."',
+      },
+    ],
+    takeaways = [
+      'Trading requires education, practice and skill development',
+      'Success is not based on luck, but on informed decisions',
+      'Treating trading like gambling increases risk of loss',
+    ],
+  } = props;
+
+  // Remove useState and handleScroll
+
   return (
     <View style={{ flex: 1, backgroundColor: '#181A20' }}>
       {/* Header */}
       <View style={styles.headerBar}>
+        <TouchableOpacity style={styles.headerBackBtn} onPress={onPrev}>
+          <Ionicons name='arrow-back' size={20} color='#fff' />
+        </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <TouchableOpacity style={styles.headerBackBtn} onPress={onPrev}>
-            <Ionicons name='arrow-back' size={20} color='#fff' />
-          </TouchableOpacity>
-          <Text style={styles.lessonTitle}>Trading Basics</Text>
-          <Text style={styles.lessonSubtitle}>{lessonTitle}</Text>
+          {/* Optionally add a label here if you want, e.g. <Text style={styles.headerLabel}>Trading Basics</Text> */}
+          <Text style={styles.headerTitle}>{title}</Text>
         </View>
         <View style={styles.headerRightCol}>
           <View style={styles.streakBadge}>
@@ -57,10 +111,9 @@ function MythBusterSlide({
             <Text style={styles.xpBadgeText}>+{xp} XP</Text>
           </View>
         </View>
-      </View>{' '}
+      </View>
       <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        pointerEvents='box-none'
+        contentContainerStyle={[styles.scrollContainer, { flexGrow: 1 }]}
       >
         {/* Slide count and progress */}
         <View style={styles.slideCountRow}>
@@ -78,176 +131,93 @@ function MythBusterSlide({
           </View>
         </View>
         {/* Main Title and Subtitle */}
-        <Text style={styles.title}>
-          Myth Buster: &quot;Trading Is Just Like Gambling&quot;
-        </Text>
-        <Text style={styles.subtitle}>
-          Many people believe trading is purely about luck, not skill
-        </Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
         {/* Myth Card */}
         <View style={styles.mythCard}>
           <View style={styles.mythCardHeader}>
             <Ionicons
-              name='close'
+              name={myth.icon as any}
               size={20}
               color='#8A8F98'
               style={{ marginRight: 8 }}
             />
-            <Text style={styles.mythCardTitle}>The Myth</Text>
+            <Text style={styles.mythCardTitle}>{myth.title}</Text>
           </View>
-          <Text style={styles.mythCardText}>
-            Trading in financial markets is no different than gambling at a
-            casino - it&apos;s all about luck and chance.
-          </Text>
+          <Text style={styles.mythCardText}>{myth.text}</Text>
         </View>
         {/* Reality Card */}
         <View style={styles.realityCard}>
           <View style={styles.realityCardHeader}>
             <Ionicons
-              name='checkmark-circle'
+              name={reality.icon as any}
               size={20}
               color={COLORS.primary}
               style={{ marginRight: 8 }}
             />
-            <Text style={styles.realityCardTitle}>The Reality</Text>
+            <Text style={styles.realityCardTitle}>{reality.title}</Text>
           </View>
-          <Text style={styles.realityCardText}>
-            Trading is a skill-based activity that involves analysis, strategy,
-            and risk management – success comes from knowledge and discipline.
-          </Text>
+          <Text style={styles.realityCardText}>{reality.text}</Text>
         </View>
         {/* Why It's a Myth */}
         <View style={styles.whyMythCard}>
-          <Text style={styles.whyMythTitle}>Why It&apos;s a Myth</Text>
-          <Text style={styles.whyMythText}>
-            Unlike gambling where outcomes are purely random, trading success
-            depends on market analysis, economic understanding, and strategic
-            decision making. Professional traders use fundamental and technical
-            analysis to make informed decisions, not just hunches.
-          </Text>
+          <Text style={styles.whyMythTitle}>{whyMyth.title}</Text>
+          <Text style={styles.whyMythText}>{whyMyth.text}</Text>
           <View style={styles.impactCard}>
             <Ionicons
-              name='warning-outline'
+              name={whyMyth.impact.icon as any}
               size={18}
               color={COLORS.primary}
               style={{ marginRight: 8 }}
             />
             <View style={{ flex: 1 }}>
-              <Text style={styles.impactTitle}>
-                Impact of This Misconception
-              </Text>
-              <Text style={styles.impactText}>
-                Believing trading is pure gambling leads to poor risk
-                management, emotional decisions, and failure to develop
-                necessary skills.
-              </Text>
+              <Text style={styles.impactTitle}>{whyMyth.impact.title}</Text>
+              <Text style={styles.impactText}>{whyMyth.impact.text}</Text>
             </View>
           </View>
         </View>
         {/* Evidence */}
         <Text style={styles.sectionTitle}>Evidence</Text>
-        <View style={styles.evidenceCard}>
-          <Ionicons
-            name='book-outline'
-            size={20}
-            color={COLORS.primary}
-            style={{ marginRight: 8 }}
-          />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.evidenceSource}>Investopedia</Text>
-            <Text style={styles.evidenceText}>
-              &quot;Research shows that disciplined traders who follow
-              strategies consistently outperform random trading over time.&quot;
-            </Text>
+        {evidence.map((ev, idx) => (
+          <View style={styles.evidenceCard} key={idx}>
+            <Ionicons
+              name={ev.icon as any}
+              size={20}
+              color={COLORS.primary}
+              style={{ marginRight: 8 }}
+            />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.evidenceSource}>{ev.source}</Text>
+              <Text style={styles.evidenceText}>{ev.text}</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.evidenceCard}>
-          <Ionicons
-            name='bar-chart-outline'
-            size={20}
-            color={COLORS.primary}
-            style={{ marginRight: 8 }}
-          />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.evidenceSource}>Journal of Finance</Text>
-            <Text style={styles.evidenceText}>
-              &quot;Study of 10,000 traders found that those with financial
-              education had 42% better returns than untrained
-              participants.&quot;
-            </Text>
-          </View>
-        </View>
+        ))}
         {/* Key Takeaways */}
         <Text style={styles.sectionTitle}>Key Takeaways</Text>
         <View style={styles.takeawayList}>
-          <View style={styles.takeawayRow}>
-            <Ionicons
-              name='checkmark-circle'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.takeawayText}>
-              Trading requires education, practice and skill development
-            </Text>
-          </View>
-          <View style={styles.takeawayRow}>
-            <Ionicons
-              name='checkmark-circle'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.takeawayText}>
-              Risk management is what separates trading from gambling
-            </Text>
-          </View>
-          <View style={styles.takeawayRow}>
-            <Ionicons
-              name='checkmark-circle'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.takeawayText}>
-              Successful traders rely on analysis and strategy, not luck
-            </Text>
-          </View>
-        </View>
-        {/* Illustration Placeholder */}
-        <View style={styles.illustrationCard}>
-          <Text style={styles.illustrationText}>
-            Illustration comparing casino gambling (dice, cards) with trading
-            (charts, analysis)
-          </Text>
-        </View>
-        {/* Did You Know */}
-        <View style={styles.didYouKnowCard}>
-          <Ionicons
-            name='bulb-outline'
-            size={18}
-            color={COLORS.primary}
-            style={{ marginRight: 8 }}
-          />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.didYouKnowTitle}>Did You Know?</Text>
-            <Text style={styles.didYouKnowText}>
-              Warren Buffett, one of the world&apos;s most successful investors,
-              spends 80% of his day reading and analyzing information.
-            </Text>
-          </View>
-        </View>
-        {/* Navigation Bar */}
-        <View style={styles.footerRow}>
-          <TouchableOpacity style={styles.circleBtn} onPress={onPrev}>
-            <Ionicons name='chevron-back' size={22} color={COLORS.primary} />
-          </TouchableOpacity>
-          <Text style={styles.swipeText}>Swipe to continue</Text>
-          <TouchableOpacity style={styles.circleBtn} onPress={onNext}>
-            <Ionicons name='chevron-forward' size={22} color={COLORS.primary} />
-          </TouchableOpacity>
+          {takeaways.map((take, idx) => (
+            <View style={styles.takeawayRow} key={idx}>
+              <Ionicons
+                name='checkmark-circle'
+                size={18}
+                color={COLORS.primary}
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.takeawayText}>{take}</Text>
+            </View>
+          ))}
         </View>
       </ScrollView>
+      {/* Navigation Bar */}
+      <View style={styles.footerRow}>
+        <TouchableOpacity style={styles.circleBtn} onPress={onPrev}>
+          <Ionicons name='chevron-back' size={22} color={COLORS.primary} />
+        </TouchableOpacity>
+        <Text style={styles.swipeText}>Swipe to continue</Text>
+        <TouchableOpacity style={styles.circleBtn} onPress={onNext}>
+          <Ionicons name='chevron-forward' size={22} color={COLORS.primary} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -255,7 +225,7 @@ function MythBusterSlide({
 const styles = StyleSheet.create({
   headerBar: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingTop: 16,
@@ -263,22 +233,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#232B3B',
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    borderBottomWidth: 0,
-    borderColor: 'transparent',
   },
   headerBackBtn: {
-    position: 'absolute',
+    marginRight: 12,
+    padding: 4,
+    position: 'relative',
     left: 0,
     top: 0,
     zIndex: 2,
-    padding: 4,
   },
-  lessonTitle: {
-    color: '#8A8F98',
+  headerTitle: {
+    color: '#fff',
     fontWeight: 'bold',
-    fontSize: 13,
-    marginLeft: 32,
-    marginBottom: 2,
+    fontSize: 16,
+    marginLeft: 8,
   },
   lessonSubtitle: {
     color: '#fff',
@@ -529,15 +497,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 24,
-    marginBottom: 4,
     backgroundColor: '#232B3B',
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderTopWidth: 0,
-    borderColor: 'transparent',
+    borderRadius: 6,
+    paddingHorizontal: 24,
+    paddingVertical: 18,
+    margin: 8,
   },
   circleBtn: {
     width: 40,
@@ -549,8 +513,9 @@ const styles = StyleSheet.create({
   },
   swipeText: {
     color: '#B0B4C1',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

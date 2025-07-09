@@ -1,0 +1,47 @@
+{
+  "slideNumber": 8,
+  "type": "caseStudySlide",
+  "xpReward": 20,
+  "isKeySlide": true,
+  "estimatedReadTime": "60s",
+  "content": {
+    "title": "Case Study: Carlos' Business Survival",
+    "lessonTitle": "Carlos's Resilience in Trading",
+    "timelineSteps": [
+      {
+        "icon": "business-outline",
+        "label": "Background",
+        "text": "Carlos owned a small café that struggled during an economic downturn."
+      },
+      {
+        "icon": "book-outline",
+        "label": "Approach",
+        "text": "He started learning about trading to create a new income stream."
+      },
+      {
+        "icon": "cash-outline",
+        "label": "Challenge",
+        "text": "Carlos made small, careful trades in the evenings after closing his café."
+      },
+      {
+        "icon": "refresh-outline",
+        "label": "Solution",
+        "text": "He faced losses at first, but kept a trading journal and learned from mistakes."
+      },
+      {
+        "icon": "trending-up-outline",
+        "label": "Outcome",
+        "text": "Gradually, his trading profits helped cover business expenses."
+      },
+      {
+        "icon": "happy-outline",
+        "label": "Lesson",
+        "text": "Carlos kept his café open and gained confidence in both business and trading."
+      }
+    ],
+    "chartTitle": "Trading Profits vs. Café Revenue",
+    "chartHint": "Carlos's trading profits and café revenue (2022-2024)",
+    "keyTakeawayTitle": "Key Takeaway",
+    "keyTakeawayText": "Adaptability and persistence can turn challenges into new opportunities."
+  }
+}

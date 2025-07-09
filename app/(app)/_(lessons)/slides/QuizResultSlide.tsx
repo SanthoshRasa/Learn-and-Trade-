@@ -141,7 +141,14 @@ function QuizResultSlide({
             </Text>
           </View>
           {/* Action Buttons */}
-          <TouchableOpacity style={styles.primaryBtn} onPress={onRetake}>
+          <TouchableOpacity
+            style={styles.primaryBtn}
+            onPress={() =>
+              router.replace('/(app)/_(lessons)/slides/QuizStartSlide', {
+                ...params,
+              })
+            }
+          >
             <Ionicons
               name='refresh'
               size={18}
@@ -159,6 +166,10 @@ function QuizResultSlide({
                   params: {
                     questions: JSON.stringify(questions),
                     userAnswers: JSON.stringify(userAnswers),
+                    score: params.score,
+                    totalQuestions: params.totalQuestions,
+                    correctAnswers: params.correctAnswers,
+                    passed: params.passed,
                   },
                 } as any)
               }
@@ -171,7 +182,20 @@ function QuizResultSlide({
               />
               <Text style={styles.secondaryBtnText}>Review Answers</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.secondaryBtn} onPress={onContinue}>
+            <TouchableOpacity
+              style={styles.secondaryBtn}
+              onPress={() =>
+                router.replace({
+                  pathname: '/slides/LessonsListScreen',
+                  params: {
+                    moduleId: params.moduleId,
+                    moduleTitle: params.moduleTitle,
+                    levelTitle: params.levelTitle,
+                    xpReward: params.xpReward,
+                  },
+                } as any)
+              }
+            >
               <Ionicons
                 name='arrow-back'
                 size={18}
@@ -272,7 +296,20 @@ function QuizResultSlide({
           <Text style={styles.streakDesc}>Keep it up for bonus rewards!</Text>
         </View>
         {/* Action Buttons */}
-        <TouchableOpacity style={styles.primaryBtn} onPress={onContinue}>
+        <TouchableOpacity
+          style={styles.primaryBtn}
+          onPress={() =>
+            router.replace({
+              pathname: '/slides/LessonsListScreen',
+              params: {
+                moduleId: params.moduleId,
+                moduleTitle: params.moduleTitle,
+                levelTitle: params.levelTitle,
+                xpReward: params.xpReward,
+              },
+            } as any)
+          }
+        >
           <Ionicons
             name='arrow-forward'
             size={18}
@@ -290,6 +327,10 @@ function QuizResultSlide({
                 params: {
                   questions: JSON.stringify(questions),
                   userAnswers: JSON.stringify(userAnswers),
+                  score: params.score,
+                  totalQuestions: params.totalQuestions,
+                  correctAnswers: params.correctAnswers,
+                  passed: params.passed,
                 },
               } as any)
             }
@@ -302,7 +343,14 @@ function QuizResultSlide({
             />
             <Text style={styles.secondaryBtnText}>Review Answers</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.secondaryBtn} onPress={onRetake}>
+          <TouchableOpacity
+            style={styles.secondaryBtn}
+            onPress={() =>
+              router.replace('/(app)/_(lessons)/slides/QuizStartSlide', {
+                ...params,
+              })
+            }
+          >
             <Ionicons
               name='refresh'
               size={18}

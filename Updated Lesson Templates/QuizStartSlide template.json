@@ -1,0 +1,59 @@
+{
+  "slideNumber": 12,
+  "type": "quizStartSlide",
+  "xpReward": 50,
+  "isKeySlide": false,
+  "estimatedReadTime": "30s",
+  "content": {
+    "lessonTitle": "Quiz Time",
+    "slide": 12,
+    "totalSlides": 15,
+    "title": "Ready to Take the Quiz?",
+    "quizDetails": [
+      {
+        "icon": "help-circle-outline",
+        "label": "Questions",
+        "value": "10 Questions"
+      },
+      {
+        "icon": "stats-chart-outline",
+        "label": "Passing Score",
+        "value": "Minimum 70% to pass"
+      },
+      {
+        "icon": "time-outline",
+        "label": "Time Estimate",
+        "value": "Approx 5 minutes"
+      },
+      {
+        "icon": "flash-outline",
+        "label": "XP Rewards",
+        "value": "Earn up to +50 XP"
+      },
+      {
+        "icon": "gift-outline",
+        "label": "Bonus XP",
+        "value": "+10 XP for 100% score"
+      }
+    ],
+    "unlockRewards": {
+      "icon": "trophy-outline",
+      "title": "Unlock Rewards",
+      "badge": "Market Explorer Badge",
+      "progress": 0.75,
+      "level": 3,
+      "xp": 150,
+      "xpToNextLevel": 200
+    },
+    "beforeYouStart": {
+      "icon": "bulb-outline",
+      "title": "Before you start:",
+      "text": "Read each question carefully. You'll see a mix of multiple-choice, true/false, and interactive questions."
+    },
+    "encouragement": {
+      "icon": "happy-outline",
+      "title": "You've got this!",
+      "text": "Ready to test your trading knowledge?"
+    }
+  }
+}

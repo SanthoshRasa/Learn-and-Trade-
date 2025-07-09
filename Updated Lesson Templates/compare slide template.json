@@ -1,0 +1,62 @@
+{
+  "slideId": "unique-slide-id",
+  "type": "compareSlide",
+  "slideNumber": 3,
+  "xpReward": 12,
+  "isKeySlide": true,
+  "estimatedReadTime": "60s",
+  "showNavigation": true,
+  "media": {
+    "imageURL": "https://example.com/image.png",
+    "audioNarrationURL": "https://example.com/audio.mp3",
+    "videoURL": null
+  },
+  "content": {
+    "title": "Trading vs. Investing",
+    "introduction": "Let's compare trading and investing across key aspects.",
+    "tabs": [
+      {
+        "key": "time",
+        "label": "Time",
+        "icon": "time-outline",
+        "rows": [
+          {
+            "aspect": "Time Frame",
+            "trading": "Short-term (minutes to months)",
+            "investing": "Long-term (years to decades)"
+          },
+          {
+            "aspect": "Focus",
+            "trading": "Price movements & timing",
+            "investing": "Company growth & value"
+          }
+        ]
+      },
+      {
+        "key": "risk",
+        "label": "Risk",
+        "icon": "flash-outline",
+        "rows": [
+          {
+            "aspect": "Risk Level",
+            "trading": "Usually higher",
+            "investing": "Usually lower"
+          }
+        ]
+      },
+      {
+        "key": "profit",
+        "label": "Profit",
+        "icon": "funnel-outline",
+        "rows": [
+          {
+            "aspect": "Profit Source",
+            "trading": "Price changes",
+            "investing": "Price changes + dividends"
+          }
+        ]
+      }
+    ],
+    "teacherNote": "Trading and investing serve different goals and suit different personalities. Choose what fits you best!"
+  }
+}

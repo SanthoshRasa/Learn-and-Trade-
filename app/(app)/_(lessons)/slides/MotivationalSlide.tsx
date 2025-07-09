@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
   ScrollView,
@@ -12,12 +11,33 @@ import { COLORS } from '../../../../constants/theme';
 
 interface MotivationalSlideProps {
   lessonTitle?: string;
+  title?: string;
+  slide?: number;
+  totalSlides?: number;
+  quote?: string;
+  quoteSource?: string;
+  lessonForTraders?: {
+    icon?: string;
+    title?: string;
+    text?: string;
+  };
+  xpUnlocked?: {
+    stars?: number;
+    text?: string;
+  };
   onPrev?: () => void;
   onNext?: () => void;
 }
 
 function MotivationalSlide({
-  lessonTitle = 'Wisdom from the Legends',
+  lessonTitle,
+  title,
+  slide,
+  totalSlides,
+  quote,
+  quoteSource,
+  lessonForTraders,
+  xpUnlocked,
   onPrev,
   onNext,
 }: MotivationalSlideProps) {
@@ -29,22 +49,11 @@ function MotivationalSlide({
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Trading Basics</Text>
-          <Text style={styles.headerTitle}>{lessonTitle}</Text>
+          <Text style={styles.headerLabel}>{lessonTitle}</Text>
+          <Text style={styles.headerTitle}>{title}</Text>
         </View>
         <View style={styles.headerRightCol}>
-          <View style={styles.streakBadge}>
-            <Ionicons
-              name='flame-outline'
-              size={16}
-              color={COLORS.primary}
-              style={{ marginRight: 4 }}
-            />
-            <Text style={styles.streakText}>3 day streak</Text>
-          </View>
-          <View style={styles.xpBadge}>
-            <Text style={styles.xpBadgeText}>+15 XP</Text>
-          </View>
+          {/* Optionally add badges here if needed */}
         </View>
       </View>
       <ScrollView
@@ -54,19 +63,13 @@ function MotivationalSlide({
         <View style={styles.card}>
           {/* Top Row: Slide count and XP */}
           <View style={styles.topRow}>
-            <Text style={styles.slideCount}>Slide 11 of 15</Text>
-            <View style={styles.xpBadge}>
-              <Ionicons
-                name='flash'
-                size={14}
-                color='#fff'
-                style={{ marginRight: 4 }}
-              />
-              <Text style={styles.xpBadgeText}>+15 XP</Text>
-            </View>
+            <Text style={styles.slideCount}>
+              Slide {slide} of {totalSlides}
+            </Text>
+            {/* Optionally add XP badge here if needed */}
           </View>
           {/* Title */}
-          <Text style={styles.title}>{lessonTitle}</Text>
+          <Text style={styles.title}>{title}</Text>
           {/* Quote Card */}
           <View style={styles.quoteCard}>
             <Ionicons
@@ -75,45 +78,45 @@ function MotivationalSlide({
               color={COLORS.primary}
               style={{ marginBottom: 8 }}
             />
-            <Text style={styles.quoteText}>
-              The stock market is a device for transferring money from the
-              impatient to the patient.
-            </Text>
-            <Text style={styles.quoteSource}>
-              — Warren Buffett{'\n'}Source: Forbes Interview
-            </Text>
+            <Text style={styles.quoteText}>{quote}</Text>
+            <Text style={styles.quoteSource}>{quoteSource}</Text>
           </View>
           {/* Lesson for Traders Card */}
-          <View style={styles.lessonCard}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 2,
-              }}
-            >
-              <Ionicons
-                name='bulb-outline'
-                size={16}
-                color={COLORS.primary}
-                style={{ marginRight: 6 }}
-              />
-              <Text style={styles.lessonTitle}>Lesson for Traders</Text>
+          {lessonForTraders && (
+            <View style={styles.lessonCard}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 2,
+                }}
+              >
+                <Ionicons
+                  name={lessonForTraders.icon || 'bulb-outline'}
+                  size={16}
+                  color={COLORS.primary}
+                  style={{ marginRight: 6 }}
+                />
+                <Text style={styles.lessonTitle}>{lessonForTraders.title}</Text>
+              </View>
+              <Text style={styles.lessonText}>{lessonForTraders.text}</Text>
             </View>
-            <Text style={styles.lessonText}>
-              Be patient. The best traders wait for the right moment.
-            </Text>
-          </View>
+          )}
           {/* XP Unlocked Card */}
-          <View style={styles.xpUnlockedCard}>
-            <Ionicons
-              name='star'
-              size={18}
-              color={'#fff'}
-              style={{ marginHorizontal: 2 }}
-            />
-            <Text style={styles.xpUnlockedText}>+15 XP Unlocked!</Text>
-          </View>
+          {xpUnlocked && (
+            <View style={styles.xpUnlockedCard}>
+              {[...Array(xpUnlocked.stars || 0)].map((_, i) => (
+                <Ionicons
+                  key={i}
+                  name='star'
+                  size={18}
+                  color={'#fff'}
+                  style={{ marginHorizontal: 2 }}
+                />
+              ))}
+              <Text style={styles.xpUnlockedText}>{xpUnlocked.text}</Text>
+            </View>
+          )}
         </View>
         {/* Spacer for nav bar */}
         <View style={{ height: 90 }} />
@@ -311,21 +314,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// Route handler for navigation and param parsing
-function MotivationalSlideRoute() {
-  const params = useLocalSearchParams();
-  const router = useRouter();
-  return (
-    <MotivationalSlide
-      {...params}
-      onPrev={() =>
-        router.replace('/(app)/_(lessons)/slides/GlossarySlide', { ...params })
-      }
-      onNext={() =>
-        router.replace('/(app)/_(lessons)/slides/QuizStartSlide', { ...params })
-      }
-    />
-  );
-}
-
-export default MotivationalSlideRoute;
+export default MotivationalSlide;

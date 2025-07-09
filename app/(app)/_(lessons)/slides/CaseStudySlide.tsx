@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,40 +20,14 @@ interface CaseStudySlideProps {
   lessonTitle?: string;
   slide?: number;
   totalSlides?: number;
+  timelineSteps?: { icon: string; label: string; text: string }[];
+  chartTitle?: string;
+  chartHint?: string;
+  keyTakeawayTitle?: string;
+  keyTakeawayText?: string;
+  badgeText?: string;
+  chartImage?: { url: string; caption?: string };
 }
-
-const caseStudyData = [
-  {
-    icon: 'document-text-outline',
-    label: 'Background',
-    text: 'Linda was a teacher who wanted more financial flexibility',
-  },
-  {
-    icon: 'walk-outline',
-    label: 'Approach',
-    text: 'Started learning trading basics during summer breaks',
-  },
-  {
-    icon: 'alert-circle-outline',
-    label: 'Challenge',
-    text: 'Balanced full-time teaching with learning to trade',
-  },
-  {
-    icon: 'construct-outline',
-    label: 'Solution',
-    text: 'Developed a morning trading routine before school',
-  },
-  {
-    icon: 'trophy-outline',
-    label: 'Outcome',
-    text: 'After 2+ years, her trading income matched her teaching salary',
-  },
-  {
-    icon: 'school-outline',
-    label: 'Lesson',
-    text: 'Consistent effort and patience led to financial freedom',
-  },
-];
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -64,6 +39,13 @@ export default function CaseStudySlide({
   lessonTitle = "Linda's Trading Journey",
   slide = 4,
   totalSlides = 7,
+  timelineSteps = [],
+  chartTitle = 'Income Growth Chart',
+  chartHint = "Linda's trading income vs. teaching salary (2023-2025)",
+  keyTakeawayTitle = 'Key Takeaway',
+  keyTakeawayText = 'Success in trading comes from dedication, education, and a realistic timeline for growth.',
+  badgeText = 'Badge Unlocked: Story Mode Complete',
+  chartImage,
 }: CaseStudySlideProps) {
   const params = useLocalSearchParams();
   const router = useRouter();
@@ -91,7 +73,7 @@ export default function CaseStudySlide({
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Trading Basics</Text>
+          {/* Optionally add a label here if you want, e.g. <Text style={styles.headerLabel}>Trading Basics</Text> */}
           <Text style={styles.headerTitle}>{lessonTitle}</Text>
         </View>
         <View style={styles.headerRightCol}>
@@ -119,10 +101,10 @@ export default function CaseStudySlide({
           <View
             style={[
               styles.timelineAbsoluteLine,
-              { top: 16 + 10 / 2, height: (caseStudyData.length - 1) * 56 },
+              { top: 16 + 10 / 2, height: (timelineSteps.length - 1) * 56 },
             ]}
           />
-          {caseStudyData.map((item, idx) => (
+          {timelineSteps.map((item, idx) => (
             <View key={idx} style={styles.stepRow}>
               {/* Timeline dot */}
               <View style={styles.timelineDotCol}>
@@ -144,13 +126,55 @@ export default function CaseStudySlide({
             </View>
           ))}
         </View>
-        {/* Chart Placeholder */}
-        <View style={styles.chartBox}>
-          <Text style={styles.chartBoxText}>Income Growth Chart</Text>
+        {/* Chart Placeholder or Image */}
+        <View
+          style={[
+            styles.chartBox,
+            {
+              borderStyle: 'dashed',
+              borderWidth: 2,
+              borderColor: '#888',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: chartImage && chartImage.url ? undefined : 80,
+              width: '100%',
+              maxWidth: 420,
+              height: 180,
+              alignSelf: 'center',
+              borderRadius: 16,
+              overflow: 'hidden',
+              backgroundColor: '#181A20',
+              marginVertical: 8,
+            },
+          ]}
+        >
+          {chartImage && chartImage.url ? (
+            <Image
+              source={{ uri: chartImage.url }}
+              style={{
+                width: '100%',
+                height: '100%',
+                resizeMode: 'cover',
+                borderRadius: 12,
+              }}
+            />
+          ) : (
+            <>
+              <Ionicons
+                name='bar-chart-outline'
+                size={32}
+                color={'#888'}
+                style={{ marginBottom: 4 }}
+              />
+              <Text
+                style={{ color: '#888', fontStyle: 'italic', fontSize: 16 }}
+              >
+                Chart Placeholder
+              </Text>
+            </>
+          )}
         </View>
-        <Text style={styles.chartHint}>
-          Linda&apos;s trading income vs. teaching salary (2023-2025)
-        </Text>
+        <Text style={styles.chartHint}>{chartHint}</Text>
         {/* Key Takeaway Box */}
         <View style={styles.keyTakeawayBox}>
           <Ionicons
@@ -160,24 +184,9 @@ export default function CaseStudySlide({
             style={{ marginRight: 8 }}
           />
           <View style={{ flex: 1 }}>
-            <Text style={styles.keyTakeawayTitle}>Key Takeaway</Text>
-            <Text style={styles.keyTakeawayText}>
-              Success in trading comes from dedication, education, and a
-              realistic timeline for growth.
-            </Text>
+            <Text style={styles.keyTakeawayTitle}>{keyTakeawayTitle}</Text>
+            <Text style={styles.keyTakeawayText}>{keyTakeawayText}</Text>
           </View>
-        </View>
-        {/* Badge Unlocked */}
-        <View style={styles.badgeBox}>
-          <Ionicons
-            name='medal-outline'
-            size={22}
-            color={COLORS.primary}
-            style={{ marginRight: 8 }}
-          />
-          <Text style={styles.badgeText}>
-            Badge Unlocked: Story Mode Complete
-          </Text>
         </View>
         {/* Navigation Bar */}
         <View style={styles.footerRow}>
@@ -196,95 +205,79 @@ export default function CaseStudySlide({
 
 const styles = StyleSheet.create({
   headerBar: {
-    backgroundColor: '#232B3B',
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
-    paddingHorizontal: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
-    marginBottom: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.04,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 1 },
-    elevation: 1,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 8,
+    backgroundColor: '#232B3B',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   headerBackBtn: {
-    marginRight: 8,
+    marginRight: 12,
     padding: 4,
   },
   headerLabel: {
     color: '#fff',
+    fontWeight: 'bold',
     fontSize: 13,
-    marginBottom: 2,
-    fontWeight: '500',
   },
   headerTitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
     color: '#fff',
-    flexShrink: 1,
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginLeft: 8,
   },
   headerRightCol: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: 8,
   },
   streakBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F7FA',
-    borderRadius: 20,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    marginLeft: 12,
-    minWidth: 56,
-    justifyContent: 'center',
+    backgroundColor: '#181A20',
+    borderRadius: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    marginRight: 8,
   },
   streakText: {
-    color: '#222',
+    color: COLORS.primary,
+    fontWeight: 'bold',
     fontSize: 13,
-    textAlign: 'center',
-    marginTop: -2,
-    fontWeight: '500',
   },
   xpBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F5F7FA',
-    borderRadius: 20,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    marginLeft: 12,
-    minWidth: 56,
-    justifyContent: 'center',
+    backgroundColor: '#181A20',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
   },
   xpBadgeText: {
-    color: '#222',
+    color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 18,
+    fontSize: 14,
   },
   scrollContainer: {
     paddingHorizontal: SPACING.lg,
     paddingBottom: 24,
   },
   subtitleCard: {
-    backgroundColor: '#E6EAF2',
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 16,
+    backgroundColor: '#232B3B',
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    marginHorizontal: 8,
+    marginTop: 8,
+    marginBottom: 12,
     alignItems: 'center',
   },
   subtitleText: {
-    color: COLORS.textSecondary,
-    fontSize: 15,
+    color: '#B0B4C1',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   timelineStepsContainer: {
     flexDirection: 'column',

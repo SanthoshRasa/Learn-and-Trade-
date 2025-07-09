@@ -1,7 +1,9 @@
 Start json server 
-  json-server --host 192.168.0.145 --watch course-structure.json --port 3000 - online /lan
+  json-server --host 192.168.0.145 --watch course-structure.json --port 3001 - online /lan
   json-server --watch course-structure.json --port 3002 - local
-
+  json-server --watch lessontest.json --port 3003 - local
+  json-server --host 192.168.0.145 --watch lessontest.json --port 3004 - online /lan
+  
 github
   git status
   git add . 

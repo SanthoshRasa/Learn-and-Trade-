@@ -53,9 +53,24 @@ function ReviewAnswersSlide(props: any) {
       <View style={styles.headerBar}>
         <TouchableOpacity
           style={styles.headerBackBtn}
-          onPress={() =>
-            router.replace('/(app)/_(lessons)/slides/QuizResultSlide' as any)
-          }
+          onPress={() => {
+            // Pass all relevant params back to QuizResultSlide
+            router.replace({
+              pathname: '/(app)/_(lessons)/slides/QuizResultSlide',
+              params: {
+                moduleId: params.moduleId,
+                moduleTitle: params.moduleTitle,
+                levelTitle: params.levelTitle,
+                xpReward: params.xpReward,
+                score: params.score,
+                totalQuestions: params.totalQuestions,
+                correctAnswers: params.correctAnswers,
+                questions: params.questions,
+                userAnswers: params.userAnswers,
+                passed: params.passed,
+              },
+            } as any);
+          }}
         >
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>

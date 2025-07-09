@@ -1,7 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from 'react';
+import React, { useRef } from 'react';
 import {
+  Dimensions,
+  PanResponder,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,25 +12,78 @@ import {
 } from 'react-native';
 import { COLORS } from '../../../../constants/theme';
 
+function LinearProgressBar({ progress }: { progress: number }) {
+  return (
+    <View
+      style={{
+        width: '100%',
+        height: 6,
+        backgroundColor: '#232B3B',
+        borderRadius: 3,
+        marginBottom: 12,
+      }}
+    >
+      <View
+        style={{
+          width: `${Math.round(progress * 100)}%`,
+          height: '100%',
+          backgroundColor: '#3B82F6',
+          borderRadius: 3,
+        }}
+      />
+    </View>
+  );
+}
+
 function ConceptSlide({
   title = 'Understanding Market Trends',
-  subtitle = 'Learn the basics of trend analysis',
+  introduction = '',
   xp = 10,
   slide = 2,
   totalSlides = 12,
   onPrev,
   onNext,
+  points = [],
+  funFact = '',
+  teacherNote = '',
+  moduleTitle = '',
 }: any) {
+  const windowHeight = Dimensions.get('window').height;
+  const cardBg = '#232B3B'; // match IntroSlide card background
+
+  // Add pan responder for swipe gestures
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        return Math.abs(gestureState.dx) > 20 && Math.abs(gestureState.dy) < 20;
+      },
+      onPanResponderRelease: (_, gestureState) => {
+        if (gestureState.dx < -40 && onNext) {
+          onNext();
+        } else if (gestureState.dx > 40 && onPrev) {
+          onPrev();
+        }
+      },
+    })
+  ).current;
+
   return (
-    <View style={styles.container}>
+    <View
+      style={{ flex: 1, backgroundColor: cardBg }}
+      {...panResponder.panHandlers}
+    >
       {/* Header */}
       <View style={styles.headerBar}>
         <TouchableOpacity style={styles.headerBackBtn} onPress={onPrev}>
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Trading Basics</Text>
           <Text style={styles.headerTitle}>{title}</Text>
+          {moduleTitle ? (
+            <Text style={[styles.subtitle, { fontSize: 14, marginTop: 2 }]}>
+              {moduleTitle}
+            </Text>
+          ) : null}
         </View>
         <View style={styles.headerRightCol}>
           <View style={styles.streakBadge}>
@@ -45,106 +100,93 @@ function ConceptSlide({
           </View>
         </View>
       </View>
+      {/* Linear Progress Bar below header */}
+      <LinearProgressBar progress={slide / totalSlides} />
       <ScrollView
-        contentContainerStyle={styles.scrollWrap}
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.card}>
+        <View
+          style={{
+            flex: 1,
+            width: '100%',
+            minHeight: windowHeight - 90,
+            backgroundColor: cardBg,
+            padding: 18,
+          }}
+        >
           <View style={styles.topRow}>
             <Text style={styles.slideCount}>
               Slide {slide} of {totalSlides}
             </Text>
-            <View style={styles.xpBadge}>
-              <Ionicons
-                name='flash'
-                size={14}
-                color='#fff'
-                style={{ marginRight: 4 }}
-              />
-              <Text style={styles.xpBadgeText}>+{xp} XP</Text>
-            </View>
           </View>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+          <Text style={styles.subtitle}>{introduction}</Text>
           {/* Chart Placeholder */}
           <View style={styles.chartPlaceholder}>
             <Text style={styles.chartPlaceholderText}>
               Trading chart visualization
             </Text>
           </View>
-          {/* Learning Objectives */}
-          <Text style={styles.sectionLabel}>
-            In this lesson, you&apos;ll learn:
-          </Text>
-          <View style={styles.objectivesList}>
-            <View style={styles.objectiveRow}>
+          {/* Points List */}
+          {Array.isArray(points) && points.length > 0 && (
+            <View style={{ marginBottom: 18 }}>
+              {points.map((point: string, idx: number) => (
+                <View key={idx} style={styles.objectiveRow}>
+                  <Ionicons
+                    name='ellipse-outline'
+                    size={14}
+                    color={COLORS.primary}
+                    style={{ marginRight: 8 }}
+                  />
+                  <Text style={styles.objectivePill}>{point}</Text>
+                </View>
+              ))}
+            </View>
+          )}
+          {/* Teacher Note */}
+          {teacherNote ? (
+            <View
+              style={[
+                styles.teacherNoteCard,
+                { backgroundColor: cardBg, marginBottom: 10 },
+              ]}
+            >
               <Ionicons
-                name='trending-up-outline'
-                size={18}
+                name='school-outline'
+                size={20}
                 color={COLORS.primary}
-                style={{ marginRight: 6 }}
+                style={{ marginRight: 8 }}
               />
-              <Text style={styles.objectivePill}>
-                How to identify bullish and bearish trends
-              </Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.teacherNoteLabel}>TEACHER NOTE</Text>
+                <Text style={styles.teacherNoteText}>{teacherNote}</Text>
+              </View>
             </View>
-            <View style={styles.objectiveRow}>
+          ) : null}
+          {/* Fun Fact */}
+          {funFact ? (
+            <View
+              style={[
+                styles.coachCard,
+                { backgroundColor: '#232B3B', marginBottom: 10 },
+              ]}
+            >
               <Ionicons
-                name='analytics-outline'
-                size={18}
+                name='sparkles-outline'
+                size={20}
                 color={COLORS.primary}
-                style={{ marginRight: 6 }}
+                style={{ marginRight: 10 }}
               />
-              <Text style={styles.objectivePill}>
-                Key indicators for trend confirmation
+              <Text style={{ color: '#fff', fontSize: 14, flex: 1 }}>
+                <Text style={{ fontWeight: 'bold', color: COLORS.primary }}>
+                  Fun Fact:{' '}
+                </Text>
+                {funFact}
               </Text>
             </View>
-            <View style={styles.objectiveRow}>
-              <Ionicons
-                name='arrow-forward-outline'
-                size={18}
-                color={COLORS.primary}
-                style={{ marginRight: 6 }}
-              />
-              <Text style={styles.objectivePill}>
-                When to enter a trending market
-              </Text>
-            </View>
-            <View style={styles.objectiveRow}>
-              <Ionicons
-                name='trending-down-outline'
-                size={18}
-                color={COLORS.primary}
-                style={{ marginRight: 6 }}
-              />
-              <Text style={styles.objectivePill}>
-                How to spot potential trend reversals
-              </Text>
-            </View>
-            <View style={styles.objectiveRow}>
-              <Ionicons
-                name='shield-checkmark-outline'
-                size={18}
-                color={COLORS.primary}
-                style={{ marginRight: 6 }}
-              />
-              <Text style={styles.objectivePill}>
-                Risk management in trending markets
-              </Text>
-            </View>
-          </View>
-          {/* Coach Card */}
-          <View style={styles.coachCard}>
-            <View style={styles.coachAvatar} />
-            <View style={{ flex: 1 }}>
-              <Text style={styles.coachName}>Alex, your trading coach</Text>
-              <Text style={styles.coachText}>
-                Welcome to your journey! Don&apos;t worry if you&apos;re a
-                beginner — we&apos;ll guide you step-by-step through trend
-                analysis, one of the most powerful tools in trading.
-              </Text>
-            </View>
-          </View>
+          ) : null}
         </View>
         {/* Spacer for nav bar */}
         <View style={{ height: 90 }} />
@@ -238,8 +280,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#232B3B',
     borderRadius: 12,
     padding: 18,
-    width: '96%',
-    maxWidth: 480,
     shadowColor: 'transparent',
     elevation: 0,
     marginBottom: 18,
@@ -351,6 +391,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  teacherNoteCard: {
+    backgroundColor: '#181A20',
+    borderRadius: 10,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  teacherNoteLabel: {
+    color: COLORS.primary,
+    fontWeight: 'bold',
+    fontSize: 13,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+  teacherNoteText: {
+    color: '#fff',
+    fontSize: 14,
+    flex: 1,
   },
 });
 

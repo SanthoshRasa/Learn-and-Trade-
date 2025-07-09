@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Image,
@@ -25,6 +26,7 @@ const MOCK_USER = {
 export default function SettingsScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
+  const router = useRouter();
   const [quizReminders, setQuizReminders] = useState(true);
   const [badgeUnlocks, setBadgeUnlocks] = useState(true);
   const [levelUps, setLevelUps] = useState(true);
@@ -229,6 +231,19 @@ export default function SettingsScreen() {
               onValueChange={setPushNotifications}
             />
           </View>
+          <TouchableOpacity
+            style={styles.rowBtn}
+            onPress={() => router.replace('/bookmarks')}
+          >
+            <Text
+              style={[
+                styles.rowBtnText,
+                { color: textColor, fontWeight: 'bold' },
+              ]}
+            >
+              Bookmarks
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Community & Friends */}

@@ -18,23 +18,41 @@ interface AnalogySlideProps {
   totalSlides?: number;
   onPrev?: () => void;
   onNext?: () => void;
+  // Dynamic analogy slide fields from JSON
+  title?: string;
+  analogyStatement?: string;
+  analogyIcon?: string;
+  images?: { url: string; caption?: string | null }[];
+  table?: {
+    headers: { label: string; icon: string }[];
+    rows: string[][];
+  };
+  tableImage?: { url: string; caption?: string | null };
+  teacherNote?: string;
+  noteIcon?: string;
+  noteImage?: { url: string; caption?: string | null };
 }
 
-const analogyPoints = [
-  { left: 'Checking store prices', right: 'Analyzing market prices' },
-  { left: 'Waiting for sales', right: 'Waiting for good entry points' },
-  { left: 'Comparing shops', right: 'Comparing different markets' },
-];
-
-function AnalogySlide({
-  lessonTitle = 'Lesson 3: Trading Basics',
-  streak = 5,
-  xp = 15,
-  slide = 8,
-  totalSlides = 10,
-  onPrev,
-  onNext,
-}: AnalogySlideProps) {
+function AnalogySlide(props: AnalogySlideProps) {
+  console.log('AnalogySlide props:', props);
+  const {
+    lessonTitle,
+    streak,
+    xp,
+    slide,
+    totalSlides,
+    onPrev,
+    onNext,
+    title,
+    analogyStatement,
+    analogyIcon,
+    images,
+    table,
+    tableImage,
+    teacherNote,
+    noteIcon,
+    noteImage,
+  } = props;
   return (
     <View style={{ flex: 1, backgroundColor: '#181A20' }}>
       {/* Header */}
@@ -44,7 +62,9 @@ function AnalogySlide({
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
           <Text style={styles.headerLabel}>Trading Basics</Text>
-          <Text style={styles.headerTitle}>{lessonTitle}</Text>
+          <Text style={styles.headerTitle}>
+            {lessonTitle || 'Lesson 3: Trading Basics'}
+          </Text>
         </View>
         <View style={styles.headerRightCol}>
           <View style={styles.streakBadge}>
@@ -54,10 +74,14 @@ function AnalogySlide({
               color={COLORS.primary}
               style={{ marginRight: 4 }}
             />
-            <Text style={styles.streakText}>{streak} day streak</Text>
+            <Text style={styles.streakText}>
+              {streak !== undefined ? streak : 5} day streak
+            </Text>
           </View>
           <View style={styles.xpBadge}>
-            <Text style={styles.xpBadgeText}>+{xp} XP</Text>
+            <Text style={styles.xpBadgeText}>
+              +{xp !== undefined ? xp : 15} XP
+            </Text>
           </View>
         </View>
       </View>
@@ -65,77 +89,95 @@ function AnalogySlide({
         {/* Progress Bar */}
         <View style={styles.slideCountRow}>
           <Text style={styles.slideCountText}>
-            Slide {slide} of {totalSlides}
+            Slide {slide !== undefined ? slide : 8} of{' '}
+            {totalSlides !== undefined ? totalSlides : 10}
           </Text>
           <View style={styles.progressBarWrap}>
             <View style={styles.progressBarBg} />
             <View
               style={[
                 styles.progressBarFill,
-                { width: `${(slide / totalSlides) * 100}%` },
+                {
+                  width: `${
+                    ((slide !== undefined ? slide : 8) /
+                      (totalSlides !== undefined ? totalSlides : 10)) *
+                    100
+                  }%`,
+                },
               ]}
             />
           </View>
         </View>
         {/* Title */}
-        <Text style={styles.title}>Trading is Like Shopping</Text>
+        <Text style={styles.title}>{title || 'Trading is Like Shopping'}</Text>
         {/* Analogy Card */}
         <View style={styles.analogyCard}>
           <Ionicons
-            name='bulb-outline'
+            name={(analogyIcon as any) || 'bulb-outline'}
             size={20}
             color={COLORS.primary}
             style={{ marginRight: 8 }}
           />
           <Text style={styles.analogyText}>
-            Think of trading like smart shopping. Just as you look for discounts
-            when buying clothes, traders look for good prices when buying
-            assets.
+            {analogyStatement ||
+              'Think of trading like smart shopping. Just as you look for discounts when buying clothes, traders look for good prices when buying assets.'}
           </Text>
         </View>
-        {/* Image Card 1 */}
-        <View style={styles.imageCard}>
-          <Text style={styles.imageCardText}>shopping_analogy_1.jpg</Text>
-        </View>
-        {/* Two-column Comparison */}
-        <View style={styles.comparisonHeaderRow}>
-          <View style={styles.comparisonHeaderCol}>
-            <Ionicons
-              name='lock-closed-outline'
-              size={16}
-              color={COLORS.primary}
-              style={{ marginRight: 4 }}
-            />
-            <Text style={styles.comparisonHeaderText}>Everyday Shopping</Text>
+        {/* Image Card 1 (first image if exists) */}
+        {images && images[0] && (
+          <View style={styles.imageCard}>
+            <Text style={styles.imageCardText}>{images[0].url}</Text>
+            {images[0].caption && (
+              <Text style={{ color: '#B0B4C1', fontSize: 13 }}>
+                {images[0].caption}
+              </Text>
+            )}
           </View>
-          <View style={styles.comparisonHeaderCol}>
-            <Ionicons
-              name='stats-chart-outline'
-              size={16}
-              color={COLORS.primary}
-              style={{ marginRight: 4 }}
-            />
-            <Text style={styles.comparisonHeaderText}>Trading Equivalent</Text>
-          </View>
-        </View>
-        {analogyPoints.map((row, idx) => (
-          <View style={styles.comparisonRow} key={idx}>
-            <View style={styles.comparisonCol}>
-              <Text style={styles.comparisonText}>{row.left}</Text>
+        )}
+        {/* Two-column Comparison Table */}
+        {table && (
+          <>
+            <View style={styles.comparisonHeaderRow}>
+              {table.headers.map((header, idx) => (
+                <View style={styles.comparisonHeaderCol} key={idx}>
+                  <Ionicons
+                    name={(header.icon as any) || 'help-circle-outline'}
+                    size={16}
+                    color={COLORS.primary}
+                    style={{ marginRight: 4 }}
+                  />
+                  <Text style={styles.comparisonHeaderText}>
+                    {header.label}
+                  </Text>
+                </View>
+              ))}
             </View>
-            <View style={styles.comparisonCol}>
-              <Text style={styles.comparisonText}>{row.right}</Text>
-            </View>
+            {table.rows.map((row, idx) => (
+              <View style={styles.comparisonRow} key={idx}>
+                {row.map((cell, cidx) => (
+                  <View style={styles.comparisonCol} key={cidx}>
+                    <Text style={styles.comparisonText}>{cell}</Text>
+                  </View>
+                ))}
+              </View>
+            ))}
+          </>
+        )}
+        {/* Table Image */}
+        {tableImage && (
+          <View style={styles.imageCard}>
+            <Text style={styles.imageCardText}>{tableImage.url}</Text>
+            {tableImage.caption && (
+              <Text style={{ color: '#B0B4C1', fontSize: 13 }}>
+                {tableImage.caption}
+              </Text>
+            )}
           </View>
-        ))}
-        {/* Image Card 2 */}
-        <View style={styles.imageCard}>
-          <Text style={styles.imageCardText}>price_comparison_1.jpg</Text>
-        </View>
+        )}
         {/* Teacher Note */}
         <View style={styles.teacherNoteCard}>
           <Ionicons
-            name='person-circle-outline'
+            name={(noteIcon as any) || 'person-circle-outline'}
             size={20}
             color={COLORS.primary}
             style={{ marginRight: 8 }}
@@ -143,15 +185,22 @@ function AnalogySlide({
           <View style={{ flex: 1 }}>
             <Text style={styles.teacherNoteLabel}>TEACHER NOTE</Text>
             <Text style={styles.teacherNoteText}>
-              This simple comparison helps understand the basic concept of
-              buying low and selling high
+              {teacherNote ||
+                'This simple comparison helps understanding the basic concept of buying low and selling high'}
             </Text>
           </View>
         </View>
-        {/* Image Card 3 */}
-        <View style={styles.imageCard}>
-          <Text style={styles.imageCardText}>decision_making_1.jpg</Text>
-        </View>
+        {/* Note Image */}
+        {noteImage && (
+          <View style={styles.imageCard}>
+            <Text style={styles.imageCardText}>{noteImage.url}</Text>
+            {noteImage.caption && (
+              <Text style={{ color: '#B0B4C1', fontSize: 13 }}>
+                {noteImage.caption}
+              </Text>
+            )}
+          </View>
+        )}
         {/* Badge Unlocked */}
         <View style={styles.badgeCard}>
           <Ionicons

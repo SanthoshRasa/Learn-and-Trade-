@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
   ScrollView,
@@ -10,13 +9,53 @@ import {
 } from 'react-native';
 import { COLORS } from '../../../../constants/theme';
 
-function QuizStartSlide({
-  onPrev,
-  onNext,
-}: {
+interface QuizDetail {
+  icon: string;
+  label: string;
+  value: string;
+}
+
+interface UnlockRewards {
+  icon: string;
+  title: string;
+  badge: string;
+  progress: number;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+}
+
+interface InfoCard {
+  icon: string;
+  title: string;
+  text: string;
+}
+
+interface QuizStartSlideProps {
+  lessonTitle?: string;
+  title?: string;
+  slide?: number;
+  totalSlides?: number;
+  quizDetails?: QuizDetail[];
+  unlockRewards?: UnlockRewards;
+  beforeYouStart?: InfoCard;
+  encouragement?: InfoCard;
   onPrev?: () => void;
   onNext?: () => void;
-}) {
+}
+
+function QuizStartSlide({
+  lessonTitle,
+  title,
+  slide,
+  totalSlides,
+  quizDetails = [],
+  unlockRewards,
+  beforeYouStart,
+  encouragement,
+  onPrev,
+  onNext,
+}: QuizStartSlideProps) {
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -25,8 +64,8 @@ function QuizStartSlide({
           <Ionicons name='chevron-back' size={20} color='#fff' />
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerLabel}>Quiz Time</Text>
-          <Text style={styles.headerTitle}>Ready to Take the Quiz?</Text>
+          <Text style={styles.headerLabel}>{lessonTitle}</Text>
+          <Text style={styles.headerTitle}>{title}</Text>
         </View>
         <View style={styles.headerRightCol} />
       </View>
@@ -37,129 +76,103 @@ function QuizStartSlide({
         {/* Quiz Details Card */}
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Quiz Details</Text>
-          <View style={styles.detailRow}>
-            <Ionicons
-              name='help-circle-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.detailLabel}>Questions</Text>
-            <Text style={styles.detailValue}>10 Questions</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Ionicons
-              name='stats-chart-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.detailLabel}>Passing Score</Text>
-            <Text style={styles.detailValue}>Minimum 70% to pass</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Ionicons
-              name='time-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.detailLabel}>Time Estimate</Text>
-            <Text style={styles.detailValue}>Approx 5 minutes</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Ionicons
-              name='flash-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.detailLabel}>XP Rewards</Text>
-            <Text style={styles.detailValue}>Earn up to +50 XP</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Ionicons
-              name='gift-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.detailLabel}>Bonus XP</Text>
-            <Text style={styles.detailValue}>+10 XP for 100% score</Text>
-          </View>
+          {quizDetails.map((detail, idx) => (
+            <View key={idx} style={styles.detailRow}>
+              <Ionicons
+                name={detail.icon as any}
+                size={18}
+                color={COLORS.primary}
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.detailLabel}>{detail.label}</Text>
+              <Text style={styles.detailValue}>{detail.value}</Text>
+            </View>
+          ))}
         </View>
         {/* Unlock Rewards Card */}
-        <View style={styles.card}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 6,
-            }}
-          >
-            <Ionicons
-              name='trophy-outline'
-              size={20}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.cardTitle}>Unlock Rewards</Text>
-          </View>
-          <Text style={styles.rewardText}>
-            🥇 Pass this quiz to unlock: &apos;Market Explorer Badge&apos;
-          </Text>
-          <View style={styles.progressBarWrap}>
-            <View style={styles.progressBarBg}>
-              <View style={[styles.progressBarFill, { width: '75%' }]} />
+        {unlockRewards && (
+          <View style={styles.card}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 6,
+              }}
+            >
+              <Ionicons
+                name={unlockRewards.icon as any}
+                size={20}
+                color={COLORS.primary}
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.cardTitle}>{unlockRewards.title}</Text>
             </View>
-            <Text style={styles.progressText}>
-              Level 3 150/200 XP to Level 4
+            <Text style={styles.rewardText}>
+              🥇 Pass this quiz to unlock: '{unlockRewards.badge}'
             </Text>
+            <View style={styles.progressBarWrap}>
+              <View style={styles.progressBarBg}>
+                <View
+                  style={[
+                    styles.progressBarFill,
+                    {
+                      width: `${Math.round(
+                        (unlockRewards.progress || 0) * 100
+                      )}%`,
+                    },
+                  ]}
+                />
+              </View>
+              <Text style={styles.progressText}>
+                Level {unlockRewards.level} {unlockRewards.xp}/
+                {unlockRewards.xpToNextLevel} XP to Level{' '}
+                {unlockRewards.level + 1}
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
         {/* Before You Start Card */}
-        <View style={styles.card}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 6,
-            }}
-          >
-            <Ionicons
-              name='bulb-outline'
-              size={20}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.cardTitle}>Before you start:</Text>
+        {beforeYouStart && (
+          <View style={styles.card}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 6,
+              }}
+            >
+              <Ionicons
+                name={beforeYouStart.icon as any}
+                size={20}
+                color={COLORS.primary}
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.cardTitle}>{beforeYouStart.title}</Text>
+            </View>
+            <Text style={styles.beforeText}>{beforeYouStart.text}</Text>
           </View>
-          <Text style={styles.beforeText}>
-            Read each question carefully. You&apos;ll see a mix of
-            multiple-choice, true/false, and interactive questions.
-          </Text>
-        </View>
+        )}
         {/* Encouragement Card */}
-        <View style={styles.card}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 6,
-            }}
-          >
-            <Ionicons
-              name='happy-outline'
-              size={20}
-              color={COLORS.primary}
-              style={{ marginRight: 8 }}
-            />
-            <Text style={styles.cardTitle}>You&apos;ve got this!</Text>
+        {encouragement && (
+          <View style={styles.card}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 6,
+              }}
+            >
+              <Ionicons
+                name={encouragement.icon as any}
+                size={20}
+                color={COLORS.primary}
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.cardTitle}>{encouragement.title}</Text>
+            </View>
+            <Text style={styles.beforeText}>{encouragement.text}</Text>
           </View>
-          <Text style={styles.beforeText}>
-            Ready to test your trading knowledge?
-          </Text>
-        </View>
+        )}
         <View style={{ height: 90 }} />
       </ScrollView>
       {/* Bottom Navigation Bar */}
@@ -323,26 +336,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// Route handler for navigation and param parsing
-function QuizStartSlideRoute() {
-  const params = useLocalSearchParams();
-  const router = useRouter();
-  return (
-    <QuizStartSlide
-      {...params}
-      onPrev={() =>
-        router.replace('/(app)/_(lessons)/slides/MotivationalSlide', {
-          ...params,
-        })
-      }
-      onNext={() =>
-        router.replace('/(app)/_(lessons)/slides/QuizSlide' as any, {
-          ...params,
-        })
-      }
-    />
-  );
-}
-
-export { QuizStartSlide };
-export default QuizStartSlideRoute;
+export default QuizStartSlide;

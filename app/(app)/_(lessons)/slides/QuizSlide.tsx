@@ -48,6 +48,7 @@ function QuizSlide({ onPrev }: { onPrev?: () => void }) {
   const [showHint, setShowHint] = useState(false);
   const router = useRouter();
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const params = useLocalSearchParams();
 
   // Question data logic
   const questions = [
@@ -99,6 +100,10 @@ function QuizSlide({ onPrev }: { onPrev?: () => void }) {
       router.replace({
         pathname: '/(app)/_(lessons)/slides/QuizResultSlide',
         params: {
+          moduleId: params.moduleId,
+          moduleTitle: params.moduleTitle,
+          levelTitle: params.levelTitle,
+          xpReward: params.xpReward,
           passed: passed ? 'true' : 'false',
           score: score.toString(),
           totalQuestions: totalQuestions.toString(),

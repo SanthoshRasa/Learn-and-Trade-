@@ -1,7 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  PanResponder,
+  ScrollView as RNScrollView,
+  View as RNView,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,6 +18,84 @@ import {
 } from 'react-native';
 import { COLORS, SIZES, SPACING } from '../../../../constants/theme';
 
+// Add a simple linear progress bar component
+function LinearProgressBar({ progress }: { progress: number }) {
+  return (
+    <View
+      style={{
+        width: '100%',
+        height: 6,
+        backgroundColor: '#232B3B',
+        borderRadius: 3,
+        marginBottom: 12,
+      }}
+    >
+      <View
+        style={{
+          width: `${Math.round(progress * 100)}%`,
+          height: '100%',
+          backgroundColor: '#3B82F6',
+          borderRadius: 3,
+        }}
+      />
+    </View>
+  );
+}
+
+// Add XP badge component
+function XPBadge({ xp }: { xp: number }) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#181A20',
+        borderRadius: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 2,
+        alignSelf: 'flex-end',
+      }}
+    >
+      <Ionicons
+        name='flash'
+        size={14}
+        color='#2563eb'
+        style={{ marginRight: 3 }}
+      />
+      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 13 }}>
+        + {xp} XP
+      </Text>
+    </View>
+  );
+}
+
+// Add StreakBadge component
+function StreakBadge({ streak }: { streak: number }) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#181A20',
+        borderRadius: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 2,
+        marginRight: 8,
+      }}
+    >
+      <Ionicons
+        name='flame-outline'
+        size={14}
+        color='#2563eb'
+        style={{ marginRight: 4 }}
+      />
+      <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 13 }}>
+        {streak} day streak
+      </Text>
+    </View>
+  );
+}
+
 export default function IntroSlide(props: any) {
   const params = useLocalSearchParams();
   const router = useRouter();
@@ -19,345 +104,387 @@ export default function IntroSlide(props: any) {
   const isDark = colorScheme === 'dark';
   const mainBg = isDark ? COLORS.backgroundDark : COLORS.background;
   const cardBg = isDark ? COLORS.cardBackgroundDark : COLORS.cardBackground;
-  const lessonNumber = 1;
-  const username = 'TradingLearner';
-  const xp = 128;
-  const streak = 3;
-  const title = params.title || props.title || 'What Is Trading?';
-  const tags = ['Novice Navigator', 'Intro Slide'];
-  const introduction = 'Introduction';
-  const illustrationText =
-    'Illustration of a beginner trader looking at charts on a computer and mobile device';
-  const description =
-    'Trading is the act of buying and selling financial assets like stocks, currencies, or crypto to make a profit from price changes. This lesson will introduce you to how traders think and how trading works in the real world.';
-  const objective =
-    'Understand the basic concept of trading and its purpose in financial markets';
-  const slide = 1;
-  const totalSlides = 6;
+
+  // Use props or fallback to defaults
+  const title = props.title || 'What Is Trading?';
+  const introduction = props.introduction || '';
+  const illustrationText = props.illustrationText || '';
+  const description = props.description || '';
+  const objective = props.objective || '';
+  const xp = props.xp || props.xpReward || 0;
+  const streak = props.streak || 3;
+  const tags = props.tags || ['Novice Navigator', 'Intro Slide'];
+  const slide = props.slide || 1;
+  const totalSlides = props.totalSlides || 6;
+  const hasPrev = slide > 1;
+  const hasNext = slide < totalSlides;
+  const { onNext, onPrev } = props;
+  const moduleTitle = props.moduleTitle || '';
+  const lessonId = props.lessonId || '';
+
+  // Media image support (multiple images)
+  let images: any[] = [];
+  if (props.media && Array.isArray(props.media.images)) {
+    images = props.media.images.filter(
+      (img: any) => img.imageURL || img.caption
+    );
+  }
+
   const mainTextColor = isDark ? '#fff' : COLORS.text;
   const secondaryTextColor = isDark
     ? COLORS.textSecondaryDark
     : COLORS.textSecondary;
-  const hasPrev = slide > 1;
-  const hasNext = slide < totalSlides;
-  const { onNext } = props;
 
   const handleNext = () => {
-    if (props.onNext) {
-      props.onNext();
+    if (onNext) {
+      onNext();
+    }
+  };
+  const handlePrev = () => {
+    if (onPrev) {
+      onPrev();
+    }
+  };
+
+  const [imageLoading, setImageLoading] = React.useState(true);
+  const [imageError, setImageError] = React.useState(false);
+  const fallbackImageUrl =
+    'https://i0.wp.com/port2flavors.com/wp-content/uploads/2022/07/placeholder-614.png?w=1200&ssl=1';
+  const imageUrl = slide?.media?.images?.[0]?.imageURL || fallbackImageUrl;
+  console.log('IntroSlide slide prop:', slide);
+  console.log('IntroSlide imageUrl:', imageUrl);
+
+  const screenWidth = Dimensions.get('window').width;
+  const imageWidth = screenWidth - 32; // 16px margin on each side
+  const imageHeight = Math.round((imageWidth * 9) / 16); // 16:9 aspect ratio
+
+  // Add pan responder for swipe gestures
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        // Only respond to horizontal swipes
+        return Math.abs(gestureState.dx) > 20 && Math.abs(gestureState.dy) < 20;
+      },
+      onPanResponderRelease: (_, gestureState) => {
+        if (gestureState.dx < -40 && onNext) {
+          onNext(); // Swipe left to go to next
+        } else if (gestureState.dx > 40 && onPrev) {
+          onPrev(); // Swipe right to go to prev
+        }
+      },
+    })
+  ).current;
+
+  // Bookmark state
+  const [bookmarked, setBookmarked] = React.useState(false);
+  React.useEffect(() => {
+    // Check if this slide is bookmarked
+    const key = `bookmark_${lessonId}_${slide}`;
+    AsyncStorage.getItem(key).then(val => {
+      setBookmarked(val === '1');
+    });
+  }, [lessonId, slide]);
+  const toggleBookmark = async () => {
+    const key = `bookmark_${lessonId}_${slide}`;
+    if (bookmarked) {
+      await AsyncStorage.removeItem(key);
+      setBookmarked(false);
     } else {
-      // Fallback: navigate to ConceptSlide if possible
-      if (params.lessonId) {
-        router.push({
-          pathname: '/(app)/_(lessons)/slides/ConceptSlide',
-          params: {
-            lessonId: params.lessonId,
-            moduleId: params.moduleId,
-            moduleTitle: params.moduleTitle,
-            levelTitle: params.levelTitle,
-            xpReward: params.xpReward,
-            // Example ConceptSlide props:
-            title: 'Concept: Buy Low, Sell High',
-            coreConceptRating: 4,
-            bullets: JSON.stringify([
-              {
-                icon: 'trending-up',
-                text: 'Traders aim to buy an asset when the price is low',
-              },
-              {
-                icon: 'trending-down',
-                text: 'They sell it after it rises to lock in profit',
-              },
-              { icon: 'alarm', text: 'Timing and strategy are key to success' },
-              {
-                icon: 'bulb',
-                text: 'This is the most basic form of trading logic',
-              },
-            ]),
-            illustrationText: 'Buy low, sell high illustration',
-            xp: 10,
-            slide: 2,
-            totalSlides: 6,
-          },
-        });
-      }
+      await AsyncStorage.setItem(key, '1');
+      setBookmarked(true);
     }
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: mainBg }}>
-      {/* Card-style Header */}
-      <View
-        style={{
-          backgroundColor: cardBg,
-          borderRadius: 16,
-          marginHorizontal: 12,
-          marginTop: 0,
-          marginBottom: 16,
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          shadowColor: '#000',
-          shadowOpacity: 0.08,
-          shadowRadius: 8,
-          shadowOffset: { width: 0, height: 2 },
-          elevation: 2,
-        }}
+    <View
+      style={{ flex: 1, backgroundColor: mainBg }}
+      {...panResponder.panHandlers}
+    >
+      {/* Header - match ConceptSlide */}
+      <View style={styles.headerBar}>
+        <TouchableOpacity style={styles.headerBackBtn} onPress={handlePrev}>
+          <Ionicons name='chevron-back' size={20} color={'#fff'} />
+        </TouchableOpacity>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.headerTitle}>{title}</Text>
+          {moduleTitle ? (
+            <Text style={[styles.subtitle, { fontSize: 14, marginTop: 2 }]}>
+              {moduleTitle}
+            </Text>
+          ) : null}
+        </View>
+        <View style={styles.headerRightCol}>
+          <View style={styles.streakBadge}>
+            <Ionicons
+              name='flame-outline'
+              size={16}
+              color={COLORS.primary}
+              style={{ marginRight: 4 }}
+            />
+            <Text style={styles.streakText}>3 day streak</Text>
+          </View>
+          <View style={styles.xpBadge}>
+            <Text style={styles.xpBadgeText}>+{xp} XP</Text>
+          </View>
+        </View>
+      </View>
+      {/* Linear Progress Bar below header */}
+      <LinearProgressBar progress={slide / totalSlides} />
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContainer,
+          { backgroundColor: mainBg, marginTop: 8 },
+        ]}
       >
-        <View style={{ padding: 16 }}>
-          <View
+        {/* Top Section: Slide count, title, module title, introduction */}
+        <View style={{ paddingHorizontal: 18, paddingTop: 8, marginBottom: 8 }}>
+          <Text
+            style={{ color: secondaryTextColor, fontSize: 14, marginBottom: 2 }}
+          >
+            Slide {slide} of {totalSlides}
+          </Text>
+          <Text
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
+              color: mainTextColor,
+              fontWeight: 'bold',
+              fontSize: 22,
               marginBottom: 4,
             }}
           >
-            <TouchableOpacity
-              style={{ marginRight: 10 }}
-              onPress={() => {
-                if (params.moduleId) {
-                  router.replace({
-                    pathname: '/(app)/_(lessons)/LessonsListScreen',
-                    params: {
-                      moduleId: params.moduleId,
-                      moduleTitle: params.moduleTitle,
-                      levelTitle: params.levelTitle,
-                      xpReward: params.xpReward,
-                    },
-                  });
-                } else {
-                  router.replace('/(app)/_(lessons)/LessonsListScreen');
-                }
-              }}
-            >
-              <Ionicons name='arrow-back' size={22} color={mainTextColor} />
-            </TouchableOpacity>
-            <Text
-              style={{
-                color: mainTextColor,
-                fontWeight: 'bold',
-                fontSize: 18,
-                flex: 1,
-              }}
-              numberOfLines={1}
-            >
-              {title}
-            </Text>
-            <Ionicons
-              name='star'
-              size={16}
-              color={mainTextColor}
-              style={{ marginRight: 2, marginLeft: 8 }}
-            />
-            <Text
-              style={{
-                color: mainTextColor,
-                fontWeight: 'bold',
-                fontSize: 14,
-              }}
-            >
-              XP {xp}
-            </Text>
-          </View>
-          <View
-            style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}
-          >
+            {title}
+          </Text>
+          {introduction ? (
             <Text
               style={{
                 color: secondaryTextColor,
                 fontSize: 15,
-                flex: 1,
+                marginBottom: 8,
               }}
             >
               {introduction}
             </Text>
-            <Ionicons
-              name='flame-outline'
-              size={18}
-              color={COLORS.primary}
-              style={{ marginLeft: 8 }}
-            />
-            <Text
-              style={{
-                color: mainTextColor,
-                fontWeight: 'bold',
-                fontSize: 14,
-                marginLeft: 2,
-              }}
-            >
-              {streak}
-            </Text>
-            <Ionicons
-              name='bookmark-outline'
-              size={20}
-              color={secondaryTextColor}
-              style={{ marginLeft: 8 }}
-            />
-          </View>
-        </View>
-      </View>
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContainer,
-          { backgroundColor: mainBg },
-        ]}
-      >
-        {/* Progress Bar */}
-        <View style={styles.progressRow}>
-          <Text
-            style={{ color: secondaryTextColor, fontSize: 14, marginRight: 8 }}
-          >
-            Slide {slide} of {totalSlides}
-          </Text>
-          <View style={styles.dotsRow}>
-            {[...Array(totalSlides)].map((_, i) => (
-              <View
-                key={i}
-                style={[
-                  styles.dot,
-                  i === slide - 1 ? styles.dotActive : styles.dotInactive,
-                ]}
-              />
-            ))}
-          </View>
-        </View>
-        {/* Tags Row */}
-        <View style={styles.tagsRow}>
-          {tags.map((tag, idx) => (
-            <View key={idx} style={styles.tag}>
-              <Text style={{ color: secondaryTextColor, fontSize: 12 }}>
-                {tag}
-              </Text>
-            </View>
-          ))}
-        </View>
-        {/* Illustration Placeholder */}
-        <View
-          style={[
-            styles.illustration,
-            {
-              backgroundColor: cardBg,
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: 180,
-            },
-          ]}
-        >
-          <Ionicons name='image-outline' size={72} color={secondaryTextColor} />
-          {illustrationText ? (
-            <Text
-              style={{
-                color: secondaryTextColor,
-                fontSize: 17,
-                textAlign: 'center',
-                marginTop: 12,
-              }}
-            >
-              {illustrationText}
-            </Text>
           ) : null}
         </View>
-        {/* Description Card */}
-        <View style={[styles.card, { backgroundColor: cardBg }]}>
-          <Text style={{ color: mainTextColor, fontSize: 15, marginBottom: 8 }}>
-            {description}
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignSelf: 'flex-start',
+            backgroundColor: '#232B3B',
+            borderRadius: 16,
+            paddingHorizontal: 14,
+            paddingVertical: 8,
+            marginBottom: 12,
+            marginLeft: 16,
+          }}
+        >
+          <Ionicons
+            name='volume-high-outline'
+            size={18}
+            color={COLORS.primary}
+          />
+          <Text
+            style={{
+              color: COLORS.primary,
+              fontSize: 15,
+              marginLeft: 6,
+              fontWeight: 'bold',
+            }}
+          >
+            Listen
           </Text>
-          <View style={styles.cardActions}>
-            <TouchableOpacity style={styles.actionBtn}>
-              <Ionicons
-                name='pencil-outline'
-                size={18}
-                color={COLORS.primary}
-              />
-              <Text
-                style={{ color: COLORS.primary, fontSize: 13, marginLeft: 4 }}
+        </TouchableOpacity>
+        {/* Media Images Row */}
+        {images.length > 0 && (
+          <RNScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginBottom: 12, marginTop: 4 }}
+            contentContainerStyle={{ alignItems: 'center' }}
+          >
+            {images.map((img, idx) => (
+              <View
+                key={idx}
+                style={{
+                  width: 120,
+                  height: 120,
+                  backgroundColor: cardBg,
+                  borderRadius: 12,
+                  marginRight: 12,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  borderWidth: 1,
+                  borderColor: '#232B3B',
+                }}
               >
-                Highlight
+                {img.imageURL ? (
+                  <Image
+                    source={{ uri: img.imageURL }}
+                    style={{ width: '100%', height: '100%', borderRadius: 12 }}
+                    resizeMode='cover'
+                  />
+                ) : (
+                  <Ionicons
+                    name='image-outline'
+                    size={48}
+                    color={secondaryTextColor}
+                  />
+                )}
+                {img.caption ? (
+                  <Text
+                    style={{
+                      color: secondaryTextColor,
+                      fontSize: 13,
+                      textAlign: 'center',
+                      marginTop: 4,
+                      paddingHorizontal: 4,
+                    }}
+                  >
+                    {img.caption}
+                  </Text>
+                ) : null}
+              </View>
+            ))}
+          </RNScrollView>
+        )}
+        <RNView
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          {imageUrl ? (
+            <RNView
+              style={{
+                width: imageWidth,
+                height: imageHeight,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginVertical: 16,
+                borderRadius: 12,
+                overflow: 'hidden',
+              }}
+            >
+              {imageLoading && !imageError && (
+                <ActivityIndicator
+                  size='large'
+                  color='#888'
+                  style={{ position: 'absolute' }}
+                />
+              )}
+              {!imageError ? (
+                <Image
+                  source={{ uri: imageUrl }}
+                  style={{
+                    width: imageWidth,
+                    height: imageHeight,
+                    borderRadius: 12,
+                    opacity: imageLoading ? 0 : 1,
+                  }}
+                  resizeMode='cover'
+                  onLoadEnd={() => setImageLoading(false)}
+                  onError={() => {
+                    setImageError(true);
+                    setImageLoading(false);
+                  }}
+                />
+              ) : (
+                <RNView
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  <Ionicons name='image-outline' size={64} color='#555' />
+                  <Text style={{ color: '#888', marginTop: 8 }}>
+                    Image not available
+                  </Text>
+                </RNView>
+              )}
+            </RNView>
+          ) : (
+            <RNView
+              style={{
+                width: imageWidth,
+                height: imageHeight,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginVertical: 16,
+                borderRadius: 12,
+                overflow: 'hidden',
+              }}
+            >
+              <Ionicons name='image-outline' size={64} color='#555' />
+              <Text style={{ color: '#888', marginTop: 8 }}>
+                No image provided
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionBtn}>
-              <Ionicons
-                name='volume-high-outline'
-                size={18}
-                color={COLORS.primary}
-              />
-              <Text
-                style={{ color: COLORS.primary, fontSize: 13, marginLeft: 4 }}
-              >
-                Listen
-              </Text>
-            </TouchableOpacity>
+            </RNView>
+          )}
+        </RNView>
+        {/* Description Card */}
+        {description ? (
+          <View style={[styles.card, { backgroundColor: cardBg }]}>
+            <Text
+              style={{ color: mainTextColor, fontSize: 15, marginBottom: 8 }}
+            >
+              {description}
+            </Text>
           </View>
-        </View>
+        ) : null}
         {/* Learning Objective Card */}
-        <View style={[styles.objectiveCard, { backgroundColor: cardBg }]}>
+        <View
+          style={[
+            styles.teacherNoteCard,
+            { backgroundColor: cardBg, marginBottom: 12 },
+          ]}
+        >
           <Ionicons
             name='information-circle-outline'
             size={20}
             color={COLORS.primary}
             style={{ marginRight: 8 }}
           />
-          <View>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                color: mainTextColor,
-                fontSize: 15,
-                marginLeft: 8,
-              }}
-            >
-              Learning Objective
-            </Text>
-            <Text
-              style={{ color: secondaryTextColor, fontSize: 13, marginLeft: 8 }}
-            >
-              {objective}
-            </Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.teacherNoteLabel}>LEARNING OBJECTIVE</Text>
+            <Text style={styles.teacherNoteText}>{objective}</Text>
           </View>
         </View>
         {/* Footer */}
         <View style={styles.footer}>
-          {hasPrev ? (
-            <TouchableOpacity style={styles.footerBtn}>
-              <Ionicons
-                name='chevron-back'
-                size={22}
-                color={secondaryTextColor}
-              />
-            </TouchableOpacity>
-          ) : null}
-          <View style={styles.xpBtn}>
-            <Ionicons name='flash' size={18} color={COLORS.primary} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              marginTop: 8,
+              position: 'relative',
+            }}
+          >
             <Text
               style={{
-                color: COLORS.primary,
-                fontWeight: 'bold',
-                fontSize: 15,
-                marginLeft: 6,
+                color: secondaryTextColor,
+                fontSize: SIZES.body5,
+                textAlign: 'center',
+                flex: 1,
               }}
             >
-              +5 XP
+              Swipe to continue
             </Text>
+            {hasNext ? (
+              <TouchableOpacity
+                style={[styles.footerBtn, { position: 'absolute', right: 0 }]}
+                onPress={handleNext}
+              >
+                <Ionicons
+                  name='chevron-forward'
+                  size={22}
+                  color={secondaryTextColor}
+                />
+              </TouchableOpacity>
+            ) : null}
           </View>
-          {hasNext ? (
-            <TouchableOpacity style={styles.footerBtn} onPress={handleNext}>
-              <Ionicons
-                name='chevron-forward'
-                size={22}
-                color={secondaryTextColor}
-              />
-            </TouchableOpacity>
-          ) : null}
         </View>
-        <Text
-          style={{
-            textAlign: 'center',
-            color: secondaryTextColor,
-            fontSize: 13,
-            marginBottom: 8,
-          }}
-        >
-          Swipe to continue
-        </Text>
       </ScrollView>
     </View>
   );
@@ -374,23 +501,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: SPACING.md,
   },
-  username: {
+  headerBackBtn: { marginRight: 8, padding: 4 },
+  headerTitle: {
+    color: '#fff',
     fontWeight: 'bold',
-    fontSize: SIZES.body3,
-    marginLeft: 12,
-    flex: 1,
-    color: COLORS.text,
+    fontSize: 18,
   },
-  headerStats: {
+  headerRightCol: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 8,
   },
-  headerStatText: {
+  streakBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#181A20',
+    borderRadius: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    marginLeft: 6,
+  },
+  streakText: {
+    color: '#fff',
     fontWeight: 'bold',
-    fontSize: SIZES.body5,
-    color: COLORS.text,
-    marginLeft: 2,
+    fontSize: 12,
+  },
+  xpBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#181A20',
+    borderRadius: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    marginLeft: 6,
+  },
+  xpBadgeText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  subtitle: {
+    color: '#B0B4C1',
+    fontSize: 14,
   },
   progressRow: {
     flexDirection: 'row',
@@ -530,5 +681,25 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     fontSize: SIZES.body5,
     marginBottom: 8,
+  },
+  teacherNoteCard: {
+    backgroundColor: '#181A20',
+    borderRadius: 10,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  teacherNoteLabel: {
+    color: COLORS.primary,
+    fontWeight: 'bold',
+    fontSize: 13,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+  teacherNoteText: {
+    color: '#fff',
+    fontSize: 14,
+    flex: 1,
   },
 });

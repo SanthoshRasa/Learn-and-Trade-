@@ -1,0 +1,24 @@
+{
+  "slideNumber": 11,
+  "type": "motivationalSlide",
+  "xpReward": 15,
+  "isKeySlide": false,
+  "estimatedReadTime": "30s",
+  "content": {
+    "lessonTitle": "Wisdom from the Legends",
+    "slide": 11,
+    "totalSlides": 15,
+    "title": "Wisdom from the Legends",
+    "quote": "In investing, what is comfortable is rarely profitable.",
+    "quoteSource": "— Robert Arnott\nSource: Financial Analysts Journal",
+    "lessonForTraders": {
+      "icon": "bulb-outline",
+      "title": "Lesson for Traders",
+      "text": "Growth happens outside your comfort zone. Don’t be afraid to take calculated risks."
+    },
+    "xpUnlocked": {
+      "stars": 1,
+      "text": "+15 XP Unlocked!"
+    }
+  }
+}

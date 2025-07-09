@@ -1,1949 +1,548 @@
 {
-  "learningPath": [
-    {
-      "id": 1,
-      "name": "Novice Navigator",
-      "modules": 6
-    },
-    {
-      "id": 2,
-      "name": "Chart Scout",
-      "modules": 6
-    },
-    {
-      "id": 3,
-      "name": "Candle Coder",
-      "modules": 7
-    },
-    {
-      "id": 4,
-      "name": "Style Strategist",
-      "modules": 6
-    },
-    {
-      "id": 5,
-      "name": "Market Explorer",
-      "modules": 6
-    },
-    {
-      "id": 6,
-      "name": "Indicator Guru",
-      "modules": 6
-    },
-    {
-      "id": 7,
-      "name": "Risk Ruler",
-      "modules": 6
-    },
-    {
-      "id": 8,
-      "name": "Master Trader",
-      "modules": 6
-    },
-    {
-      "id": 9,
-      "name": "Algo Pilot",
-      "modules": 6
-    },
-    {
-      "id": 10,
-      "name": "Hero Mode",
-      "modules": 6
-    }
-  ],
-  "modules": [
-    {
-      "id": "1-1",
-      "title": "What is Trading?",
-      "levelId": 1,
-      "status": "completed"
-    },
-    {
-      "id": "1-2",
-      "title": "Types of Markets (Forex, Stocks, Crypto)",
-      "levelId": 1,
-      "status": "inprogress"
-    },
-    {
-      "id": "1-3",
-      "title": "Market Mechanics & Order Types",
-      "levelId": 1,
-      "status": "locked"
-    },
-    {
-      "id": "1-4",
-      "title": "Trading Platforms & Brokers",
-      "levelId": 1,
-      "status": "locked"
-    },
-    {
-      "id": "1-5",
-      "title": "Key Trading Terms",
-      "levelId": 1,
-      "status": "locked"
-    },
-    {
-      "id": "1-6",
-      "title": "Risk vs. Reward Basics",
-      "levelId": 1,
-      "status": "locked"
-    },
-    {
-      "id": "2-1",
-      "title": "Types of Charts (Line, Bar, Candlestick)",
-      "levelId": 2,
-      "status": "locked"
-    },
-    {
-      "id": "2-2",
-      "title": "Support & Resistance Levels",
-      "levelId": 2,
-      "status": "locked"
-    },
-    {
-      "id": "2-3",
-      "title": "Trendlines & Channels",
-      "levelId": 2,
-      "status": "locked"
-    },
-    {
-      "id": "2-4",
-      "title": "Chart Patterns (Triangles, Double Tops, etc.)",
-      "levelId": 2,
-      "status": "locked"
-    },
-    {
-      "id": "2-5",
-      "title": "Intro to Volume Analysis",
-      "levelId": 2,
-      "status": "locked"
-    },
-    {
-      "id": "2-6",
-      "title": "Timeframes & Multi-Timeframe View",
-      "levelId": 2,
-      "status": "locked"
-    },
-    {
-      "id": "3-1",
-      "title": "Common Single Candles (Doji, Hammer, Engulfing)",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "3-2",
-      "title": "Multiple Candle Formations (Morning Star, Harami, etc.)",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "3-3",
-      "title": "Breakouts vs. Fakeouts",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "3-4",
-      "title": "Price Action Techniques",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "3-5",
-      "title": "Liquidity Zones, Supply & Demand",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "3-6",
-      "title": "Trap Moves & Manipulation",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "3-7",
-      "title": "Real-Market Examples & Practice Charts",
-      "levelId": 3,
-      "status": "locked"
-    },
-    {
-      "id": "4-1",
-      "title": "Day Trading Essentials",
-      "levelId": 4,
-      "status": "locked"
-    },
-    {
-      "id": "4-2",
-      "title": "Scalping Techniques",
-      "levelId": 4,
-      "status": "locked"
-    },
-    {
-      "id": "4-3",
-      "title": "Swing Trading Concepts",
-      "levelId": 4,
-      "status": "locked"
-    },
-    {
-      "id": "4-4",
-      "title": "Position Trading Strategy",
-      "levelId": 4,
-      "status": "locked"
-    },
-    {
-      "id": "4-5",
-      "title": "Entry/Exit Planning",
-      "levelId": 4,
-      "status": "locked"
-    },
-    {
-      "id": "4-6",
-      "title": "Managing Trade Duration",
-      "levelId": 4,
-      "status": "locked"
-    },
-    {
-      "id": "5-1",
-      "title": "Forex Basics: Pairs, Pips, Leverage",
-      "levelId": 5,
-      "status": "locked"
-    },
-    {
-      "id": "5-2",
-      "title": "Forex News & Economic Events",
-      "levelId": 5,
-      "status": "locked"
-    },
-    {
-      "id": "5-3",
-      "title": "Central Banks & Currency Impact",
-      "levelId": 5,
-      "status": "locked"
-    },
-    {
-      "id": "5-4",
-      "title": "Crypto Trading vs. Traditional Markets",
-      "levelId": 5,
-      "status": "locked"
-    },
-    {
-      "id": "5-5",
-      "title": "Spot vs. Futures Trading",
-      "levelId": 5,
-      "status": "locked"
-    },
-    {
-      "id": "5-6",
-      "title": "Crypto Risk & Volatility",
-      "levelId": 5,
-      "status": "locked"
-    },
-    {
-      "id": "6-1",
-      "title": "Moving Averages (SMA, EMA)",
-      "levelId": 6,
-      "status": "locked"
-    },
-    {
-      "id": "6-2",
-      "title": "RSI, MACD, Stochastic",
-      "levelId": 6,
-      "status": "locked"
-    },
-    {
-      "id": "6-3",
-      "title": "Bollinger Bands & ATR",
-      "levelId": 6,
-      "status": "locked"
-    },
-    {
-      "id": "6-4",
-      "title": "Fibonacci Retracements",
-      "levelId": 6,
-      "status": "locked"
-    },
-    {
-      "id": "6-5",
-      "title": "Ichimoku Cloud",
-      "levelId": 6,
-      "status": "locked"
-    },
-    {
-      "id": "6-6",
-      "title": "Indicator Combinations",
-      "levelId": 6,
-      "status": "locked"
-    },
-    {
-      "id": "7-1",
-      "title": "Position Sizing & Leverage",
-      "levelId": 7,
-      "status": "locked"
-    },
-    {
-      "id": "7-2",
-      "title": "Stop Loss & Take Profit Rules",
-      "levelId": 7,
-      "status": "locked"
-    },
-    {
-      "id": "7-3",
-      "title": "Risk-Reward Ratios",
-      "levelId": 7,
-      "status": "locked"
-    },
-    {
-      "id": "7-4",
-      "title": "Trading Journal & Review",
-      "levelId": 7,
-      "status": "locked"
-    },
-    {
-      "id": "7-5",
-      "title": "Psychology: Fear, Greed, FOMO",
-      "levelId": 7,
-      "status": "locked"
-    },
-    {
-      "id": "7-6",
-      "title": "Building Your Trading Plan",
-      "levelId": 7,
-      "status": "locked"
-    },
-    {
-      "id": "8-1",
-      "title": "Backtesting Your Strategy",
-      "levelId": 8,
-      "status": "locked"
-    },
-    {
-      "id": "8-2",
-      "title": "Smart Money Concepts (SMC)",
-      "levelId": 8,
-      "status": "locked"
-    },
-    {
-      "id": "8-3",
-      "title": "Order Blocks & Institutional Moves",
-      "levelId": 8,
-      "status": "locked"
-    },
-    {
-      "id": "8-4",
-      "title": "Simulated Trading Exercises",
-      "levelId": 8,
-      "status": "locked"
-    },
-    {
-      "id": "8-5",
-      "title": "Funded Challenge Preparation (FTMO, MFF)",
-      "levelId": 8,
-      "status": "locked"
-    },
-    {
-      "id": "8-6",
-      "title": "Custom Strategy Builder",
-      "levelId": 8,
-      "status": "locked"
-    },
-    {
-      "id": "9-1",
-      "title": "Introduction to Algo Trading",
-      "levelId": 9,
-      "status": "locked"
-    },
-    {
-      "id": "9-2",
-      "title": "Basic Coding for Trading Bots",
-      "levelId": 9,
-      "status": "locked"
-    },
-    {
-      "id": "9-3",
-      "title": "Popular Platforms: MetaTrader, TradingView",
-      "levelId": 9,
-      "status": "locked"
-    },
-    {
-      "id": "9-4",
-      "title": "Backtesting Tools and Frameworks",
-      "levelId": 9,
-      "status": "locked"
-    },
-    {
-      "id": "9-5",
-      "title": "Optimization Techniques",
-      "levelId": 9,
-      "status": "locked"
-    },
-    {
-      "id": "9-6",
-      "title": "Risk Management for Bots",
-      "levelId": 9,
-      "status": "locked"
-    },
-    {
-      "id": "10-1",
-      "title": "From Demo to Live Transition",
-      "levelId": 10,
-      "status": "locked"
-    },
-    {
-      "id": "10-2",
-      "title": "Journaling and Performance Tracking",
-      "levelId": 10,
-      "status": "locked"
-    },
-    {
-      "id": "10-3",
-      "title": "Daily Routines & Trading Rituals",
-      "levelId": 10,
-      "status": "locked"
-    },
-    {
-      "id": "10-4",
-      "title": "Evaluating & Refining Your Strategy",
-      "levelId": 10,
-      "status": "locked"
-    },
-    {
-      "id": "10-5",
-      "title": "Staying Updated & Continued Learning",
-      "levelId": 10,
-      "status": "locked"
-    },
-    {
-      "id": "10-6",
-      "title": "Networking & Trading Communities",
-      "levelId": 10,
-      "status": "locked"
-    }
-  ],
-  "lessons": [
-    {
-      "id": "1-1-1",
-      "title": "Lesson 1 for Module 1-1",
-      "moduleId": "1-1"
-    },
-    {
-      "id": "1-1-2",
-      "title": "Lesson 2 for Module 1-1",
-      "moduleId": "1-1"
-    },
-    {
-      "id": "1-1-3",
-      "title": "Lesson 3 for Module 1-1",
-      "moduleId": "1-1"
-    },
-    {
-      "id": "1-1-4",
-      "title": "Lesson 4 for Module 1-1",
-      "moduleId": "1-1"
-    },
-    {
-      "id": "1-1-5",
-      "title": "Lesson 5 for Module 1-1",
-      "moduleId": "1-1"
-    },
-    {
-      "id": "1-2-1",
-      "title": "Lesson 1 for Module 1-2",
-      "moduleId": "1-2"
-    },
-    {
-      "id": "1-2-2",
-      "title": "Lesson 2 for Module 1-2",
-      "moduleId": "1-2"
-    },
-    {
-      "id": "1-2-3",
-      "title": "Lesson 3 for Module 1-2",
-      "moduleId": "1-2"
-    },
-    {
-      "id": "1-2-4",
-      "title": "Lesson 4 for Module 1-2",
-      "moduleId": "1-2"
-    },
-    {
-      "id": "1-2-5",
-      "title": "Lesson 5 for Module 1-2",
-      "moduleId": "1-2"
-    },
-    {
-      "id": "1-3-1",
-      "title": "Lesson 1 for Module 1-3",
-      "moduleId": "1-3"
-    },
-    {
-      "id": "1-3-2",
-      "title": "Lesson 2 for Module 1-3",
-      "moduleId": "1-3"
-    },
-    {
-      "id": "1-3-3",
-      "title": "Lesson 3 for Module 1-3",
-      "moduleId": "1-3"
-    },
-    {
-      "id": "1-3-4",
-      "title": "Lesson 4 for Module 1-3",
-      "moduleId": "1-3"
-    },
-    {
-      "id": "1-3-5",
-      "title": "Lesson 5 for Module 1-3",
-      "moduleId": "1-3"
-    },
-    {
-      "id": "1-4-1",
-      "title": "Lesson 1 for Module 1-4",
-      "moduleId": "1-4"
-    },
-    {
-      "id": "1-4-2",
-      "title": "Lesson 2 for Module 1-4",
-      "moduleId": "1-4"
-    },
-    {
-      "id": "1-4-3",
-      "title": "Lesson 3 for Module 1-4",
-      "moduleId": "1-4"
-    },
-    {
-      "id": "1-4-4",
-      "title": "Lesson 4 for Module 1-4",
-      "moduleId": "1-4"
-    },
-    {
-      "id": "1-4-5",
-      "title": "Lesson 5 for Module 1-4",
-      "moduleId": "1-4"
-    },
-    {
-      "id": "1-5-1",
-      "title": "Lesson 1 for Module 1-5",
-      "moduleId": "1-5"
-    },
-    {
-      "id": "1-5-2",
-      "title": "Lesson 2 for Module 1-5",
-      "moduleId": "1-5"
-    },
-    {
-      "id": "1-5-3",
-      "title": "Lesson 3 for Module 1-5",
-      "moduleId": "1-5"
-    },
-    {
-      "id": "1-5-4",
-      "title": "Lesson 4 for Module 1-5",
-      "moduleId": "1-5"
-    },
-    {
-      "id": "1-5-5",
-      "title": "Lesson 5 for Module 1-5",
-      "moduleId": "1-5"
-    },
-    {
-      "id": "1-6-1",
-      "title": "Lesson 1 for Module 1-6",
-      "moduleId": "1-6"
-    },
-    {
-      "id": "1-6-2",
-      "title": "Lesson 2 for Module 1-6",
-      "moduleId": "1-6"
-    },
-    {
-      "id": "1-6-3",
-      "title": "Lesson 3 for Module 1-6",
-      "moduleId": "1-6"
-    },
-    {
-      "id": "1-6-4",
-      "title": "Lesson 4 for Module 1-6",
-      "moduleId": "1-6"
-    },
-    {
-      "id": "1-6-5",
-      "title": "Lesson 5 for Module 1-6",
-      "moduleId": "1-6"
-    },
-    {
-      "id": "2-1-1",
-      "title": "Lesson 1 for Module 2-1",
-      "moduleId": "2-1"
-    },
-    {
-      "id": "2-1-2",
-      "title": "Lesson 2 for Module 2-1",
-      "moduleId": "2-1"
-    },
-    {
-      "id": "2-1-3",
-      "title": "Lesson 3 for Module 2-1",
-      "moduleId": "2-1"
-    },
-    {
-      "id": "2-1-4",
-      "title": "Lesson 4 for Module 2-1",
-      "moduleId": "2-1"
-    },
-    {
-      "id": "2-1-5",
-      "title": "Lesson 5 for Module 2-1",
-      "moduleId": "2-1"
-    },
-    {
-      "id": "2-2-1",
-      "title": "Lesson 1 for Module 2-2",
-      "moduleId": "2-2"
-    },
-    {
-      "id": "2-2-2",
-      "title": "Lesson 2 for Module 2-2",
-      "moduleId": "2-2"
-    },
-    {
-      "id": "2-2-3",
-      "title": "Lesson 3 for Module 2-2",
-      "moduleId": "2-2"
-    },
-    {
-      "id": "2-2-4",
-      "title": "Lesson 4 for Module 2-2",
-      "moduleId": "2-2"
-    },
-    {
-      "id": "2-2-5",
-      "title": "Lesson 5 for Module 2-2",
-      "moduleId": "2-2"
-    },
-    {
-      "id": "2-3-1",
-      "title": "Lesson 1 for Module 2-3",
-      "moduleId": "2-3"
-    },
-    {
-      "id": "2-3-2",
-      "title": "Lesson 2 for Module 2-3",
-      "moduleId": "2-3"
-    },
-    {
-      "id": "2-3-3",
-      "title": "Lesson 3 for Module 2-3",
-      "moduleId": "2-3"
-    },
-    {
-      "id": "2-3-4",
-      "title": "Lesson 4 for Module 2-3",
-      "moduleId": "2-3"
-    },
-    {
-      "id": "2-3-5",
-      "title": "Lesson 5 for Module 2-3",
-      "moduleId": "2-3"
-    },
-    {
-      "id": "2-4-1",
-      "title": "Lesson 1 for Module 2-4",
-      "moduleId": "2-4"
-    },
-    {
-      "id": "2-4-2",
-      "title": "Lesson 2 for Module 2-4",
-      "moduleId": "2-4"
-    },
-    {
-      "id": "2-4-3",
-      "title": "Lesson 3 for Module 2-4",
-      "moduleId": "2-4"
-    },
-    {
-      "id": "2-4-4",
-      "title": "Lesson 4 for Module 2-4",
-      "moduleId": "2-4"
-    },
-    {
-      "id": "2-4-5",
-      "title": "Lesson 5 for Module 2-4",
-      "moduleId": "2-4"
-    },
-    {
-      "id": "2-5-1",
-      "title": "Lesson 1 for Module 2-5",
-      "moduleId": "2-5"
-    },
-    {
-      "id": "2-5-2",
-      "title": "Lesson 2 for Module 2-5",
-      "moduleId": "2-5"
-    },
-    {
-      "id": "2-5-3",
-      "title": "Lesson 3 for Module 2-5",
-      "moduleId": "2-5"
-    },
-    {
-      "id": "2-5-4",
-      "title": "Lesson 4 for Module 2-5",
-      "moduleId": "2-5"
-    },
-    {
-      "id": "2-5-5",
-      "title": "Lesson 5 for Module 2-5",
-      "moduleId": "2-5"
-    },
-    {
-      "id": "2-6-1",
-      "title": "Lesson 1 for Module 2-6",
-      "moduleId": "2-6"
-    },
-    {
-      "id": "2-6-2",
-      "title": "Lesson 2 for Module 2-6",
-      "moduleId": "2-6"
-    },
-    {
-      "id": "2-6-3",
-      "title": "Lesson 3 for Module 2-6",
-      "moduleId": "2-6"
-    },
-    {
-      "id": "2-6-4",
-      "title": "Lesson 4 for Module 2-6",
-      "moduleId": "2-6"
-    },
-    {
-      "id": "2-6-5",
-      "title": "Lesson 5 for Module 2-6",
-      "moduleId": "2-6"
-    },
-    {
-      "id": "3-1-1",
-      "title": "Lesson 1 for Module 3-1",
-      "moduleId": "3-1"
-    },
-    {
-      "id": "3-1-2",
-      "title": "Lesson 2 for Module 3-1",
-      "moduleId": "3-1"
-    },
-    {
-      "id": "3-1-3",
-      "title": "Lesson 3 for Module 3-1",
-      "moduleId": "3-1"
-    },
-    {
-      "id": "3-1-4",
-      "title": "Lesson 4 for Module 3-1",
-      "moduleId": "3-1"
-    },
-    {
-      "id": "3-1-5",
-      "title": "Lesson 5 for Module 3-1",
-      "moduleId": "3-1"
-    },
-    {
-      "id": "3-2-1",
-      "title": "Lesson 1 for Module 3-2",
-      "moduleId": "3-2"
-    },
-    {
-      "id": "3-2-2",
-      "title": "Lesson 2 for Module 3-2",
-      "moduleId": "3-2"
-    },
-    {
-      "id": "3-2-3",
-      "title": "Lesson 3 for Module 3-2",
-      "moduleId": "3-2"
-    },
-    {
-      "id": "3-2-4",
-      "title": "Lesson 4 for Module 3-2",
-      "moduleId": "3-2"
-    },
-    {
-      "id": "3-2-5",
-      "title": "Lesson 5 for Module 3-2",
-      "moduleId": "3-2"
-    },
-    {
-      "id": "3-3-1",
-      "title": "Lesson 1 for Module 3-3",
-      "moduleId": "3-3"
-    },
-    {
-      "id": "3-3-2",
-      "title": "Lesson 2 for Module 3-3",
-      "moduleId": "3-3"
-    },
-    {
-      "id": "3-3-3",
-      "title": "Lesson 3 for Module 3-3",
-      "moduleId": "3-3"
-    },
-    {
-      "id": "3-3-4",
-      "title": "Lesson 4 for Module 3-3",
-      "moduleId": "3-3"
-    },
-    {
-      "id": "3-3-5",
-      "title": "Lesson 5 for Module 3-3",
-      "moduleId": "3-3"
-    },
-    {
-      "id": "3-4-1",
-      "title": "Lesson 1 for Module 3-4",
-      "moduleId": "3-4"
-    },
-    {
-      "id": "3-4-2",
-      "title": "Lesson 2 for Module 3-4",
-      "moduleId": "3-4"
-    },
-    {
-      "id": "3-4-3",
-      "title": "Lesson 3 for Module 3-4",
-      "moduleId": "3-4"
-    },
-    {
-      "id": "3-4-4",
-      "title": "Lesson 4 for Module 3-4",
-      "moduleId": "3-4"
-    },
-    {
-      "id": "3-4-5",
-      "title": "Lesson 5 for Module 3-4",
-      "moduleId": "3-4"
-    },
-    {
-      "id": "3-5-1",
-      "title": "Lesson 1 for Module 3-5",
-      "moduleId": "3-5"
-    },
-    {
-      "id": "3-5-2",
-      "title": "Lesson 2 for Module 3-5",
-      "moduleId": "3-5"
-    },
-    {
-      "id": "3-5-3",
-      "title": "Lesson 3 for Module 3-5",
-      "moduleId": "3-5"
-    },
-    {
-      "id": "3-5-4",
-      "title": "Lesson 4 for Module 3-5",
-      "moduleId": "3-5"
-    },
-    {
-      "id": "3-5-5",
-      "title": "Lesson 5 for Module 3-5",
-      "moduleId": "3-5"
-    },
-    {
-      "id": "3-6-1",
-      "title": "Lesson 1 for Module 3-6",
-      "moduleId": "3-6"
-    },
-    {
-      "id": "3-6-2",
-      "title": "Lesson 2 for Module 3-6",
-      "moduleId": "3-6"
-    },
-    {
-      "id": "3-6-3",
-      "title": "Lesson 3 for Module 3-6",
-      "moduleId": "3-6"
-    },
-    {
-      "id": "3-6-4",
-      "title": "Lesson 4 for Module 3-6",
-      "moduleId": "3-6"
-    },
-    {
-      "id": "3-6-5",
-      "title": "Lesson 5 for Module 3-6",
-      "moduleId": "3-6"
-    },
-    {
-      "id": "3-7-1",
-      "title": "Lesson 1 for Module 3-7",
-      "moduleId": "3-7"
-    },
-    {
-      "id": "3-7-2",
-      "title": "Lesson 2 for Module 3-7",
-      "moduleId": "3-7"
-    },
-    {
-      "id": "3-7-3",
-      "title": "Lesson 3 for Module 3-7",
-      "moduleId": "3-7"
-    },
-    {
-      "id": "3-7-4",
-      "title": "Lesson 4 for Module 3-7",
-      "moduleId": "3-7"
-    },
-    {
-      "id": "3-7-5",
-      "title": "Lesson 5 for Module 3-7",
-      "moduleId": "3-7"
-    },
-    {
-      "id": "4-1-1",
-      "title": "Lesson 1 for Module 4-1",
-      "moduleId": "4-1"
-    },
-    {
-      "id": "4-1-2",
-      "title": "Lesson 2 for Module 4-1",
-      "moduleId": "4-1"
-    },
-    {
-      "id": "4-1-3",
-      "title": "Lesson 3 for Module 4-1",
-      "moduleId": "4-1"
-    },
-    {
-      "id": "4-1-4",
-      "title": "Lesson 4 for Module 4-1",
-      "moduleId": "4-1"
-    },
-    {
-      "id": "4-1-5",
-      "title": "Lesson 5 for Module 4-1",
-      "moduleId": "4-1"
-    },
-    {
-      "id": "4-2-1",
-      "title": "Lesson 1 for Module 4-2",
-      "moduleId": "4-2"
-    },
-    {
-      "id": "4-2-2",
-      "title": "Lesson 2 for Module 4-2",
-      "moduleId": "4-2"
-    },
-    {
-      "id": "4-2-3",
-      "title": "Lesson 3 for Module 4-2",
-      "moduleId": "4-2"
-    },
-    {
-      "id": "4-2-4",
-      "title": "Lesson 4 for Module 4-2",
-      "moduleId": "4-2"
-    },
-    {
-      "id": "4-2-5",
-      "title": "Lesson 5 for Module 4-2",
-      "moduleId": "4-2"
-    },
-    {
-      "id": "4-3-1",
-      "title": "Lesson 1 for Module 4-3",
-      "moduleId": "4-3"
-    },
-    {
-      "id": "4-3-2",
-      "title": "Lesson 2 for Module 4-3",
-      "moduleId": "4-3"
-    },
-    {
-      "id": "4-3-3",
-      "title": "Lesson 3 for Module 4-3",
-      "moduleId": "4-3"
-    },
-    {
-      "id": "4-3-4",
-      "title": "Lesson 4 for Module 4-3",
-      "moduleId": "4-3"
-    },
-    {
-      "id": "4-3-5",
-      "title": "Lesson 5 for Module 4-3",
-      "moduleId": "4-3"
-    },
-    {
-      "id": "4-4-1",
-      "title": "Lesson 1 for Module 4-4",
-      "moduleId": "4-4"
-    },
-    {
-      "id": "4-4-2",
-      "title": "Lesson 2 for Module 4-4",
-      "moduleId": "4-4"
-    },
-    {
-      "id": "4-4-3",
-      "title": "Lesson 3 for Module 4-4",
-      "moduleId": "4-4"
-    },
-    {
-      "id": "4-4-4",
-      "title": "Lesson 4 for Module 4-4",
-      "moduleId": "4-4"
-    },
-    {
-      "id": "4-4-5",
-      "title": "Lesson 5 for Module 4-4",
-      "moduleId": "4-4"
-    },
-    {
-      "id": "4-5-1",
-      "title": "Lesson 1 for Module 4-5",
-      "moduleId": "4-5"
-    },
-    {
-      "id": "4-5-2",
-      "title": "Lesson 2 for Module 4-5",
-      "moduleId": "4-5"
-    },
-    {
-      "id": "4-5-3",
-      "title": "Lesson 3 for Module 4-5",
-      "moduleId": "4-5"
-    },
-    {
-      "id": "4-5-4",
-      "title": "Lesson 4 for Module 4-5",
-      "moduleId": "4-5"
-    },
-    {
-      "id": "4-5-5",
-      "title": "Lesson 5 for Module 4-5",
-      "moduleId": "4-5"
-    },
-    {
-      "id": "4-6-1",
-      "title": "Lesson 1 for Module 4-6",
-      "moduleId": "4-6"
-    },
-    {
-      "id": "4-6-2",
-      "title": "Lesson 2 for Module 4-6",
-      "moduleId": "4-6"
-    },
-    {
-      "id": "4-6-3",
-      "title": "Lesson 3 for Module 4-6",
-      "moduleId": "4-6"
-    },
-    {
-      "id": "4-6-4",
-      "title": "Lesson 4 for Module 4-6",
-      "moduleId": "4-6"
-    },
-    {
-      "id": "4-6-5",
-      "title": "Lesson 5 for Module 4-6",
-      "moduleId": "4-6"
-    },
-    {
-      "id": "5-1-1",
-      "title": "Lesson 1 for Module 5-1",
-      "moduleId": "5-1"
-    },
-    {
-      "id": "5-1-2",
-      "title": "Lesson 2 for Module 5-1",
-      "moduleId": "5-1"
-    },
-    {
-      "id": "5-1-3",
-      "title": "Lesson 3 for Module 5-1",
-      "moduleId": "5-1"
-    },
-    {
-      "id": "5-1-4",
-      "title": "Lesson 4 for Module 5-1",
-      "moduleId": "5-1"
-    },
-    {
-      "id": "5-1-5",
-      "title": "Lesson 5 for Module 5-1",
-      "moduleId": "5-1"
-    },
-    {
-      "id": "5-2-1",
-      "title": "Lesson 1 for Module 5-2",
-      "moduleId": "5-2"
-    },
-    {
-      "id": "5-2-2",
-      "title": "Lesson 2 for Module 5-2",
-      "moduleId": "5-2"
-    },
-    {
-      "id": "5-2-3",
-      "title": "Lesson 3 for Module 5-2",
-      "moduleId": "5-2"
-    },
-    {
-      "id": "5-2-4",
-      "title": "Lesson 4 for Module 5-2",
-      "moduleId": "5-2"
-    },
-    {
-      "id": "5-2-5",
-      "title": "Lesson 5 for Module 5-2",
-      "moduleId": "5-2"
-    },
-    {
-      "id": "5-3-1",
-      "title": "Lesson 1 for Module 5-3",
-      "moduleId": "5-3"
-    },
-    {
-      "id": "5-3-2",
-      "title": "Lesson 2 for Module 5-3",
-      "moduleId": "5-3"
-    },
-    {
-      "id": "5-3-3",
-      "title": "Lesson 3 for Module 5-3",
-      "moduleId": "5-3"
-    },
-    {
-      "id": "5-3-4",
-      "title": "Lesson 4 for Module 5-3",
-      "moduleId": "5-3"
-    },
-    {
-      "id": "5-3-5",
-      "title": "Lesson 5 for Module 5-3",
-      "moduleId": "5-3"
-    },
-    {
-      "id": "5-4-1",
-      "title": "Lesson 1 for Module 5-4",
-      "moduleId": "5-4"
-    },
-    {
-      "id": "5-4-2",
-      "title": "Lesson 2 for Module 5-4",
-      "moduleId": "5-4"
-    },
-    {
-      "id": "5-4-3",
-      "title": "Lesson 3 for Module 5-4",
-      "moduleId": "5-4"
-    },
-    {
-      "id": "5-4-4",
-      "title": "Lesson 4 for Module 5-4",
-      "moduleId": "5-4"
-    },
-    {
-      "id": "5-4-5",
-      "title": "Lesson 5 for Module 5-4",
-      "moduleId": "5-4"
-    },
-    {
-      "id": "5-5-1",
-      "title": "Lesson 1 for Module 5-5",
-      "moduleId": "5-5"
-    },
-    {
-      "id": "5-5-2",
-      "title": "Lesson 2 for Module 5-5",
-      "moduleId": "5-5"
-    },
-    {
-      "id": "5-5-3",
-      "title": "Lesson 3 for Module 5-5",
-      "moduleId": "5-5"
-    },
-    {
-      "id": "5-5-4",
-      "title": "Lesson 4 for Module 5-5",
-      "moduleId": "5-5"
-    },
-    {
-      "id": "5-5-5",
-      "title": "Lesson 5 for Module 5-5",
-      "moduleId": "5-5"
-    },
-    {
-      "id": "5-6-1",
-      "title": "Lesson 1 for Module 5-6",
-      "moduleId": "5-6"
-    },
-    {
-      "id": "5-6-2",
-      "title": "Lesson 2 for Module 5-6",
-      "moduleId": "5-6"
-    },
-    {
-      "id": "5-6-3",
-      "title": "Lesson 3 for Module 5-6",
-      "moduleId": "5-6"
-    },
-    {
-      "id": "5-6-4",
-      "title": "Lesson 4 for Module 5-6",
-      "moduleId": "5-6"
-    },
-    {
-      "id": "5-6-5",
-      "title": "Lesson 5 for Module 5-6",
-      "moduleId": "5-6"
-    },
-    {
-      "id": "6-1-1",
-      "title": "Lesson 1 for Module 6-1",
-      "moduleId": "6-1"
-    },
-    {
-      "id": "6-1-2",
-      "title": "Lesson 2 for Module 6-1",
-      "moduleId": "6-1"
-    },
-    {
-      "id": "6-1-3",
-      "title": "Lesson 3 for Module 6-1",
-      "moduleId": "6-1"
-    },
-    {
-      "id": "6-1-4",
-      "title": "Lesson 4 for Module 6-1",
-      "moduleId": "6-1"
-    },
-    {
-      "id": "6-1-5",
-      "title": "Lesson 5 for Module 6-1",
-      "moduleId": "6-1"
-    },
-    {
-      "id": "6-2-1",
-      "title": "Lesson 1 for Module 6-2",
-      "moduleId": "6-2"
-    },
-    {
-      "id": "6-2-2",
-      "title": "Lesson 2 for Module 6-2",
-      "moduleId": "6-2"
-    },
-    {
-      "id": "6-2-3",
-      "title": "Lesson 3 for Module 6-2",
-      "moduleId": "6-2"
-    },
-    {
-      "id": "6-2-4",
-      "title": "Lesson 4 for Module 6-2",
-      "moduleId": "6-2"
-    },
-    {
-      "id": "6-2-5",
-      "title": "Lesson 5 for Module 6-2",
-      "moduleId": "6-2"
-    },
-    {
-      "id": "6-3-1",
-      "title": "Lesson 1 for Module 6-3",
-      "moduleId": "6-3"
-    },
-    {
-      "id": "6-3-2",
-      "title": "Lesson 2 for Module 6-3",
-      "moduleId": "6-3"
-    },
-    {
-      "id": "6-3-3",
-      "title": "Lesson 3 for Module 6-3",
-      "moduleId": "6-3"
-    },
-    {
-      "id": "6-3-4",
-      "title": "Lesson 4 for Module 6-3",
-      "moduleId": "6-3"
-    },
-    {
-      "id": "6-3-5",
-      "title": "Lesson 5 for Module 6-3",
-      "moduleId": "6-3"
-    },
-    {
-      "id": "6-4-1",
-      "title": "Lesson 1 for Module 6-4",
-      "moduleId": "6-4"
-    },
-    {
-      "id": "6-4-2",
-      "title": "Lesson 2 for Module 6-4",
-      "moduleId": "6-4"
-    },
-    {
-      "id": "6-4-3",
-      "title": "Lesson 3 for Module 6-4",
-      "moduleId": "6-4"
-    },
-    {
-      "id": "6-4-4",
-      "title": "Lesson 4 for Module 6-4",
-      "moduleId": "6-4"
-    },
-    {
-      "id": "6-4-5",
-      "title": "Lesson 5 for Module 6-4",
-      "moduleId": "6-4"
-    },
-    {
-      "id": "6-5-1",
-      "title": "Lesson 1 for Module 6-5",
-      "moduleId": "6-5"
-    },
-    {
-      "id": "6-5-2",
-      "title": "Lesson 2 for Module 6-5",
-      "moduleId": "6-5"
-    },
-    {
-      "id": "6-5-3",
-      "title": "Lesson 3 for Module 6-5",
-      "moduleId": "6-5"
-    },
-    {
-      "id": "6-5-4",
-      "title": "Lesson 4 for Module 6-5",
-      "moduleId": "6-5"
-    },
-    {
-      "id": "6-5-5",
-      "title": "Lesson 5 for Module 6-5",
-      "moduleId": "6-5"
-    },
-    {
-      "id": "6-6-1",
-      "title": "Lesson 1 for Module 6-6",
-      "moduleId": "6-6"
-    },
-    {
-      "id": "6-6-2",
-      "title": "Lesson 2 for Module 6-6",
-      "moduleId": "6-6"
-    },
-    {
-      "id": "6-6-3",
-      "title": "Lesson 3 for Module 6-6",
-      "moduleId": "6-6"
-    },
-    {
-      "id": "6-6-4",
-      "title": "Lesson 4 for Module 6-6",
-      "moduleId": "6-6"
-    },
-    {
-      "id": "6-6-5",
-      "title": "Lesson 5 for Module 6-6",
-      "moduleId": "6-6"
-    },
-    {
-      "id": "7-1-1",
-      "title": "Lesson 1 for Module 7-1",
-      "moduleId": "7-1"
-    },
-    {
-      "id": "7-1-2",
-      "title": "Lesson 2 for Module 7-1",
-      "moduleId": "7-1"
-    },
-    {
-      "id": "7-1-3",
-      "title": "Lesson 3 for Module 7-1",
-      "moduleId": "7-1"
-    },
-    {
-      "id": "7-1-4",
-      "title": "Lesson 4 for Module 7-1",
-      "moduleId": "7-1"
-    },
-    {
-      "id": "7-1-5",
-      "title": "Lesson 5 for Module 7-1",
-      "moduleId": "7-1"
-    },
-    {
-      "id": "7-2-1",
-      "title": "Lesson 1 for Module 7-2",
-      "moduleId": "7-2"
-    },
-    {
-      "id": "7-2-2",
-      "title": "Lesson 2 for Module 7-2",
-      "moduleId": "7-2"
-    },
-    {
-      "id": "7-2-3",
-      "title": "Lesson 3 for Module 7-2",
-      "moduleId": "7-2"
-    },
-    {
-      "id": "7-2-4",
-      "title": "Lesson 4 for Module 7-2",
-      "moduleId": "7-2"
-    },
-    {
-      "id": "7-2-5",
-      "title": "Lesson 5 for Module 7-2",
-      "moduleId": "7-2"
-    },
-    {
-      "id": "7-3-1",
-      "title": "Lesson 1 for Module 7-3",
-      "moduleId": "7-3"
-    },
-    {
-      "id": "7-3-2",
-      "title": "Lesson 2 for Module 7-3",
-      "moduleId": "7-3"
-    },
-    {
-      "id": "7-3-3",
-      "title": "Lesson 3 for Module 7-3",
-      "moduleId": "7-3"
-    },
-    {
-      "id": "7-3-4",
-      "title": "Lesson 4 for Module 7-3",
-      "moduleId": "7-3"
-    },
-    {
-      "id": "7-3-5",
-      "title": "Lesson 5 for Module 7-3",
-      "moduleId": "7-3"
-    },
-    {
-      "id": "7-4-1",
-      "title": "Lesson 1 for Module 7-4",
-      "moduleId": "7-4"
-    },
-    {
-      "id": "7-4-2",
-      "title": "Lesson 2 for Module 7-4",
-      "moduleId": "7-4"
-    },
-    {
-      "id": "7-4-3",
-      "title": "Lesson 3 for Module 7-4",
-      "moduleId": "7-4"
-    },
-    {
-      "id": "7-4-4",
-      "title": "Lesson 4 for Module 7-4",
-      "moduleId": "7-4"
-    },
-    {
-      "id": "7-4-5",
-      "title": "Lesson 5 for Module 7-4",
-      "moduleId": "7-4"
-    },
-    {
-      "id": "7-5-1",
-      "title": "Lesson 1 for Module 7-5",
-      "moduleId": "7-5"
-    },
-    {
-      "id": "7-5-2",
-      "title": "Lesson 2 for Module 7-5",
-      "moduleId": "7-5"
-    },
-    {
-      "id": "7-5-3",
-      "title": "Lesson 3 for Module 7-5",
-      "moduleId": "7-5"
-    },
-    {
-      "id": "7-5-4",
-      "title": "Lesson 4 for Module 7-5",
-      "moduleId": "7-5"
-    },
-    {
-      "id": "7-5-5",
-      "title": "Lesson 5 for Module 7-5",
-      "moduleId": "7-5"
-    },
-    {
-      "id": "7-6-1",
-      "title": "Lesson 1 for Module 7-6",
-      "moduleId": "7-6"
-    },
-    {
-      "id": "7-6-2",
-      "title": "Lesson 2 for Module 7-6",
-      "moduleId": "7-6"
-    },
-    {
-      "id": "7-6-3",
-      "title": "Lesson 3 for Module 7-6",
-      "moduleId": "7-6"
-    },
-    {
-      "id": "7-6-4",
-      "title": "Lesson 4 for Module 7-6",
-      "moduleId": "7-6"
-    },
-    {
-      "id": "7-6-5",
-      "title": "Lesson 5 for Module 7-6",
-      "moduleId": "7-6"
-    },
-    {
-      "id": "8-1-1",
-      "title": "Lesson 1 for Module 8-1",
-      "moduleId": "8-1"
-    },
-    {
-      "id": "8-1-2",
-      "title": "Lesson 2 for Module 8-1",
-      "moduleId": "8-1"
-    },
-    {
-      "id": "8-1-3",
-      "title": "Lesson 3 for Module 8-1",
-      "moduleId": "8-1"
-    },
-    {
-      "id": "8-1-4",
-      "title": "Lesson 4 for Module 8-1",
-      "moduleId": "8-1"
-    },
-    {
-      "id": "8-1-5",
-      "title": "Lesson 5 for Module 8-1",
-      "moduleId": "8-1"
-    },
-    {
-      "id": "8-2-1",
-      "title": "Lesson 1 for Module 8-2",
-      "moduleId": "8-2"
-    },
-    {
-      "id": "8-2-2",
-      "title": "Lesson 2 for Module 8-2",
-      "moduleId": "8-2"
-    },
-    {
-      "id": "8-2-3",
-      "title": "Lesson 3 for Module 8-2",
-      "moduleId": "8-2"
-    },
-    {
-      "id": "8-2-4",
-      "title": "Lesson 4 for Module 8-2",
-      "moduleId": "8-2"
-    },
-    {
-      "id": "8-2-5",
-      "title": "Lesson 5 for Module 8-2",
-      "moduleId": "8-2"
-    },
-    {
-      "id": "8-3-1",
-      "title": "Lesson 1 for Module 8-3",
-      "moduleId": "8-3"
-    },
-    {
-      "id": "8-3-2",
-      "title": "Lesson 2 for Module 8-3",
-      "moduleId": "8-3"
-    },
-    {
-      "id": "8-3-3",
-      "title": "Lesson 3 for Module 8-3",
-      "moduleId": "8-3"
-    },
-    {
-      "id": "8-3-4",
-      "title": "Lesson 4 for Module 8-3",
-      "moduleId": "8-3"
-    },
-    {
-      "id": "8-3-5",
-      "title": "Lesson 5 for Module 8-3",
-      "moduleId": "8-3"
-    },
-    {
-      "id": "8-4-1",
-      "title": "Lesson 1 for Module 8-4",
-      "moduleId": "8-4"
-    },
-    {
-      "id": "8-4-2",
-      "title": "Lesson 2 for Module 8-4",
-      "moduleId": "8-4"
-    },
-    {
-      "id": "8-4-3",
-      "title": "Lesson 3 for Module 8-4",
-      "moduleId": "8-4"
-    },
-    {
-      "id": "8-4-4",
-      "title": "Lesson 4 for Module 8-4",
-      "moduleId": "8-4"
-    },
-    {
-      "id": "8-4-5",
-      "title": "Lesson 5 for Module 8-4",
-      "moduleId": "8-4"
-    },
-    {
-      "id": "8-5-1",
-      "title": "Lesson 1 for Module 8-5",
-      "moduleId": "8-5"
-    },
-    {
-      "id": "8-5-2",
-      "title": "Lesson 2 for Module 8-5",
-      "moduleId": "8-5"
-    },
-    {
-      "id": "8-5-3",
-      "title": "Lesson 3 for Module 8-5",
-      "moduleId": "8-5"
-    },
-    {
-      "id": "8-5-4",
-      "title": "Lesson 4 for Module 8-5",
-      "moduleId": "8-5"
-    },
-    {
-      "id": "8-5-5",
-      "title": "Lesson 5 for Module 8-5",
-      "moduleId": "8-5"
-    },
-    {
-      "id": "8-6-1",
-      "title": "Lesson 1 for Module 8-6",
-      "moduleId": "8-6"
-    },
-    {
-      "id": "8-6-2",
-      "title": "Lesson 2 for Module 8-6",
-      "moduleId": "8-6"
-    },
-    {
-      "id": "8-6-3",
-      "title": "Lesson 3 for Module 8-6",
-      "moduleId": "8-6"
-    },
-    {
-      "id": "8-6-4",
-      "title": "Lesson 4 for Module 8-6",
-      "moduleId": "8-6"
-    },
-    {
-      "id": "8-6-5",
-      "title": "Lesson 5 for Module 8-6",
-      "moduleId": "8-6"
-    },
-    {
-      "id": "9-1-1",
-      "title": "Lesson 1 for Module 9-1",
-      "moduleId": "9-1"
-    },
-    {
-      "id": "9-1-2",
-      "title": "Lesson 2 for Module 9-1",
-      "moduleId": "9-1"
-    },
-    {
-      "id": "9-1-3",
-      "title": "Lesson 3 for Module 9-1",
-      "moduleId": "9-1"
-    },
-    {
-      "id": "9-1-4",
-      "title": "Lesson 4 for Module 9-1",
-      "moduleId": "9-1"
-    },
-    {
-      "id": "9-1-5",
-      "title": "Lesson 5 for Module 9-1",
-      "moduleId": "9-1"
-    },
-    {
-      "id": "9-2-1",
-      "title": "Lesson 1 for Module 9-2",
-      "moduleId": "9-2"
-    },
-    {
-      "id": "9-2-2",
-      "title": "Lesson 2 for Module 9-2",
-      "moduleId": "9-2"
-    },
-    {
-      "id": "9-2-3",
-      "title": "Lesson 3 for Module 9-2",
-      "moduleId": "9-2"
-    },
-    {
-      "id": "9-2-4",
-      "title": "Lesson 4 for Module 9-2",
-      "moduleId": "9-2"
-    },
-    {
-      "id": "9-2-5",
-      "title": "Lesson 5 for Module 9-2",
-      "moduleId": "9-2"
-    },
-    {
-      "id": "9-3-1",
-      "title": "Lesson 1 for Module 9-3",
-      "moduleId": "9-3"
-    },
-    {
-      "id": "9-3-2",
-      "title": "Lesson 2 for Module 9-3",
-      "moduleId": "9-3"
-    },
-    {
-      "id": "9-3-3",
-      "title": "Lesson 3 for Module 9-3",
-      "moduleId": "9-3"
-    },
-    {
-      "id": "9-3-4",
-      "title": "Lesson 4 for Module 9-3",
-      "moduleId": "9-3"
-    },
-    {
-      "id": "9-3-5",
-      "title": "Lesson 5 for Module 9-3",
-      "moduleId": "9-3"
-    },
-    {
-      "id": "9-4-1",
-      "title": "Lesson 1 for Module 9-4",
-      "moduleId": "9-4"
-    },
-    {
-      "id": "9-4-2",
-      "title": "Lesson 2 for Module 9-4",
-      "moduleId": "9-4"
-    },
-    {
-      "id": "9-4-3",
-      "title": "Lesson 3 for Module 9-4",
-      "moduleId": "9-4"
-    },
-    {
-      "id": "9-4-4",
-      "title": "Lesson 4 for Module 9-4",
-      "moduleId": "9-4"
-    },
-    {
-      "id": "9-4-5",
-      "title": "Lesson 5 for Module 9-4",
-      "moduleId": "9-4"
-    },
-    {
-      "id": "9-5-1",
-      "title": "Lesson 1 for Module 9-5",
-      "moduleId": "9-5"
-    },
-    {
-      "id": "9-5-2",
-      "title": "Lesson 2 for Module 9-5",
-      "moduleId": "9-5"
-    },
-    {
-      "id": "9-5-3",
-      "title": "Lesson 3 for Module 9-5",
-      "moduleId": "9-5"
-    },
-    {
-      "id": "9-5-4",
-      "title": "Lesson 4 for Module 9-5",
-      "moduleId": "9-5"
-    },
-    {
-      "id": "9-5-5",
-      "title": "Lesson 5 for Module 9-5",
-      "moduleId": "9-5"
-    },
-    {
-      "id": "9-6-1",
-      "title": "Lesson 1 for Module 9-6",
-      "moduleId": "9-6"
-    },
-    {
-      "id": "9-6-2",
-      "title": "Lesson 2 for Module 9-6",
-      "moduleId": "9-6"
-    },
-    {
-      "id": "9-6-3",
-      "title": "Lesson 3 for Module 9-6",
-      "moduleId": "9-6"
-    },
-    {
-      "id": "9-6-4",
-      "title": "Lesson 4 for Module 9-6",
-      "moduleId": "9-6"
-    },
-    {
-      "id": "9-6-5",
-      "title": "Lesson 5 for Module 9-6",
-      "moduleId": "9-6"
-    },
-    {
-      "id": "10-1-1",
-      "title": "Lesson 1 for Module 10-1",
-      "moduleId": "10-1"
-    },
-    {
-      "id": "10-1-2",
-      "title": "Lesson 2 for Module 10-1",
-      "moduleId": "10-1"
-    },
-    {
-      "id": "10-1-3",
-      "title": "Lesson 3 for Module 10-1",
-      "moduleId": "10-1"
-    },
-    {
-      "id": "10-1-4",
-      "title": "Lesson 4 for Module 10-1",
-      "moduleId": "10-1"
-    },
-    {
-      "id": "10-1-5",
-      "title": "Lesson 5 for Module 10-1",
-      "moduleId": "10-1"
-    },
-    {
-      "id": "10-2-1",
-      "title": "Lesson 1 for Module 10-2",
-      "moduleId": "10-2"
-    },
-    {
-      "id": "10-2-2",
-      "title": "Lesson 2 for Module 10-2",
-      "moduleId": "10-2"
-    },
-    {
-      "id": "10-2-3",
-      "title": "Lesson 3 for Module 10-2",
-      "moduleId": "10-2"
-    },
-    {
-      "id": "10-2-4",
-      "title": "Lesson 4 for Module 10-2",
-      "moduleId": "10-2"
-    },
-    {
-      "id": "10-2-5",
-      "title": "Lesson 5 for Module 10-2",
-      "moduleId": "10-2"
-    },
-    {
-      "id": "10-3-1",
-      "title": "Lesson 1 for Module 10-3",
-      "moduleId": "10-3"
-    },
-    {
-      "id": "10-3-2",
-      "title": "Lesson 2 for Module 10-3",
-      "moduleId": "10-3"
-    },
-    {
-      "id": "10-3-3",
-      "title": "Lesson 3 for Module 10-3",
-      "moduleId": "10-3"
-    },
-    {
-      "id": "10-3-4",
-      "title": "Lesson 4 for Module 10-3",
-      "moduleId": "10-3"
-    },
-    {
-      "id": "10-3-5",
-      "title": "Lesson 5 for Module 10-3",
-      "moduleId": "10-3"
-    },
-    {
-      "id": "10-4-1",
-      "title": "Lesson 1 for Module 10-4",
-      "moduleId": "10-4"
-    },
-    {
-      "id": "10-4-2",
-      "title": "Lesson 2 for Module 10-4",
-      "moduleId": "10-4"
-    },
-    {
-      "id": "10-4-3",
-      "title": "Lesson 3 for Module 10-4",
-      "moduleId": "10-4"
-    },
-    {
-      "id": "10-4-4",
-      "title": "Lesson 4 for Module 10-4",
-      "moduleId": "10-4"
-    },
-    {
-      "id": "10-4-5",
-      "title": "Lesson 5 for Module 10-4",
-      "moduleId": "10-4"
-    },
-    {
-      "id": "10-5-1",
-      "title": "Lesson 1 for Module 10-5",
-      "moduleId": "10-5"
-    },
-    {
-      "id": "10-5-2",
-      "title": "Lesson 2 for Module 10-5",
-      "moduleId": "10-5"
-    },
-    {
-      "id": "10-5-3",
-      "title": "Lesson 3 for Module 10-5",
-      "moduleId": "10-5"
-    },
-    {
-      "id": "10-5-4",
-      "title": "Lesson 4 for Module 10-5",
-      "moduleId": "10-5"
-    },
-    {
-      "id": "10-5-5",
-      "title": "Lesson 5 for Module 10-5",
-      "moduleId": "10-5"
-    },
-    {
-      "id": "10-6-1",
-      "title": "Lesson 1 for Module 10-6",
-      "moduleId": "10-6"
-    },
-    {
-      "id": "10-6-2",
-      "title": "Lesson 2 for Module 10-6",
-      "moduleId": "10-6"
-    },
-    {
-      "id": "10-6-3",
-      "title": "Lesson 3 for Module 10-6",
-      "moduleId": "10-6"
-    },
-    {
-      "id": "10-6-4",
-      "title": "Lesson 4 for Module 10-6",
-      "moduleId": "10-6"
-    },
-    {
-      "id": "10-6-5",
-      "title": "Lesson 5 for Module 10-6",
-      "moduleId": "10-6"
+  "lessonId": "C1M1L1",
+  "lessonTitle": "Introduction to Trading",
+  "moduleTitle": "What is Trading?",
+  "chapterTitle": "Chapter 1: Novice Navigator – Welcome to Trading",
+  "level": "Novice Apprentice",
+  "totalXP": 150,
+  "moduleNumber": 1,
+  "lessionNumber": 1,
+  "estimatedDuration": "10 min",
+  "unlockCondition": {
+    "requiresPreviousLesson": false,
+    "requiresQuizScore": 70
+  },
+  "slides": [
+    {
+      "slideNumber": 1,
+      "type": "introSlide",
+      "xpReward": 5,
+      "estimatedReadTime": "20s",
+      "isKeySlide": true,
+      "content": {
+        "title": "Introduction to Trading",
+        "objective": "Explore what trading means, why people trade, and how it's different from investing."
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "https://m.facebook.com/p/Welcome-traders-100065251343478/",
+            "caption": "Welcome to Trading",
+            "position": "main"
+          },
+          {
+            "imageURL": "",
+            "caption": "",
+            "position": ""
+          },
+          {
+            "imageURL": "",
+            "caption": "",
+            "position": ""
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 2,
+      "type": "conceptSlide",
+      "xpReward": 10,
+      "estimatedReadTime": "45s",
+      "isKeySlide": true,
+      "content": {
+        "title": "What is Trading?",
+        "introduction": "Trading means buying and selling financial assets to make a profit from price changes.",
+        "points": [
+          "Traders look for price movements.",
+          "Trading can be short-term or long-term.",
+          "It happens in many markets like stocks, forex, and crypto.",
+          "Success requires knowledge and discipline.",
+          "Trading always involves risk."
+        ],
+        "funFact": "Some traders only look at charts, ignoring news completely!",
+        "teacherNote": "Remember: trading is about managing risk as much as seeking profit."
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 3,
+      "type": "conceptSlide",
+      "xpReward": 10,
+      "estimatedReadTime": "45s",
+      "isKeySlide": true,
+      "content": {
+        "title": "Trading vs. Investing",
+        "introduction": "Although people confuse them, trading and investing are different strategies.",
+        "points": [
+          "Investing is long-term. Trading is often short-term.",
+          "Investors care about business fundamentals. Traders care about price movements.",
+          "Investing seeks steady growth. Trading seeks quick profits.",
+          "Trading often means higher risk and stress.",
+          "Both need planning and discipline."
+        ],
+        "funFact": "Warren Buffett is an investor, not a trader!",
+        "teacherNote": "Understand your personality: are you a trader or an investor?"
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 4,
+      "type": "conceptSlide",
+      "xpReward": 10,
+      "estimatedReadTime": "45s",
+      "isKeySlide": true,
+      "content": {
+        "title": "Why People Trade",
+        "introduction": "Traders enter the markets for many reasons beyond just profit.",
+        "points": [
+          "To build wealth quickly.",
+          "To seek financial freedom.",
+          "For the thrill and challenge.",
+          "As a full-time profession.",
+          "To supplement other income."
+        ],
+        "funFact": "Some traders only trade for one hour a day!",
+        "teacherNote": "Trading can be life-changing—but it's not easy money."
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 5,
+      "type": "exampleSlide",
+      "xpReward": 8,
+      "estimatedReadTime": "40s",
+      "isKeySlide": false,
+      "content": {
+        "title": "Real-World Example",
+        "scenario": "Meet Emma. She buys Bitcoin at $20,000. A week later, it’s $22,500. She sells and makes $2,500 profit.",
+        "teacherNote": "This is a simple example of 'buy low, sell high.'"
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 6,
+      "type": "compareSlide",
+      "xpReward": 12,
+      "estimatedReadTime": "60s",
+      "isKeySlide": true,
+      "content": {
+        "title": "Trading vs Investing: Quick Comparison",
+        "introduction": "Let’s compare trading and investing side by side.",
+        "tableHeaders": [
+          "Aspect",
+          "Trading",
+          "Investing"
+        ],
+        "tableRows": [
+          [
+            "Timeframe",
+            "Short-term",
+            "Long-term"
+          ],
+          [
+            "Focus",
+            "Price charts",
+            "Company fundamentals"
+          ],
+          [
+            "Goal",
+            "Quick profits",
+            "Steady growth"
+          ],
+          [
+            "Risk",
+            "Higher",
+            "Lower (generally)"
+          ]
+        ],
+        "teacherNote": "Choose the style that fits your goals and personality."
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 7,
+      "type": "analogySlide",
+      "xpReward": 8,
+      "estimatedReadTime": "45s",
+      "isKeySlide": false,
+      "content": {
+        "title": "Trading is Like Surfing",
+        "introduction": "Imagine surfing waves—that’s how trading works.",
+        "points": [
+          "Surfers wait for the right wave. Traders wait for the right price move.",
+          "Both need timing and balance.",
+          "A big wave brings excitement—and risk!",
+          "Small waves are safer but less thrilling.",
+          "Practice builds skill and confidence."
+        ],
+        "teacherNote": "Patience and practice are key in both surfing and trading!"
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Case Study Slide",
+      "slideNumber": 8,
+      "xpReward": 20,
+      "isKeySlide": true,
+      "estimatedReadTime": "60s",
+      "content": {
+        "title": "Anna’s Story: Trading for Family",
+        "scenario": "Anna wanted to save for her kids’ education. She started trading a little each week. After two years, she had enough to pay for school and still had time for her family.",
+        "teacherNote": "Anna didn’t take big risks. She learned, practiced, and traded with care."
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "anna1.jpg",
+            "caption": "Anna at her desk",
+            "position": "main"
+          },
+          {
+            "imageURL": "anna2.jpg",
+            "caption": "Family celebrating",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "anna3.jpg",
+            "caption": "Trading journal",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Myth Buster Slide",
+      "slideNumber": 9,
+      "xpReward": 15,
+      "isKeySlide": false,
+      "estimatedReadTime": "40s",
+      "content": {
+        "title": "Trading Myths: Let’s Bust Them!",
+        "myths": [
+          {
+            "myth": "Only greedy people trade.",
+            "reality": "People trade for family, freedom, or fun."
+          },
+          {
+            "myth": "Trading is a quick way to get rich.",
+            "reality": "Most traders grow money slowly."
+          },
+          {
+            "myth": "You must quit your job to trade.",
+            "reality": "Many trade part-time or as a hobby."
+          }
+        ]
+      },
+      "media": {
+        "images": [
+          {
+            "imageURL": "myth1.jpg",
+            "caption": "Myth vs. reality cards",
+            "position": "main"
+          },
+          {
+            "imageURL": "myth2.jpg",
+            "caption": "Icons: myth busting",
+            "position": "secondary"
+          },
+          {
+            "imageURL": "myth3.jpg",
+            "caption": "Part-time trader",
+            "position": "background"
+          }
+        ]
+      }
+    },
+    {
+      "slideNumber": 10,
+      "type": "glossarySlide",
+      "xpReward": 10,
+      "estimatedReadTime": "45s",
+      "isKeySlide": false,
+      "content": {
+        "title": "Glossary of Key Terms",
+        "introduction": "Here are some trading terms you’ve learned:",
+        "terms": [
+          {
+            "term": "Asset",
+            "definition": "Anything of value you can trade, like stocks or crypto."
+          },
+          {
+            "term": "Market",
+            "definition": "A place where trading happens."
+          },
+          {
+            "term": "Risk",
+            "definition": "The chance you’ll lose money in a trade."
+          },
+          {
+            "term": "Profit",
+            "definition": "Money you make when prices go your way."
+          },
+          {
+            "term": "Trendline",
+            "definition": "A line on a chart showing price direction."
+          }
+        ],
+        "teacherNote": "Learn these terms to speak the language of traders!"
+      }
+    },
+    {
+      "slideNumber": 11,
+      "type": "motivationalSlide",
+      "xpReward": 8,
+      "estimatedReadTime": "30s",
+      "isKeySlide": false,
+      "content": {
+        "title": "You’re On Your Way!",
+        "quote": "“The best investment you can make is in yourself.” – Warren Buffett",
+        "message": "You’ve learned the trading basics. Every expert trader was once a beginner. Keep learning and stay curious!",
+        "teacherNote": "Your journey has just begun—let’s keep going together!"
+      }
+    },
+    {
+      "type": "Quiz Slide",
+      "slideNumber": 12,
+      "xpReward": 60,
+      "isKeySlide": true,
+      "estimatedReadTime": "5 min",
+      "content": {
+        "title": "Quiz: Why People Trade",
+        "questions": [
+          {
+            "id": 1,
+            "type": "multiple_choice",
+            "question": "Why do most people start trading?",
+            "options": [
+              "To earn profit and get more freedom",
+              "To avoid all risk",
+              "To follow friends",
+              "To become famous"
+            ],
+            "correctAnswer": "To earn profit and get more freedom",
+            "explanation": "Profit and freedom are the main reasons people start trading."
+          },
+          {
+            "id": 2,
+            "type": "true_false",
+            "question": "You must quit your job to start trading.",
+            "options": [
+              "True",
+              "False"
+            ],
+            "correctAnswer": "False",
+            "explanation": "Many people trade part-time or as a hobby."
+          },
+          {
+            "id": 3,
+            "type": "multiple_choice",
+            "question": "Trading is like:",
+            "options": [
+              "Planting a garden",
+              "Riding a rollercoaster",
+              "Building a house",
+              "Cooking dinner"
+            ],
+            "correctAnswer": "Planting a garden",
+            "explanation": "Trading takes time, care, and patience—just like gardening."
+          },
+          {
+            "id": 4,
+            "type": "multiple_choice",
+            "question": "What is a trading myth?",
+            "options": [
+              "Trading is a quick way to get rich",
+              "People trade for many reasons",
+              "Trading can be done part-time",
+              "You need patience to trade"
+            ],
+            "correctAnswer": "Trading is a quick way to get rich",
+            "explanation": "Most traders grow their money slowly, not quickly."
+          },
+          {
+            "id": 5,
+            "type": "true_false",
+            "question": "You can make money in trading only when prices go up.",
+            "options": [
+              "True",
+              "False"
+            ],
+            "correctAnswer": "False",
+            "explanation": "You can make money when prices go up or down."
+          },
+          {
+            "id": 6,
+            "type": "multiple_choice",
+            "question": "What is an example of trading for meaning?",
+            "options": [
+              "Learning new skills",
+              "Trying to get rich overnight",
+              "Taking huge risks",
+              "Copying others’ trades"
+            ],
+            "correctAnswer": "Learning new skills",
+            "explanation": "Trading for meaning is about personal growth and learning."
+          },
+          {
+            "id": 7,
+            "type": "multiple_choice",
+            "question": "What’s most important for long-term trading success?",
+            "options": [
+              "Patience and discipline",
+              "Trading every day",
+              "Taking big risks",
+              "Guessing market moves"
+            ],
+            "correctAnswer": "Patience and discipline",
+            "explanation": "Patience and discipline help you make smart, steady trades."
+          },
+          {
+            "id": 8,
+            "type": "true_false",
+            "question": "Trading can fit different lifestyles.",
+            "options": [
+              "True",
+              "False"
+            ],
+            "correctAnswer": "True",
+            "explanation": "You can trade full-time, part-time, or just for fun."
+          },
+          {
+            "id": 9,
+            "type": "multiple_choice",
+            "question": "What does Anna’s story teach us?",
+            "options": [
+              "Trading is only for experts",
+              "Trading can help you reach personal goals",
+              "You need to risk a lot to win",
+              "Trading is always easy"
+            ],
+            "correctAnswer": "Trading can help you reach personal goals",
+            "explanation": "Anna traded for her family and reached her goal with small, careful trades."
+          },
+          {
+            "id": 10,
+            "type": "multiple_choice",
+            "question": "What is the best way to learn trading?",
+            "options": [
+              "Practice, learn, and trade with care",
+              "Take big risks right away",
+              "Trade without a plan",
+              "Copy random trades"
+            ],
+            "correctAnswer": "Practice, learn, and trade with care",
+            "explanation": "Learning and practicing safely is the best way to start."
+          }
+        ]
+      }
     }
   ]
 }

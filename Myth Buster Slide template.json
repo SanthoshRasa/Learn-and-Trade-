@@ -1,0 +1,51 @@
+{
+  "slideNumber": 9,
+  "type": "mythBusterSlide",
+  "xpReward": 20,
+  "isKeySlide": false,
+  "estimatedReadTime": "45s",
+  "content": {
+    "lessonTitle": "Lesson 3: Market Myths",
+    "streak": 3,
+    "slide": 9,
+    "totalSlides": 10,
+    "title": "Myth Buster: 'You Need a Lot of Money to Start Trading'",
+    "subtitle": "Many believe trading is only for the wealthy or those with big savings.",
+    "myth": {
+      "title": "The Myth",
+      "icon": "close",
+      "text": "You need thousands of dollars to start trading and only rich people can participate in the markets."
+    },
+    "reality": {
+      "title": "The Reality",
+      "icon": "checkmark-circle",
+      "text": "Many brokers allow you to start trading with small amounts. Success depends more on knowledge and discipline than on the size of your account."
+    },
+    "whyMyth": {
+      "title": "Why It's a Myth",
+      "text": "Modern trading platforms and fractional shares make it possible to begin with as little as $10 or $20. Learning and practicing with small amounts is a smart way to start.",
+      "impact": {
+        "icon": "warning-outline",
+        "title": "Impact of This Misconception",
+        "text": "Believing you need a lot of money stops many people from learning and building skills. It can also lead to risky behavior if someone invests more than they can afford."
+      }
+    },
+    "evidence": [
+      {
+        "icon": "book-outline",
+        "source": "NerdWallet",
+        "text": "'Many online brokers have no minimum deposit and allow you to buy fractional shares, making trading accessible to almost everyone.'"
+      },
+      {
+        "icon": "bar-chart-outline",
+        "source": "SEC.gov",
+        "text": "'Start small and learn as you go. Even a small account can teach you the basics of trading and risk management.'"
+      }
+    ],
+    "takeaways": [
+      "You can start trading with a small amount of money",
+      "Focus on learning and practicing, not just account size",
+      "Start small, manage risk, and grow your skills over time"
+    ]
+  }
+}

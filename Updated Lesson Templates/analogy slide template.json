@@ -1,0 +1,59 @@
+{
+  "slideId": "unique-slide-id",
+  "type": "analogySlide",
+  "slideNumber": 8,
+  "xpReward": 15,
+  "isKeySlide": false,
+  "showNavigation": true,
+  "lessonTitle": "Lesson 3: Trading Basics",
+  "moduleTitle": "Trading Basics",
+  "streak": 5,
+  "media": {},
+  "content": {
+    "title": "Trading is Like Shopping",
+    "analogyStatement": "Think of trading like smart shopping. Just as you look for discounts when buying clothes, traders look for good prices when buying assets.",
+    "analogyIcon": "bulb-outline",
+    "images": [
+      {
+        "url": "shopping_analogy_1.jpg",
+        "caption": null
+      }
+    ],
+    "table": {
+      "headers": [
+        {
+          "label": "Everyday Shopping",
+          "icon": "cart-outline"
+        },
+        {
+          "label": "Trading Equivalent",
+          "icon": "stats-chart-outline"
+        }
+      ],
+      "rows": [
+        [
+          "Checking store prices",
+          "Analyzing market prices"
+        ],
+        [
+          "Waiting for sales",
+          "Waiting for good entry points"
+        ],
+        [
+          "Comparing shops",
+          "Comparing different markets"
+        ]
+      ]
+    },
+    "tableImage": {
+      "url": "price_comparison_1.jpg",
+      "caption": null
+    },
+    "teacherNote": "This simple comparison helps understanding the basic concept of buying low and selling high",
+    "noteIcon": "person-circle-outline",
+    "noteImage": {
+      "url": "decision_making_1.jpg",
+      "caption": null
+    }
+  }
+}
